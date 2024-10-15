@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use DateTime;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -37,12 +38,12 @@ class RequestService
 
             $date = $films[$k]['release_date'];
             unset($films[$k]['release_date']);
-            $films[$k]['publish_date'] = $date;
+            $films[$k]['publish_date'] = new DateTime($date);
 
             $rate = $films[$k]['vote_average'];
             unset($films[$k]['vote_average']);
             $films[$k]['critical_rate'] = $rate * 5 / 10;
-            $films[$k]['seen'] =false;
+            $films[$k]['seen'] = false;
         }
         return $films;
     }
@@ -69,19 +70,19 @@ class RequestService
             //get data of  oneseries
             $series = [
                 'runtime' => $serieAPIDATA["episode_run_time"],
-                "publish_date" => $serieAPIDATA["first_air_date"],
+                "publish_date" =>new DateTime( $serieAPIDATA["first_air_date"]),
                 "language" => $serieAPIDATA["languages"],
                 "title" => $serieAPIDATA["name"],
                 "description" => $serieAPIDATA["overview"],
                 "seasons" => [],
                 "critical_rate" => $serieAPIDATA["vote_average"] * 5 / 10,
-                "seen"=>false,
+                "seen" => false,
             ];
 
             //get detail of season
             foreach ($serieAPIDATA['seasons'] as $season) {
                 $responseTvSeriesSeasonEpisode = $this->clientInterface->withOptions([
-                    'base_uri' => "https://api.themoviedb.org/3/tv/{$series['id']}/season/{$season['season_number']}",
+                    'base_uri' => "https://api.themoviedb.org/3/tv/{$serieAPIDATA['id']}/season/{$season['season_number']}",
                     'headers' => [
                         'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NTc4ZGRlZjgzNTk4ZmNkNjJiNjdiODY5YWVjZjU1NyIsIm5iZiI6MTcyODQ2MDMxMi41MDYyMjYsInN1YiI6IjY3MDYzM2ZjYTg4NjE0ZDZiMDhhZDcyYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Co3wn3Bt2cx63hnOz3SCfXYYL4BXCO3VevKV6W3Et2E',
                     ]
@@ -94,7 +95,7 @@ class RequestService
                     $episodes[] = [
                         "number" => $episode['episode_number'],
                         "title" => $episode['name'],
-                        "publish_date" => $episode['air_date'],
+                        "publish_date" => new DateTime($episode['air_date']),
                         "description" => $episode['overview'],
                         "seen" => false,
                     ];
@@ -105,7 +106,7 @@ class RequestService
                     "episodes" => $episodes,
                     "name" => $seasonAPIDATA['name'],
                     "description" => $seasonAPIDATA['overview'],
-                    "publish_date" => $seasonAPIDATA['air_date'],
+                    "publish_date" => new DateTime($seasonAPIDATA['air_date']),
                     "seen" => false,
                     "number" => $seasonAPIDATA['season_number']];
 
