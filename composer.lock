@@ -350,7 +350,7 @@
             ],
             "time": "2023-11-24T11:18:31+00:00"
         },
-        {
+                {
             "name": "doctrine/dbal",
             "version": "3.9.1",
             "source": {
