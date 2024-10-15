@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la série - {{ series.title }}{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-3">
+        <h1 class="my-4">Détails de la série : {{ series.title }}</h1>
+
+        <table class="table table-bordered table-striped">
+            <tbody>
+            <tr>
+                <th scope="row">ID</th>
+                <td>{{ series.id }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Titre</th>
+                <td>{{ series.title }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Description</th>
+                <td>{{ series.description }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Date de publication</th>
+                <td>{{ series.publishDate ? series.publishDate|date('Y-m-d') : 'N/A' }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Note critique</th>
+                <td>{{ series.criticalRate is not null ? series.criticalRate : 'Non noté' }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Vu</th>
+                <td>{{ series.seen ? 'Oui' : 'Non' }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <form method="post" action="{{ path('app_delete', {id: series.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette série ?');" class="my-3">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ series.id) }}">
+            <button class="btn btn-danger">Supprimer</button>
+            <a href="{{ path('app_edit', {id: series.id}) }}" class="btn btn-warning my-3">Éditer</a>
+
+        </form>
+
+
+        <a href="{{ path('app_series') }}" class="btn btn-secondary">Retour à la liste</a>
+    </div>
+
+{% endblock %}
