@@ -41,7 +41,8 @@ class RequestService
 
             $rate = $films[$k]['vote_average'];
             unset($films[$k]['vote_average']);
-            $films[$k]['public_rate'] = $rate * 5 / 10;
+            $films[$k]['critical_rate'] = $rate * 5 / 10;
+            $films[$k]['seen'] =false;
         }
         return $films;
     }
@@ -67,14 +68,14 @@ class RequestService
 
             //get data of  oneseries
             $series = [
-                'id' => $serieAPIDATA['id'],
                 'runtime' => $serieAPIDATA["episode_run_time"],
                 "publish_date" => $serieAPIDATA["first_air_date"],
                 "language" => $serieAPIDATA["languages"],
-                "name" => $serieAPIDATA["name"],
+                "title" => $serieAPIDATA["name"],
                 "description" => $serieAPIDATA["overview"],
                 "seasons" => [],
-                "public_rate" => $serieAPIDATA["vote_average"] * 5 / 10,
+                "critical_rate" => $serieAPIDATA["vote_average"] * 5 / 10,
+                "seen"=>false,
             ];
 
             //get detail of season
