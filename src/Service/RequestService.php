@@ -21,29 +21,24 @@ class RequestService
                 'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NTc4ZGRlZjgzNTk4ZmNkNjJiNjdiODY5YWVjZjU1NyIsIm5iZiI6MTcyODQ2MDMxMi41MDYyMjYsInN1YiI6IjY3MDYzM2ZjYTg4NjE0ZDZiMDhhZDcyYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Co3wn3Bt2cx63hnOz3SCfXYYL4BXCO3VevKV6W3Et2E',
             ]
         ])->request('GET', '');
-        $content = $response->toArray();
-        $films = $content['results'];
-        for ($k = 0; $k < count($films); $k++) {
-            unset($films[$k]['adult']);
-            unset($films[$k]['backdrop_path']);
-            unset($films[$k]['id']);
-            unset($films[$k]['original_title']);
-            unset($films[$k]['popularity']);
-            unset($films[$k]['vote_count']);
-            unset($films[$k]['video']);
-
-            $description = $films[$k]['overview'];
-            unset($films[$k]['overview']);
-            $films[$k]['description'] = $description;
-
-            $date = $films[$k]['release_date'];
-            unset($films[$k]['release_date']);
-            $films[$k]['publish_date'] = new DateTime($date);
-
-            $rate = $films[$k]['vote_average'];
-            unset($films[$k]['vote_average']);
-            $films[$k]['critical_rate'] = $rate * 5 / 10;
-            $films[$k]['seen'] = false;
+        $filmsAPIDATA = $response->toArray();
+        $films = [];
+        foreach ($filmsAPIDATA['results'] as $result){
+            $responseFilm = $this->clientInterface->withOptions([
+                'base_uri' => "https://api.themoviedb.org/3/movie/{$result['id']}",
+                'headers' => [
+                    'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NTc4ZGRlZjgzNTk4ZmNkNjJiNjdiODY5YWVjZjU1NyIsIm5iZiI6MTcyODQ2MDMxMi41MDYyMjYsInN1YiI6IjY3MDYzM2ZjYTg4NjE0ZDZiMDhhZDcyYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Co3wn3Bt2cx63hnOz3SCfXYYL4BXCO3VevKV6W3Et2E',
+                ]
+            ])->request('GET', '');
+            $filmAPITDATA= $responseFilm->toArray();
+             $films[]=[
+                 "title"=>$filmAPITDATA['title'],
+                 "runtime"=>$filmAPITDATA['runtime'],
+                 "description"=>$filmAPITDATA['overview'],
+                 "publish_date"=>$filmAPITDATA['release_date'],
+                 "critical_rate"=>$filmAPITDATA['vote_average'],
+                 "seen"=>false,
+             ];
         }
         return $films;
     }
@@ -104,7 +99,7 @@ class RequestService
                 //get data of one season
                 $season = [
                     "episodes" => $episodes,
-                    "name" => $seasonAPIDATA['name'],
+                    "title" => $seasonAPIDATA['name'],
                     "description" => $seasonAPIDATA['overview'],
                     "publish_date" => new DateTime($seasonAPIDATA['air_date']),
                     "seen" => false,

@@ -44,6 +44,6 @@
 
         {{ form_end(form) }}
 
-        <a href="{{ path('app_series') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+        <a href="{{ path('app_show', {id: series.id}) }}" class="btn btn-secondary mb-3">Retour à la série</a>
     </div>
 {% endblock %}
