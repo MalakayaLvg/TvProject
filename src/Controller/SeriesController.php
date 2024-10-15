@@ -25,12 +25,14 @@ class SeriesController extends AbstractController
     }
 
     #[Route('/series/show/{id}', name: 'app_show', methods: ['GET'])]
-    public function show(Series $series):Response
+    public function show(Series $series): Response
     {
         return $this->render('series/show.html.twig', [
-            'series'=>$series,
+            'series' => $series,
+            'seasons' => $series->getSeasons()
         ]);
     }
+
 
     #[Route('/series/create', name: 'app_create', methods: ['GET', 'POST'])]
     public function create(Request $request, EntityManagerInterface $manager):Response
