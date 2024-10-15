@@ -3,6 +3,7 @@
 {% block title %}Hello FilmController!{% endblock %}
 
 {% block body %}
+    <a class="btn btn-primary my-2" href="{{ path('app_search') }}">rechercher film</a>
 
     <a class="btn btn-success" href="{{ path("app_film_create") }}">create</a>
     {% for film in films %}
