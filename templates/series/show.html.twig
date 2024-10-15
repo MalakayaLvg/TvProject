@@ -6,6 +6,12 @@
 
     <div class="container mt-3">
         <h1 class="my-4">Détails de la série : {{ series.title }}</h1>
+        <a href="{{ path('app_series') }}" class="btn btn-secondary mb-3">Retour à la liste des séries</a>
+        <form method="post" action="{{ path('app_delete', {id: series.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette série ?');" class="my-3">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ series.id) }}">
+            <button class="btn btn-danger">Supprimer</button>
+            <a href="{{ path('app_edit', {id: series.id}) }}" class="btn btn-warning my-3">Éditer</a>
+        </form>
 
         <table class="table table-bordered table-striped">
             <tbody>
@@ -37,6 +43,8 @@
         </table>
 
         <h2 class="my-4">Saisons</h2>
+        <a href="{{ path('app_season_create', {series: series.id}) }}" class="btn btn-success mb-3">Créer une nouvelle saison</a>
+
 
         <div class="accordion" id="seasonsAccordion">
             {% for season in seasons %}
@@ -60,16 +68,5 @@
                 <p>Aucune saison disponible pour cette série.</p>
             {% endfor %}
         </div>
-
-        <form method="post" action="{{ path('app_delete', {id: series.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette série ?');" class="my-3">
-            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ series.id) }}">
-            <button class="btn btn-danger">Supprimer</button>
-            <a href="{{ path('app_edit', {id: series.id}) }}" class="btn btn-warning my-3">Éditer</a>
-        </form>
-
-        <a href="{{ path('app_season_create', {series: series.id}) }}" class="btn btn-success mb-3">Créer une nouvelle saison</a>
-
-        <a href="{{ path('app_season', {id: series.id}) }}" class="btn btn-secondary mb-3">Retour à la série</a>
     </div>
-
 {% endblock %}

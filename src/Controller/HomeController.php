@@ -13,7 +13,7 @@ class HomeController extends AbstractController
     public function index(RequestService $service): Response
     {
         $series = $service->getSeries();
-        dd($series);
+
         return $this->render('home/index.html.twig',);
     }
 }

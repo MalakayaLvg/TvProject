@@ -80,7 +80,7 @@ class SeasonController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_season');
+            return $this->redirectToRoute('app_season_show', ['id' => $season->getId()] );
         }
 
         return $this->render('season/edit.html.twig', [
