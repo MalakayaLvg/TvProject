@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la saison - {{ season.title }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-3">
+        <h1 class="my-4">Détails de la saison : {{ season.title }}</h1>
+
+        <table class="table table-bordered table-striped">
+            <tbody>
+            <tr>
+                <th scope="row">ID</th>
+                <td>{{ season.id }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Titre</th>
+                <td>{{ season.title }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Description</th>
+                <td>{{ season.description }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Date de publication</th>
+                <td>{{ season.publishDate ? season.publishDate|date('Y-m-d') : 'N/A' }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Numéro de la saison</th>
+                <td>{{ season.number }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Vu</th>
+                <td>{{ season.seen ? 'Oui' : 'Non' }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Série associée</th>
+                <td>{{ season.series.title }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="my-3">
+            <a href="{{ path('app_season_edit', {id: season.id}) }}" class="btn btn-warning">Éditer</a>
+
+            <form method="post" action="{{ path('app_season_delete', {id: season.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette saison ?');" class="d-inline-block">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ season.id) }}">
+                <button class="btn btn-danger">Supprimer</button>
+            </form>
+        </div>
+
+        <a href="{{ path('app_show', {id: season.series.id}) }}" class="btn btn-secondary">Retour à la série</a>
+    </div>
+{% endblock %}
