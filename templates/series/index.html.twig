@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des séries{% endblock %}
+
+{% block body %}
+    <div class="container mt-3">
+        <h1>Liste des séries</h1>
+
+        {% if series is not empty %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Date de publication</th>
+                    <th>Note critique</th>
+                    <th>Vu</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for serie in series %}
+                    <tr>
+                        <td>{{ serie.id }}</td>
+                        <td>{{ serie.title }}</td>
+                        <td>{{ serie.description }}</td>
+                        <td>{{ serie.publishDate ? serie.publishDate|date('Y-m-d') : 'N/A' }}</td>
+                        <td>{{ serie.criticalRate is not null ? serie.criticalRate : 'Non noté' }}</td>
+                        <td>{{ serie.seen ? 'Oui' : 'Non' }}</td>
+                        <td>
+                            <a href="{{ path('app_show', {id: serie.id}) }}" class="btn btn-info btn-sm">Afficher</a>
+
+                            <form method="post" action="{{ path('app_delete', {id: serie.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette série ?');" style="display:inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ serie.id) }}">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucune série n'a encore été créée.</p>
+        {% endif %}
+
+        <a href="{{ path('app_create') }}" class="btn btn-primary">Créer une nouvelle série</a>
+    </div>
+{% endblock %}
