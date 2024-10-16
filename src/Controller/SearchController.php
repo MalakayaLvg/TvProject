@@ -15,29 +15,32 @@ class SearchController extends AbstractController
     #[Route('/search', name: 'app_search')]
     public function search(Request $request, EntityManagerInterface $manager): Response
     {
+        // Créer le formulaire de recherche
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
-//
+
+        // Initialiser les résultats à vide
         $films = [];
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        // Si le formulaire est soumis et valide
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Récupérer le mot-clé de recherche
             $searchTerm = $form->get('query')->getData();
 
-            $queryBuilder = $manager->createQueryBuilder();
-
-            $films = $queryBuilder
-                ->select('f')
-                ->from(Film::class, 'f')
-                ->where($queryBuilder->expr()->like('f.title', ':title'))
-                ->setParameter('title', '%' . $searchTerm . '%');
-
-                return $queryBuilder->getQuery()->getResult();
+            // Rechercher dans la base de données
+            $films = $manager->getRepository(Film::class)
+                ->createQueryBuilder('p')
+                ->where('p.title LIKE :searchTerm OR p.description LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%')
+                ->getQuery()
+                ->getResult();
 
         }
-        return $this->render('search/index.html.twig',[
+
+        return $this->render('search/index.html.twig', [
             'form' => $form->createView(),
             'films' => $films,
         ]);
     }
+
 }

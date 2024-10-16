@@ -20,6 +20,7 @@ class FilmType extends AbstractType
             ->add('runtime')
             ->add('critical_rate')
             ->add('seen')
+            ->add('budget')
         ;
     }
 
