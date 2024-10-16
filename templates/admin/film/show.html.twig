@@ -3,22 +3,24 @@
 {% block title %}Film show{% endblock %}
 
 {% block body %}
+<div class="adminBackground min-vh-100">
+<div class="container">
 
-    <div class="form-control">
-        <h3>title : {{ film.title }}</h3>
-        <h3>description : {{ film.description }}</h3>
-        <h3>date de publication : {{ film.publishDate|date('Y-m-d')}}</h3>
-        <h3>durée : {{ film.runtime }}</h3>
-        <h3>note : {{ film.criticalRate}}</h3>
-        <h3>vu : {{ film.seen ? 'Oui' : 'Non' }}</h3>
-        <div class="form-control">
-            <a class="btn btn-danger" href="{{ path("app_film_delete",{id:film.id}) }}">delete</a>
-            <a class="btn btn-warning" href="{{ path("app_film_edit",{id:film.id}) }}">edit</a>
-            <a class="btn btn-primary" href="{{ path("app_film") }}">back</a>
+    <div class="d-flex">
+        <div class="imageFilmAdmin">
         </div>
-
-
+        <div class="mx-3">
+            <h2>{{ film.title }}</h2>
+            <h3>Plateform: </h3>
+            <h3>Catégories: </h3>
+            <h3>Language: </h3>
+            <h3>Pubish Date: {{ film.publishDate|date('Y-m-d')}} </h3>
+            <h3>Critical Rate: {{ film.criticalRate }} </h3>
+            <p>{{ film.description }}</p>
+        </div>
     </div>
 
 
+</div>
+</div>
 {% endblock %}
