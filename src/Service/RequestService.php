@@ -33,6 +33,7 @@ class RequestService
             $filmAPITDATA= $responseFilm->toArray();
              $films[]=[
                  "title"=>$filmAPITDATA['title'],
+                 "bduget"=>$filmAPITDATA['budget'],
                  "runtime"=>$filmAPITDATA['runtime'],
                  "description"=>$filmAPITDATA['overview'],
                  "publish_date"=>$filmAPITDATA['release_date'],

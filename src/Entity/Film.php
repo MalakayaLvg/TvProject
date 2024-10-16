@@ -32,6 +32,9 @@ class Film
     #[ORM\Column(nullable: true)]
     private ?bool $seen = null;
 
+    #[ORM\Column]
+    private ?int $budget = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Film
     public function setSeen(?bool $seen): static
     {
         $this->seen = $seen;
+
+        return $this;
+    }
+
+    public function getBudget(): ?int
+    {
+        return $this->budget;
+    }
+
+    public function setBudget(int $budget): static
+    {
+        $this->budget = $budget;
 
         return $this;
     }
