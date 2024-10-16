@@ -13,11 +13,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class EpisodeController extends AbstractController
 {
-    
+
     #[Route('/episode/show/{id}', name: 'app_episode_show', methods: ['GET'])]
     public function show(Episode $episode): Response
     {
-        return $this->render('episode/show.html.twig', [
+        return $this->render('/admin/episode/show.html.twig', [
             'episode' => $episode,
         ]);
     }
@@ -36,7 +36,7 @@ class EpisodeController extends AbstractController
             return $this->redirectToRoute('app_season_show', ['id' => $episode->getSeason()->getId()]);
         }
 
-        return $this->render('episode/create.html.twig', [
+        return $this->render('/admin/episode/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -62,7 +62,7 @@ class EpisodeController extends AbstractController
             return $this->redirectToRoute('app_season_show', ['id' => $episode->getSeason()->getId()]);
         }
 
-        return $this->render('episode/edit.html.twig', [
+        return $this->render('/admin/episode/edit.html.twig', [
             'form' => $form->createView(),
             'episode' => $episode,
         ]);

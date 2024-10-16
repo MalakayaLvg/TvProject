@@ -17,7 +17,7 @@ class SeasonController extends AbstractController
     #[Route('/season/show/{id}', name: 'app_season_show', methods: ['GET'])]
     public function show(Season $season): Response
     {
-        return $this->render('season/show.html.twig', [
+        return $this->render('/admin/season/show.html.twig', [
             'season' => $season,
         ]);
     }
@@ -38,7 +38,7 @@ class SeasonController extends AbstractController
             return $this->redirectToRoute('app_show', ['id' => $series->getId()]);
         }
 
-        return $this->render('season/create.html.twig', [
+        return $this->render('/admin/season/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -72,7 +72,7 @@ class SeasonController extends AbstractController
             return $this->redirectToRoute('app_season_show', ['id' => $season->getId()] );
         }
 
-        return $this->render('season/edit.html.twig', [
+        return $this->render('/admin/season/edit.html.twig', [
             'form' => $form->createView(),
             'season' => $season,
         ]);
