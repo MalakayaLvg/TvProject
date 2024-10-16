@@ -1,28 +1,53 @@
-{% extends '../../base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Hello FilmController!{% endblock %}
+{% block title %}Liste des films{% endblock %}
 
 {% block body %}
-    <a class="btn btn-primary my-2" href="{{ path('app_search') }}">rechercher film</a>
+    <div class="container mt-3">
+        <h1>Liste des films</h1>
 
-    <a class="btn btn-success" href="{{ path("app_film_create") }}">create</a>
-    {% for film in films %}
+        <a class="btn btn-primary my-2" href="{{ path('app_search') }}">Rechercher film</a>
+        <a class="btn btn-success" href="{{ path('app_film_create') }}">Créer un film</a>
 
-        <div class="form-control">
-            <h3>title : {{ film.title }}</h3>
-            <h3>description : {{ film.description }}</h3>
-            <h3>date de publication : {{ film.publishDate|date('Y-m-d')}}</h3>
-            <h3>durée : {{ film.runtime }}</h3>
-            <h3>note : {{ film.criticalRate}}</h3>
-            <h3>vu : {{ film.seen ? 'Oui' : 'Non' }}</h3>
-            <div class="form-control">
-                <a class="btn btn-danger" href="{{ path("app_film_delete",{id:film.id}) }}">delete</a>
-                <a class="btn btn-warning" href="{{ path("app_film_edit",{id:film.id}) }}">edit</a>
-                <a class="btn btn-primary" href="{{ path("app_film_show",{id:film.id}) }}">show</a>
-            </div>
+        {% if films is not empty %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Date de publication</th>
+                    <th>Durée</th>
+                    <th>Note critique</th>
+                    <th>Vu</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for film in films %}
+                    <tr>
+                        <td>{{ film.id }}</td>
+                        <td>{{ film.title }}</td>
+                        <td>{{ film.description }}</td>
+                        <td>{{ film.publishDate ? film.publishDate|date('Y-m-d') : 'N/A' }}</td>
+                        <td>{{ film.runtime }}</td>
+                        <td>{{ film.criticalRate is not null ? film.criticalRate : 'Non noté' }}</td>
+                        <td>{{ film.seen ? 'Oui' : 'Non' }}</td>
+                        <td>
+                            <a href="{{ path('app_film_show', {id: film.id}) }}" class="btn btn-info btn-sm">Afficher</a>
+                            <a href="{{ path('app_film_edit', {id: film.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                            <a href="{{ path('app_film_delete', {id: film.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce film ?');">Supprimer</a>
 
-        </div>
-
-    {% endfor %}
-
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <a href="{{ path('watchlist_add_film', {id: film.id}) }}" class="btn btn-success btn-sm">WatchList</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucun film n'a encore été créé.</p>
+        {% endif %}
+    </div>
 {% endblock %}

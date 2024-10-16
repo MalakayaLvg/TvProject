@@ -35,6 +35,9 @@ class Film
     #[ORM\Column]
     private ?int $budget = null;
 
+    #[ORM\ManyToOne(inversedBy: 'film')]
+    private ?WatchList $watchList = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +123,18 @@ class Film
     public function setBudget(int $budget): static
     {
         $this->budget = $budget;
+
+        return $this;
+    }
+
+    public function getWatchList(): ?WatchList
+    {
+        return $this->watchList;
+    }
+
+    public function setWatchList(?WatchList $watchList): static
+    {
+        $this->watchList = $watchList;
 
         return $this;
     }
