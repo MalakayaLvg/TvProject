@@ -4,20 +4,41 @@
 
 {% block body %}
 
-    <a class="btn btn-primary" href="{{ path('app_film') }}">films</a>
+    <div class="container">
 
-    <h2>Résultats de recherche :</h2>
+        <a class="btn btn-primary" href="{{ path('app_film') }}">films</a>
 
-    {% if films is not empty %}
-        <ul>
-            {% for film in films %}
-                <li>
-                    <h3>{{ film.title }}</h3>
-                    <p>{{ film.description }}</p>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Aucun films trouvé pour cette recherche.</p>
-    {% endif %}
+
+
+        <div class="my-4 w-50">
+            {{ form_start(form, {'attr': {'class': 'form-inline'}}) }}
+            <div class="input-group">
+                {{ form_widget(form.query, {'attr': {'class': 'form-control', 'placeholder': 'Rechercher...'}}) }}
+                <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+
+        <h2>Résultats de recherche :</h2>
+
+        {% if films is not empty %}
+            <ul>
+                {% for film in films %}
+                    <li>
+                        <h3>{{ film.title }}</h3>
+                        <p>{{ film.description }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucun produit trouvé pour cette recherche.</p>
+        {% endif %}
+
+    </div>
+
+
+
+
+
+
 {% endblock %}
