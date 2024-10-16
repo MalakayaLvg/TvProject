@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container mt-3">
-        <h1 class="my-4">Créer une nouvelle saison</h1>
+        <h1 class="my-4">Modifier nouvelle saison</h1>
 
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
@@ -46,10 +46,8 @@
             {{ form_errors(form.series) }}
         </div>
 
-        <button type="submit" class="btn btn-primary">Modifier la saison</button>
+        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
 
         {{ form_end(form) }}
-
-        <a href="{{ path('app_series') }}" class="btn btn-secondary mt-3">Retour à la liste des séries</a>
     </div>
 {% endblock %}

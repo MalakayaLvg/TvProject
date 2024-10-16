@@ -34,7 +34,7 @@ class Series
     /**
      * @var Collection<int, Season>
      */
-    #[ORM\OneToMany(targetEntity: Season::class, mappedBy: 'series')]
+    #[ORM\OneToMany(targetEntity: Season::class, mappedBy: 'series', cascade: ['remove'])]
     private Collection $seasons;
 
     public function __construct()

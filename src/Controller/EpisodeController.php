@@ -13,16 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class EpisodeController extends AbstractController
 {
-    #[Route('/episodes', name: 'app_episodes')]
-    public function index(EpisodeRepository $episodeRepository): Response
-    {
-        $episodes = $episodeRepository->findAll();
-
-        return $this->render('episode/index.html.twig', [
-            'episodes' => $episodes,
-        ]);
-    }
-
+    
     #[Route('/episode/show/{id}', name: 'app_episode_show', methods: ['GET'])]
     public function show(Episode $episode): Response
     {
@@ -42,7 +33,7 @@ class EpisodeController extends AbstractController
             $entityManager->persist($episode);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_episodes');
+            return $this->redirectToRoute('app_season_show', ['id' => $episode->getSeason()->getId()]);
         }
 
         return $this->render('episode/create.html.twig', [
@@ -56,7 +47,7 @@ class EpisodeController extends AbstractController
         $entityManager->remove($episode);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_episodes');
+        return $this->redirectToRoute('app_season_show', ['id' => $episode->getSeason()->getId()]);
     }
 
     #[Route('/episode/{id}/edit', name: 'app_episode_edit', methods: ['GET', 'POST'])]
@@ -68,7 +59,7 @@ class EpisodeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_episodes');
+            return $this->redirectToRoute('app_season_show', ['id' => $episode->getSeason()->getId()]);
         }
 
         return $this->render('episode/edit.html.twig', [
