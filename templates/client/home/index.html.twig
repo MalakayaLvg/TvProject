@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pierre oui {% endblock %}
+
+{% block body %}
+    {% set seen = false %}
+
+    {% include '/client/component/navbar.html.twig' %}
+
+    <div class="homeBlurBackground">{% set imageNames = ['antman.png','batman.png','blackwidow.png'] %}
+        <h2>BOX OFFICE</h2>
+        <div>
+            {% for name in imageNames %}
+                <a href=""><img src="{{ asset('/img/'~ name) }}" alt=""></a>
+            {% endfor %}
+        </div>
+
+
+
+    </div>
+    
+    <div class="rillettesTitle">
+        RILLETTES
+    </div>
+    <div class="homeLightRond">
+    </div>
+{% endblock %}

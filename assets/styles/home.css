@@ -1,0 +1,52 @@
+.homeBackground {
+    background: var(--background-color);
+}
+
+.homeLightRond {
+    background: var(--violet-light);
+    border-radius: 50%;
+    box-shadow: 0px 0px 272px 267px var(--violet-light);
+    width: 30%;
+    height: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.rillettesTitle {
+    position: absolute;
+    top: 9%;
+    left: 50%;
+    transform: translate(-50%, 0px);
+    z-index: -1;
+
+    width: fit-content;
+    font-size: 176px;
+    font-weight: bold;
+    background: -webkit-linear-gradient(51deg, var(--red-linear), var(--orange-linear));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.homeBlurBackground{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    height: fit-content;
+    background: #0a152a54;
+    backdrop-filter: blur(25.4px);
+    padding: 25px;
+    box-sizing: border-box;
+    border-top: #8C9FDD 1px solid;
+    border-bottom: #8C9FDD 1px solid;
+}
+.homeBlurBackground > div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+.homeBlurBackground > div img{
+    height: 31vh;
+    object-fit: contain;
+}

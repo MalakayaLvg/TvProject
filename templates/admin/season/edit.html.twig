@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une nouvelle saison{% endblock %}
+
+{% block body %}
+    <div class="container mt-3">
+        <h1 class="my-4">Modifier nouvelle saison</h1>
+
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+        <div class="form-group mb-3">
+            {{ form_label(form.title, 'Titre de la saison', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.title) }}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form_label(form.description, 'Description de la saison', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form_label(form.publish_date, 'Date de publication', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.publish_date, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.publish_date) }}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form_label(form.number, 'Numéro de la saison', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.number, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.number) }}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form_label(form.seen, 'Avez-vous vu cette saison ?', {'label_attr': {'class': 'form-check-label'}}) }}
+            <div class="form-check">
+                {{ form_widget(form.seen, {'attr': {'class': 'form-check-input'}}) }}
+                {{ form_errors(form.seen) }}
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form_label(form.series, 'Série associée', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.series, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.series) }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
