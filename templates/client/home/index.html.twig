@@ -10,13 +10,25 @@
     <div class="homeBlurBackground">{% set imageNames = ['antman.png','batman.png','blackwidow.png'] %}
         <h2>BOX OFFICE</h2>
         <div>
-            {% for name in imageNames %}
-                <a href=""><img src="{{ asset('/img/'~ name) }}" alt=""></a>
+            {% for film in boxOfficeFilms %}
+                <a href=""><img src="{{ asset('/img/no_image.png') }}" alt=""></a>
+
+
             {% endfor %}
         </div>
 
 
 
+    </div>
+    <div class="homeBlurBackground">
+        <h2>FOR YOU</h2>
+        <div>
+            {% for film in recommendedFilms %}
+                <a href=""><img src="{{ asset('/img/no_image.png') }}" alt="{{ film.title }}"></a>
+            {% else %}
+                <p>No recommendations available</p>
+            {% endfor %}
+        </div>
     </div>
     
     <div class="rillettesTitle">
