@@ -37,7 +37,7 @@ class SearchController extends AbstractController
 
         }
 
-        return $this->render('search/index.html.twig', [
+        return $this->render('/client/search/index.html.twig', [
             'form' => $form->createView(),
             'films' => $films,
         ]);
