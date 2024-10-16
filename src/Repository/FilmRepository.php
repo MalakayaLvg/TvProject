@@ -16,6 +16,39 @@ class FilmRepository extends ServiceEntityRepository
         parent::__construct($registry, Film::class);
     }
 
+    public function findByCategory(string $category): array
+    {
+        return $this->createQueryBuilder('f')
+            ->where('f.category = :category')
+            ->setParameter('category', $category)
+            ->orderBy('f.publish_date', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function findByBoxOffice(): array
+    {
+        return $this->createQueryBuilder('f')
+            ->where('f.budget > :threshold')
+            ->setParameter('threshold', 1000000)
+            ->orderBy('f.critical_rate', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findRecommended(): array
+    {
+        return $this->createQueryBuilder('f')
+            ->where('f.seen = false')
+            ->orderBy('f.publish_date', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+
     //    /**
     //     * @return Film[] Returns an array of Film objects
     //     */
