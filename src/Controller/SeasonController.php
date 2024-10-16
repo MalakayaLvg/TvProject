@@ -14,17 +14,6 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class SeasonController extends AbstractController
 {
-    #[Route('/seasons', name: 'app_seasons')]
-    public function index(SeasonRepository $seasonRepository): Response
-    {
-        $seasons = $seasonRepository->findAll();
-
-        return $this->render('season/index.html.twig', [
-
-            'seasons' => $seasons,
-        ]);
-    }
-
     #[Route('/season/show/{id}', name: 'app_season_show', methods: ['GET'])]
     public function show(Season $season): Response
     {

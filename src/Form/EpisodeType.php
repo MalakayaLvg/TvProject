@@ -6,6 +6,7 @@ use App\Entity\Episode;
 use App\Entity\Season;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,14 +17,15 @@ class EpisodeType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('publish_date', null, [
+            ->add('publishDate', DateType::class, [
                 'widget' => 'single_text',
+                'label' => 'Date de publication',
             ])
             ->add('seen')
             ->add('number')
             ->add('season', EntityType::class, [
                 'class' => Season::class,
-                'choice_label' => 'id',
+                'choice_label' => 'title',
             ])
         ;
     }

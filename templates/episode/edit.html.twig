@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer un nouvel épisode{% endblock %}
+{% block title %}Modifier un épisode{% endblock %}
 
 {% block body %}
     <div class="container mt-3">
-        <h1 class="my-4">Créer un nouvel épisode</h1>
+        <h1 class="my-4">Modifier un épisode</h1>
 
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
@@ -46,7 +46,7 @@
             {{ form_errors(form.season) }}
         </div>
 
-        <button type="submit" class="btn btn-primary">Créer l'épisode</button>
+        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
 
         {{ form_end(form) }}
     </div>
