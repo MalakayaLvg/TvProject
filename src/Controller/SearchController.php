@@ -24,14 +24,18 @@ class SearchController extends AbstractController
         {
             $searchTerm = $form->get('query')->getData();
 
-            $films = $manager->getRepository(Film::class)
-                ->createQueryBuilder('p')
-                ->where('p.title LIKE :searchTerm OR p.description LIKE :searchTerm')
-                ->setParameter('searchTerm', '%' . $searchTerm . '%')
-                ->getQuery()
-                ->getResult();
+            $queryBuilder = $manager->createQueryBuilder();
+
+            $films = $queryBuilder
+                ->select('f')
+                ->from(Film::class, 'f')
+                ->where($queryBuilder->expr()->like('f.title', ':title'))
+                ->setParameter('title', '%' . $searchTerm . '%');
+
+                return $queryBuilder->getQuery()->getResult();
+
         }
-        return $this->render('search/searchBar.html.twig',[
+        return $this->render('search/index.html.twig',[
             'form' => $form->createView(),
             'films' => $films,
         ]);
