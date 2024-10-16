@@ -19,7 +19,7 @@ class FilmController extends AbstractController
 
 
 
-        return $this->render('/film/index.html.twig',[
+        return $this->render('/admin/film/index.html.twig',[
             "films" => $filmRepository->findAll(),
         ]);
     }
@@ -36,7 +36,7 @@ class FilmController extends AbstractController
             return $this->redirectToRoute('app_film');
         }
 
-        return $this->render("film/create.html.twig",[
+        return $this->render("/admin/film/create.html.twig",[
             'form' => $form->createView()
         ]);
     }
@@ -62,7 +62,7 @@ class FilmController extends AbstractController
             return $this->redirectToRoute('app_film');
         }
 
-        return $this->render("film/create.html.twig",[
+        return $this->render("/admin/film/create.html.twig",[
             'form' => $form->createView(),
             'film' => $film
         ]);

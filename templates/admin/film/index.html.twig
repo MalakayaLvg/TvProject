@@ -1,0 +1,28 @@
+{% extends '../../base.html.twig' %}
+
+{% block title %}Hello FilmController!{% endblock %}
+
+{% block body %}
+    <a class="btn btn-primary my-2" href="{{ path('app_search') }}">rechercher film</a>
+
+    <a class="btn btn-success" href="{{ path("app_film_create") }}">create</a>
+    {% for film in films %}
+
+        <div class="form-control">
+            <h3>title : {{ film.title }}</h3>
+            <h3>description : {{ film.description }}</h3>
+            <h3>date de publication : {{ film.publishDate|date('Y-m-d')}}</h3>
+            <h3>durée : {{ film.runtime }}</h3>
+            <h3>note : {{ film.criticalRate}}</h3>
+            <h3>vu : {{ film.seen ? 'Oui' : 'Non' }}</h3>
+            <div class="form-control">
+                <a class="btn btn-danger" href="{{ path("app_film_delete",{id:film.id}) }}">delete</a>
+                <a class="btn btn-warning" href="{{ path("app_film_edit",{id:film.id}) }}">edit</a>
+                <a class="btn btn-primary" href="{{ path("app_film_show",{id:film.id}) }}">show</a>
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+{% endblock %}

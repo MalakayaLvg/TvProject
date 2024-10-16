@@ -18,7 +18,7 @@ class SeriesController extends AbstractController
     {
         $series = $seriesRepository->findAll();
 
-        return $this->render('series/index.html.twig', [
+        return $this->render('/admin/series/index.html.twig', [
 
             'series' => $series,
         ]);
@@ -27,7 +27,7 @@ class SeriesController extends AbstractController
     #[Route('/series/show/{id}', name: 'app_show', methods: ['GET'])]
     public function show(Series $series): Response
     {
-        return $this->render('series/show.html.twig', [
+        return $this->render('/admin/series/show.html.twig', [
             'series' => $series,
             'seasons' => $series->getSeasons()
         ]);
@@ -49,7 +49,7 @@ class SeriesController extends AbstractController
             return $this->redirectToRoute('app_series', ["id"=>$series->getId()]);
         }
 
-        return $this->render('series/create.html.twig',[
+        return $this->render('/admin/series/create.html.twig',[
             'form'=>$form->createView()
         ]);
     }
@@ -72,13 +72,14 @@ class SeriesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_series');
+            return $this->redirectToRoute('app_show', ["id"=>$series->getId()]);
         }
 
-        return $this->render('series/edit.html.twig', [
+        return $this->render('/admin/series/edit.html.twig', [
             'form' => $form->createView(),
             'series' => $series,
         ]);
     }
+
 
 }
