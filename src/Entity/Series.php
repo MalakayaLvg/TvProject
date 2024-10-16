@@ -37,6 +37,9 @@ class Series
     #[ORM\OneToMany(targetEntity: Season::class, mappedBy: 'series', cascade: ['remove'])]
     private Collection $seasons;
 
+    #[ORM\ManyToOne(inversedBy: 'series')]
+    private ?WatchList $watchList = null;
+
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
@@ -133,6 +136,18 @@ class Series
                 $season->setSeries(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getWatchList(): ?WatchList
+    {
+        return $this->watchList;
+    }
+
+    public function setWatchList(?WatchList $watchList): static
+    {
+        $this->watchList = $watchList;
 
         return $this;
     }

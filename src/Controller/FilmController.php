@@ -97,7 +97,7 @@ class FilmController extends AbstractController
     #[Route('/film/show/{id}', name: 'app_film_show')]
     public function show(Film $film):Response
     {
-        return $this->render("film/show.html.twig",[
+        return $this->render("/admin/film/show.html.twig",[
             "film" => $film
         ]);
     }

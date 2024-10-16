@@ -1,0 +1,61 @@
+{# templates/watchlist/watch_list.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}My WatchList{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <h1 class="mb-4 text-center">My WatchList</h1>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="h4 mb-0">Films</h2>
+                    </div>
+                    <div class="card-body">
+                        {% if watchList.getFilm is not empty %}
+                            <ul class="list-group">
+                                {% for film in watchList.getFilm %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        {{ film.title }}
+                                        <form method="post" action="{{ path('watchlist_delete_film', {id: film.id}) }}" onsubmit="return confirm('Are you sure you want to remove this film?');">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ film.id) }}">
+                                            <button class="btn btn-outline-danger btn-sm">Remove</button>
+                                        </form>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="text-muted">No films in your WatchList.</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h2 class="h4 mb-0">Series</h2>
+                    </div>
+                    <div class="card-body">
+                        {% if watchList.getSeries is not empty %}
+                            <ul class="list-group">
+                                {% for series in watchList.getSeries %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        {{ series.title }}
+                                        <form method="post" action="{{ path('watchlist_delete_series', {id: series.id}) }}" onsubmit="return confirm('Are you sure you want to remove this series?');">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ series.id) }}">
+                                            <button class="btn btn-outline-danger btn-sm">Remove</button>
+                                        </form>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="text-muted">No series in your WatchList.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
