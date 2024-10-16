@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Episode;
 use App\Entity\Film;
 use App\Entity\Season;
 use App\Entity\Series;
@@ -23,6 +24,7 @@ class AppFixtures extends Fixture
             $film = new Film();
             $film->setDescription($filmData['description']);
             $film->setTitle($filmData['title']);
+            $film->setBudget($filmData['budget']);
             $film->setPublishDate($filmData['publish_date']);
             $film->setCriticalRate($filmData['critical_rate']);
             $film->setRuntime($filmData['runtime']);
