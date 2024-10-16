@@ -33,11 +33,11 @@ class RequestService
             $filmAPITDATA= $responseFilm->toArray();
              $films[]=[
                  "title"=>$filmAPITDATA['title'],
+                 "bduget"=>$filmAPITDATA['budget'],
                  "runtime"=>$filmAPITDATA['runtime'],
                  "description"=>$filmAPITDATA['overview'],
                  "publish_date"=>$filmAPITDATA['release_date'],
-                 "critical_rate"=>$filmAPITDATA['vote_average'],
-                 "seen"=>false,
+                 "critical_rate"=>$filmAPITDATA['vote_average']*5/10,
              ];
         }
         return $films;
@@ -71,7 +71,6 @@ class RequestService
                 "description" => $serieAPIDATA["overview"],
                 "seasons" => [],
                 "critical_rate" => $serieAPIDATA["vote_average"] * 5 / 10,
-                "seen" => false,
             ];
 
             //get detail of season
@@ -92,7 +91,6 @@ class RequestService
                         "title" => $episode['name'],
                         "publish_date" => new DateTime($episode['air_date']),
                         "description" => $episode['overview'],
-                        "seen" => false,
                     ];
 
                 }
@@ -102,7 +100,7 @@ class RequestService
                     "title" => $seasonAPIDATA['name'],
                     "description" => $seasonAPIDATA['overview'],
                     "publish_date" => new DateTime($seasonAPIDATA['air_date']),
-                    "seen" => false,
+
                     "number" => $seasonAPIDATA['season_number']];
 
                 //add season in the series

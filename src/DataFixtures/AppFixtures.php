@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Episode;
 use App\Entity\Film;
 use App\Entity\Season;
 use App\Entity\Series;
@@ -23,9 +24,9 @@ class AppFixtures extends Fixture
             $film = new Film();
             $film->setDescription($filmData['description']);
             $film->setTitle($filmData['title']);
+            $film->setBudget($filmData['budget']);
             $film->setPublishDate($filmData['publish_date']);
             $film->setCriticalRate($filmData['critical_rate']);
-            $film->setSeen($filmData['seen']);
             $film->setRuntime($filmData['runtime']);
             $manager->persist($film);
         }
@@ -37,7 +38,6 @@ class AppFixtures extends Fixture
             $series->setSeen($serieData['seen']);
             $series->setPublishDate($serieData['publish_date']);
             $series->setCriticalRate($serieData['critical_rate']);
-            $series->setSeen($serieData['seen']);
             $manager->persist($series);
             $manager->flush();
 
@@ -47,18 +47,17 @@ class AppFixtures extends Fixture
                 $season->setDescription($seasonData["description"]);
                 $season->setPublishDate($seasonData["publish_date"]);
                 $season->setNumber($seasonData["number"]);
-                $season->setSeen($seasonData["seen"]);
                 $season->setSeries($series);
                 $manager->persist($season);
                 $manager->flush();
 
+                
                 foreach ($seasonData['episodes'] as $episodeData){
                         $episode = new Episode();
                         $episode->setTitle($episodeData['title']);
                         $episode->setDescription($episodeData['description']);
                         $episode->setNumber($episodeData['number']);
                         $episode->setPublishDate($episodeData["publish_date"]);
-                        $episode->setSeen($episodeData["seen"]);
                         $episode->setSeason($season);
                         $manager->persist($episode);
                         $manager->flush();
