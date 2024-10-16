@@ -1,8 +1,0 @@
-<h2>la search bar de base</h2>
-
-<form action="{{ path('app_search') }}" method="GET">
-    {{ form_start(form) }}
-    {{ form_widget(form.query, {'attr': {'placeholder': 'Rechercher...'}}) }}
-    <button type="submit">Rechercher</button>
-    {{ form_end(form) }}
-</form>
