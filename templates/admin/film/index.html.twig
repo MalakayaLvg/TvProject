@@ -3,24 +3,35 @@
 {% block title %}Liste des films{% endblock %}
 
 {% block body %}
-    <div class="container mt-3">
-        <h1>Liste des films</h1>
+<div class="adminBackground min-vh-100">
 
-        <a class="btn btn-primary my-2" href="{{ path('app_search') }}">Rechercher film</a>
-        <a class="btn btn-success" href="{{ path('app_film_create') }}">Créer un film</a>
+    {% include 'admin/navbar/navbar.html.twig' %}
 
-        {% if films is not empty %}
-            <table class="table">
+    <a class="btn btn-primary my-2" href="{{ path('app_search') }}">rechercher film</a>
+    <div class="container">
+
+        <div class="users-table-container">
+            <div class="header d-flex justify-content-between">
+                All films: {{ films|length }}
+                <div>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Sort by</option>
+                        <option value="1">ID</option>
+                        <option value="2">Title</option>
+                        <option value="3">Rate</option>
+                    </select>
+                </div>
+                <a class="btn btn-warning" href="{{ path('app_film_create') }}">Add film</a>
+            </div>
+
+            <table class="users-table">
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Titre</th>
+                    <th>Title</th>
+                    <th>Category</th>
                     <th>Description</th>
-                    <th>Date de publication</th>
-                    <th>Durée</th>
-                    <th>Note critique</th>
-                    <th>Vu</th>
-                    <th>Actions</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -29,25 +40,17 @@
                         <td>{{ film.id }}</td>
                         <td>{{ film.title }}</td>
                         <td>{{ film.description }}</td>
-                        <td>{{ film.publishDate ? film.publishDate|date('Y-m-d') : 'N/A' }}</td>
-                        <td>{{ film.runtime }}</td>
-                        <td>{{ film.criticalRate is not null ? film.criticalRate : 'Non noté' }}</td>
-                        <td>{{ film.seen ? 'Oui' : 'Non' }}</td>
+                        <td>Category</td>
                         <td>
-                            <a href="{{ path('app_film_show', {id: film.id}) }}" class="btn btn-info btn-sm">Afficher</a>
-                            <a href="{{ path('app_film_edit', {id: film.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
-                            <a href="{{ path('app_film_delete', {id: film.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce film ?');">Supprimer</a>
-
-                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                <a href="{{ path('watchlist_add_film', {id: film.id}) }}" class="btn btn-success btn-sm">WatchList</a>
-                            {% endif %}
+                            <a href="{{ path('app_film_show', {id: film.id}) }}"><i class="bi bi-eye p-2"></i></a>
+                            <a href="{{ path('app_film_edit', {id: film.id}) }}"><i class="bi bi-pencil p-2"></i></a>
+                            <a href="{{ path('app_film_delete', {id: film.id}) }}"><i class="bi bi-trash p-2"></i></a>
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-        {% else %}
-            <p>Aucun film n'a encore été créé.</p>
-        {% endif %}
+        </div>
     </div>
+</div>
 {% endblock %}

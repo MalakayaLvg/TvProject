@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="">Films</a>
+            <a href="">Series</a>
+            <a href="">Comments</a>
+            <a href="">Users</a>
+        </div>
+        <div class="nav-links">
+            <a href="">User: nomuser | Role: admin</a>
+        </div>
+    </div>
+
+
+    <div class="users-table-container">
+        <div class="header">
+            All users: {{ users|length }}
+            <span class="sort-option">Sort by: Date ⯈</span>
+        </div>
+
+        <table class="users-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Roles</th>
+                <th>Created at</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.roles|join(', ') }}</td>
+                    <td></td>
+                    <td>
+                        <div class="action-icons">
+                            <a href="{{ path("app_user_admin_show", {id: user.id}) }}">
+                                <i class="bi bi-eye fs-2 me-3"></i>
+                            </a>
+                            <a href="">
+                                <i class="bi bi-trash fs-2"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
