@@ -23,7 +23,7 @@ class SeasonController extends AbstractController
     }
 
 
-    #[Route('/season/create/{series}', name: 'app_season_create', methods: ['GET', 'POST'])]
+    #[Route('admin/season/create/{series}', name: 'app_season_create', methods: ['GET', 'POST'])]
     public function create(Request $request, EntityManagerInterface $manager, Series $series): Response
     {
         $season = new Season();
@@ -43,7 +43,7 @@ class SeasonController extends AbstractController
         ]);
     }
 
-    #[Route('/season/{id}', name: 'app_season_delete', methods: ['POST'])]
+    #[Route('admin/season/{id}', name: 'app_season_delete', methods: ['POST'])]
     public function delete(Request $request, Season $season, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $season->getId(), $request->request->get('_token'))) {
@@ -60,7 +60,7 @@ class SeasonController extends AbstractController
     }
 
 
-    #[Route('/season/{id}/edit', name: 'app_season_edit', methods: ['GET', 'POST'])]
+    #[Route('admin/season/{id}/edit', name: 'app_season_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, season $season, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(SeasonType::class, $season);
