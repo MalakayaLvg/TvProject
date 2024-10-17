@@ -13,9 +13,10 @@
     top: 50%;
     transform: translate(-50%, -50%);
 }
+
 .rillettesTitle {
     position: absolute;
-    top: 9%;
+    top: 10%;
     left: 50%;
     transform: translate(-50%, 0px);
     z-index: -1;
@@ -27,26 +28,90 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-.homeBlurBackground{
+
+.homeBlurBackground {
     display: flex;
     flex-direction: column;
     align-items: start;
     height: fit-content;
-    background: #0a152a54;
-    backdrop-filter: blur(25.4px);
-    padding: 25px;
+    background: #00000075;
+    backdrop-filter: blur(6.4px);
+
+    padding-inline: 32px;
+    padding-block: 25px 54px;
+
     box-sizing: border-box;
-    border-top: #8C9FDD 1px solid;
-    border-bottom: #8C9FDD 1px solid;
+    border-top: #7575758c 1px solid;
+    border-bottom: #7575758c 1px solid;
 }
-.homeBlurBackground > div{
+
+.homeBlurBackground > .filmList {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
     height: 100%;
+
+    gap: 47px;
+
+    padding-inline: 61px;
+    margin-inline: 20px;
+    color: white;
 }
-.homeBlurBackground > div img{
-    height: 31vh;
+  .searchFilm {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 100%;
+    height: 100%;
+
+    gap: 10px;
+
+    padding-inline: 296px;
+    margin-inline: 20px;
+    color: white;
+}
+.homeBlurBackground > div a{
+    width: 32%;
+}
+
+.homeBlurBackground > div img, .homeFilms > div img {
+
+    max-height: 31vh;
+    width: 100%;
     object-fit: contain;
+}
+
+.homeFilms {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    height: fit-content;
+
+    padding: 25px;
+    box-sizing: border-box;
+}
+.homeFilms div{
+
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    margin-block: 20px;
+    gap: 20px;
+}
+.homeFilms .titlerow {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.svgFletcher {
+    width: 25px !important;
+    height: 25px !important;
+}
+
+.filmSeriesImage{
+    border-radius: 20px;
 }

@@ -21,9 +21,11 @@
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}
 </head>
-<body class=" {{ route == "/" ? "homeBackground" : "" }}">
+<body class=" {{ route == "/film" ? "homeBackground" : "" }}">
+{#
 
 {% include "navbar/navbar.html.twig" %}
+#}
 
 {% block body %}{% endblock %}
 </body>

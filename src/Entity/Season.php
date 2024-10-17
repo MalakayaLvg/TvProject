@@ -16,17 +16,15 @@ class Season
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $publish_date = null;
 
-    #[ORM\Column]
-    private ?bool $seen = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $number = null;
@@ -86,17 +84,7 @@ class Season
         return $this;
     }
 
-    public function isSeen(): ?bool
-    {
-        return $this->seen;
-    }
 
-    public function setSeen(bool $seen): static
-    {
-        $this->seen = $seen;
-
-        return $this;
-    }
 
     public function getNumber(): ?float
     {

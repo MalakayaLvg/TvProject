@@ -14,7 +14,7 @@ class Film
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -29,8 +29,7 @@ class Film
     #[ORM\Column(nullable: true)]
     private ?int $critical_rate = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $seen = null;
+
 
     #[ORM\Column]
     private ?int $budget = null;
@@ -103,17 +102,7 @@ class Film
         return $this;
     }
 
-    public function isSeen(): ?bool
-    {
-        return $this->seen;
-    }
 
-    public function setSeen(?bool $seen): static
-    {
-        $this->seen = $seen;
-
-        return $this;
-    }
 
     public function getBudget(): ?int
     {

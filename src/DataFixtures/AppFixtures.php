@@ -35,13 +35,12 @@ class AppFixtures extends Fixture
             $series= new Series();
             $series->setTitle($serieData['title']);
             $series->setDescription($serieData['description']);
-            $series->setSeen($serieData['seen']);
             $series->setPublishDate($serieData['publish_date']);
             $series->setCriticalRate($serieData['critical_rate']);
             $manager->persist($series);
             $manager->flush();
 
-            foreach ($serieData['description'] as $seasonData){
+            foreach ($serieData['seasons'] as $seasonData){
                 $season = new Season();
                 $season->setTitle($seasonData["title"]);
                 $season->setDescription($seasonData["description"]);
