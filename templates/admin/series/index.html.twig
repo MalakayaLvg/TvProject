@@ -31,6 +31,10 @@
                         <td>
                             <a href="{{ path('app_show', {id: serie.id}) }}" class="btn btn-info btn-sm">Afficher</a>
 
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <a href="{{ path('watchlist_add_series', {id: serie.id}) }}" class="btn btn-success btn-sm">WatchList</a>
+                            {% endif %}
+
                             <form method="post" action="{{ path('app_delete', {id: serie.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette série ?');" style="display:inline;">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ serie.id) }}">
                             </form>

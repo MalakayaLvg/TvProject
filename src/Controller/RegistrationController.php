@@ -35,7 +35,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_film');
         }
 
-        return $this->render('/client/registration/register.html.twig', [
+        return $this->render('client/registration/register.html.twig', [
             'registrationForm' => $form,
         ]);
     }

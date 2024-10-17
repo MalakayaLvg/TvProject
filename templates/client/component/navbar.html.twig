@@ -1,5 +1,22 @@
 <nav>
-    <form action="">SEARCHBAR</form>
+    {{ form_start(form, { 'method':'get'}) }}
+
+    {{ form_widget(form.query, {'attr': {'placeholder': 'Rechercher...'}}) }}
+    <button class="" type="submit"><i class="bi bi-search"></i></button>
+
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('app_film') }}">
+                Films
+            </a>
+        </li>  <li>
+            <a href="">
+                Categories
+            </a>
+        </li>
+    </ul>
     <div>
         client
     </div>

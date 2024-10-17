@@ -16,7 +16,7 @@ class Series
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -28,14 +28,16 @@ class Series
     #[ORM\Column(nullable: true)]
     private ?int $critical_rate = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $seen = null;
+
 
     /**
      * @var Collection<int, Season>
      */
     #[ORM\OneToMany(targetEntity: Season::class, mappedBy: 'series', cascade: ['remove'])]
     private Collection $seasons;
+
+    #[ORM\ManyToOne(inversedBy: 'series')]
+    private ?WatchList $watchList = null;
 
     public function __construct()
     {
@@ -95,17 +97,7 @@ class Series
         return $this;
     }
 
-    public function isSeen(): ?bool
-    {
-        return $this->seen;
-    }
 
-    public function setSeen(?bool $seen): static
-    {
-        $this->seen = $seen;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Season>
@@ -133,6 +125,18 @@ class Series
                 $season->setSeries(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getWatchList(): ?WatchList
+    {
+        return $this->watchList;
+    }
+
+    public function setWatchList(?WatchList $watchList): static
+    {
+        $this->watchList = $watchList;
 
         return $this;
     }

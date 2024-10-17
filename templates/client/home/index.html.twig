@@ -8,18 +8,86 @@
     {% include '/client/component/navbar.html.twig' %}
 
     <div class="homeBlurBackground">{% set imageNames = ['antman.png','batman.png','blackwidow.png'] %}
-        <h2>BOX OFFICE</h2>
-        <div>
-            {% for name in imageNames %}
-                <a href=""><img src="{{ asset('/img/'~ name) }}" alt=""></a>
-            {% endfor %}
-        </div>
+        <h2>{{ search is defined and search ? "RESULT" : "BOX OFFICE" }}</h2>
+        <p>No result for this search</p>
+        {% if search is defined and search %}
+
+            <div class="searchFilm">
+                {% for film in films %}
+
+                    <div>
+                        <h3>{{ film.title }}</h3>
+                        <p>{{ film.description }}</p>
+                    </div>
+
+                    {% if  not loop.last %}
+                        <hr>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+            <div class="filmList">
 
 
+                {# JUST THAT FOR SEARCH RESULT #}
+                {% for name in imageNames %}
+                    <a href=""><img src="{{ asset('/img/'~ name) }}" alt=""></a>
+                {% endfor %}
 
+            </div>
+        {% endif %}
     </div>
-    
-    <div class="rillettesTitle">
+    {% if search is not defined %}
+        {% if filmsForYou is defined %}
+            <div class="homeFilms">
+                <h2>FOR YOU</h2>
+                {% set imageNames = ['beautyandbeast.png','hauntedmansion.png','herealone.png'] %}
+
+                <div class="searchFilm">
+
+                   {% for film in filmsForYou %}
+                       <div>
+                           <h3>{{ film.title }}</h3>
+                           <p>{{ film.description }}</p>
+                       </div>
+                   {% endfor %}
+                   {# {% for name in imageNames %}
+                        <a href=""><img class="filmSeriesImage" src="{{ asset('/img/'~ name) }}" alt=""></a>
+                    {% endfor %}#}
+                </div>
+            </div>
+        {% endif %}
+        {% if bestRated is defined %}
+            <hr>
+
+            <div class="homeFilms">
+                <div class="titlerow">
+                    <h2>BEST RATED</h2>
+                    <h2>Tous les films <img class="svgFletcher" src="{{ asset('svg/fletcher.svg') }}" alt=""></h2>
+                </div>
+
+                {% set imageNames = ['joker.png','antman.png','blackwidow.png'] %}
+
+                <div class="searchFilm">
+
+                    {% for film in bestRated %}
+                        <div>
+                            <h3>{{ film.title }}</h3>
+                            <p>{{ film.description }}</p>
+                        </div>
+                    {% endfor %}
+                   {# {% for name in imageNames %}
+                        <a href=""><img class="filmSeriesImage" src="{{ asset('/img/'~ name) }}" alt=""></a>
+                    {% endfor %}#}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {# BACKGROUND #}
+    <h1 class="rillettesTitle">
         RILLETTES
     </div>
     <div class="homeLightRond">

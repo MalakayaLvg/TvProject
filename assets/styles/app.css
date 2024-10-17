@@ -1,16 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 
-:root{
-    --background-color : #232323;
-    --red-linear : #FF0000;
-    --orange-linear :#FF8800;
-    --violet-light : rgba(160, 167, 255, 0.28)
+:root {
+    --background-color: #232323;
+    --inputBackground: #4F5169;
+    --red-linear: #FF0000;
+    --orange-linear: #FF8800;
+    --violet-light: rgba(160, 167, 255, 0.28)
 }
 
-body{
+@font-face {
+    font-family: 'Koulen';
+    src: url('/fonts/Koulen.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
     overflow-x: hidden;
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
 
     font-family: "Nunito", sans-serif;
@@ -19,11 +27,87 @@ body{
     font-style: normal;
 }
 
-h1 , h2 ,h3 ,h4 ,h5 ,h6 {
-                  font-family: "Inconsolata", monospace;
-                  font-optical-sizing: auto;
-                  font-weight: bold;
-                  font-style: normal;
-                  font-variation-settings:
-                          "wdth" 100;
-              }
+h1 {
+    font-family: 'Koulen', sans-serif;
+    font-weight: 500;
+
+    letter-spacing: 13px;
+
+}
+
+
+h2, h3, h4, h5, h6 {
+    font-family: "Inconsolata", monospace;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+}
+
+h2 {
+
+    font-size: 29px;
+    color: white;
+}
+
+hr {
+    border: white 1px solid;
+}
+
+nav {
+    height: fit-content;
+    width: 100vw;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 35px;
+    box-sizing: border-box;
+
+    margin-bottom: 11vh;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 47%;
+}
+
+nav li a {
+    text-decoration: none;
+    color: white;
+}
+
+form {
+
+    width: 30%;
+}
+
+input[type='search'] {
+    background: var(--inputBackground);
+    color: white;
+    border: 0;
+    width: 80%;
+
+    border-radius: 11px;
+    padding: 7px 15px;
+    box-sizing: border-box;
+
+}
+
+input[type='search']::placeholder {
+    color: white;
+}
+
+form button {
+
+    outline: 0;
+    border: 0;
+    background: transparent;
+    color: white;
+}
