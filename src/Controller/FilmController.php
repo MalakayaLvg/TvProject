@@ -43,7 +43,7 @@ class FilmController extends AbstractController
         }
         // Si le formulaire est soumis et valide
         $boxOfficeFilms = $filmRepository->findBy(['budget' => ['gte' => 1000000]], ['critical_rate' => 'DESC'], 10);
-         $ratesFilms = $filmRepository->findBy([], ['critical_rate' => 'DESC'], 10);
+        $ratesFilms = $filmRepository->findBy([], ['critical_rate' => 'DESC'], 10);
         $recommendedFilms = $filmRepository->findBy([], ['publish_date' => 'DESC'], 10);
 
         return $this->render('/client/home/index.html.twig', [
