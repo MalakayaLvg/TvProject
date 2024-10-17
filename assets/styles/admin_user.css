@@ -1,0 +1,95 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #2C2D46;
+    color: white;
+}
+
+.navbar {
+    background-color: #E6E6E6;
+    padding: 30px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 5%;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #333;
+    margin-right: 30px;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    color: #FFA500;
+}
+
+.navbar .user-info {
+    font-size: 14px;
+}
+
+.navbar .nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.users-table-container {
+    width: 90%;
+    margin: 0 auto;
+    background-color: #2C2D46;
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 50px;
+
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.users-table th, .users-table td {
+    padding: 20px;
+    border-bottom: 1px solid #606080;
+    text-align: left;
+}
+
+.users-table th {
+    font-weight: bold;
+    background-color: #3A3B5A;
+}
+
+.users-table td {
+    background-color: #2C2D46;
+}
+
+.action-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.action-icons i {
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+}
+
+.action-icons i:hover {
+    color: #FFA500;
+}
+
+.header {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.sort-option {
+    float: right;
+    cursor: pointer;
+}

@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Film;
 use App\Entity\Series;
+
+use App\Form\CommentType;
+>>>>>>> src/Controller/FilmController.php
 use App\Form\FilmType;
 use App\Form\SearchType;
 use App\Repository\FilmRepository;
@@ -24,7 +28,7 @@ class FilmController extends AbstractController
 
         // Initialiser les résultats à vide
         $films = [];
-        $form = $this->createForm(SearchType::class,null,["method"=>'GET']);
+        $form = $this->createForm(SearchType::class, null, ["method" => 'GET']);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $searchTerm = $form->get('query')->getData();
@@ -42,6 +46,7 @@ class FilmController extends AbstractController
                 ->getQuery()
                 ->getResult();
             return $this->render('/client/home/index.html.twig', [
+
                 "films" => $films,
                 "series" => $series,
                 "search"=> true,
@@ -51,7 +56,7 @@ class FilmController extends AbstractController
         }
         // Si le formulaire est soumis et valide
         $boxOfficeFilms = $filmRepository->findBy(['budget' => ['gte' => 1000000]], ['critical_rate' => 'DESC'], 10);
-         $ratesFilms = $filmRepository->findBy([], ['critical_rate' => 'DESC'], 10);
+        $ratesFilms = $filmRepository->findBy([], ['critical_rate' => 'DESC'], 10);
         $recommendedFilms = $filmRepository->findBy([], ['publish_date' => 'DESC'], 10);
 
         return $this->render('/client/home/index.html.twig', [
@@ -68,8 +73,7 @@ class FilmController extends AbstractController
     {
 
 
-
-        return $this->render('/admin/film/index.html.twig',[
+        return $this->render('/admin/film/index.html.twig', [
             "films" => $filmRepository->findAll(),
         ]);
     }
@@ -77,28 +81,29 @@ class FilmController extends AbstractController
     #[Route('/admin/film/create', name: 'app_film_create')]
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
-        if (!$this->isGranted('ROLE_ADMIN')){
+        if (!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_film');
         }
 
         $film = new Film();
-        $form = $this->createForm(FilmType::class,$film);
+        $form = $this->createForm(FilmType::class, $film);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){;
+        if ($form->isSubmitted() && $form->isValid()) {
+            
             $manager->persist($film);
             $manager->flush();
             return $this->redirectToRoute('app_film');
         }
 
-        return $this->render("/admin/film/create.html.twig",[
+        return $this->render("/admin/film/create.html.twig", [
             'form' => $form->createView()
         ]);
     }
 
-    #[Route("/admin/new/delete/{id}", name:'app_film_delete')]
-    public function delete(Film $film, EntityManagerInterface $manager):Response
+    #[Route("/admin/new/delete/{id}", name: 'app_film_delete')]
+    public function delete(Film $film, EntityManagerInterface $manager): Response
     {
-        if (!$this->isGranted('ROLE_ADMIN')){
+        if (!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_film');
         }
 
@@ -109,32 +114,55 @@ class FilmController extends AbstractController
     }
 
     #[Route('/admin/film/edit/{id}', name: 'app_film_edit')]
-    public function edit(Film $film,Request $request, EntityManagerInterface $manager): Response
-    {  if (!$this->isGranted('ROLE_ADMIN')){
-        return $this->redirectToRoute('app_film');
-    }
-        $form = $this->createForm(FilmType::class,$film);
+    public function edit(Film $film, Request $request, EntityManagerInterface $manager): Response
+    {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_film');
+        }
+        $form = $this->createForm(FilmType::class, $film);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){;
+        if ($form->isSubmitted() && $form->isValid()) {
+            ;
             $manager->persist($film);
             $manager->flush();
             return $this->redirectToRoute('app_film');
         }
 
-        return $this->render("/admin/film/create.html.twig",[
+        return $this->render("/admin/film/create.html.twig", [
             'form' => $form->createView(),
             'film' => $film
         ]);
     }
 
-    #[Route('/film/show/{id}', name: 'app_film_show')]
-    public function show(Film $film):Response
+    #[Route('admin/film/show/{id}', name: 'app_admin_film_show')]
+    public function show(Film $film, Request $request, EntityManagerInterface $entityManager): Response
     {
-        return $this->render("/client/film/show.html.twig",[
-            "element" => $film,
-            "type"=> "film"
+ 
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setFilm($film);
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->render("/admin/film/show.html.twig", [
+                "film" => $film,
+                "commentForm" => $form->createView()
+            ]);
+        }
+
+        return $this->render("/admin/film/show.html.twig", [
+            "film" => $film,
+            "commentForm" => $form->createView() 
         ]);
     }
-
-
+ #[Route('/film/show/{id}', name: 'app_film_show')]
+    public function show(Film $film): Response
+    { 
+        return $this->render("/client/film/show.html.twig",[
+            "element" => $film,
+            "type"=> "film"]) 
+    }
 }

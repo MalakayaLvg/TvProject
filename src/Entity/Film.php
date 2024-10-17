@@ -47,6 +47,18 @@ class Film
         $this->watchLists = new ArrayCollection();
     }
 
+    /**
+     * @var Collection<int, Comment>
+     */
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'film')]
+    private Collection $comments;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -143,15 +155,40 @@ class Film
 
         return $this;
     }
-
+ 
     public function removeWatchList(WatchList $watchList): static
     {
         if ($this->watchLists->removeElement($watchList)) {
             $watchList->removeFilm($this);
+ 
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setFilm($this); 
         }
 
         return $this;
     }
+ 
+ 
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getFilm() === $this) {
+                $comment->setFilm(null);
+            }
+        }
 
-
+        return $this;
+    } 
 }
