@@ -43,15 +43,20 @@ class FilmController extends AbstractController
         }
         // Si le formulaire est soumis et valide
         $boxOfficeFilms = $filmRepository->findBy(['budget' => ['gte' => 1000000]], ['critical_rate' => 'DESC'], 10);
+         $ratesFilms = $filmRepository->findBy([], ['critical_rate' => 'DESC'], 10);
         $recommendedFilms = $filmRepository->findBy([], ['publish_date' => 'DESC'], 10);
 
         return $this->render('/client/home/index.html.twig', [
+            'boxOfficeFilms' => $boxOfficeFilms,
+            'recommendedFilms' => $recommendedFilms,
+            'ratesFilms' => $ratesFilms,
             "films" => $boxOfficeFilms,
             "filmsForYou" => $recommendedFilms,
             "bestRated" => [],
             'form' => $form->createView(),
         ]);
     }
+
     #[Route('/admin/film', name: 'app_film_admin')]
     public function indexAdmin(FilmRepository $filmRepository): Response
     {
@@ -62,6 +67,7 @@ class FilmController extends AbstractController
             "films" => $filmRepository->findAll(),
         ]);
     }
+
     #[Route('/admin/film/create', name: 'app_film_create')]
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
@@ -122,4 +128,6 @@ class FilmController extends AbstractController
             "film" => $film
         ]);
     }
+
+
 }
