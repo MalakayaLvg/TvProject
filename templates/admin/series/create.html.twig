@@ -33,13 +33,6 @@
             {{ form_errors(form.critical_rate) }}
         </div>
 
-        <div class="form-group mb-3">
-            {{ form_label(form.seen, 'Avez-vous vu la série ?', {'label_attr': {'class': 'form-check-label'}}) }}
-            <div class="form-check">
-                {{ form_widget(form.seen, {'attr': {'class': 'form-check-input'}}) }}
-                {{ form_errors(form.seen) }}
-            </div>
-        </div>
 
         <button type="submit" class="btn btn-primary">Créer</button>
 

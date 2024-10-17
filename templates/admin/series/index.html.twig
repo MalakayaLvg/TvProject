@@ -15,7 +15,6 @@
                     <th>Description</th>
                     <th>Date de publication</th>
                     <th>Note critique</th>
-                    <th>Vu</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -27,15 +26,14 @@
                         <td>{{ serie.description }}</td>
                         <td>{{ serie.publishDate ? serie.publishDate|date('Y-m-d') : 'N/A' }}</td>
                         <td>{{ serie.criticalRate is not null ? serie.criticalRate : 'Non noté' }}</td>
-                        <td>{{ serie.seen ? 'Oui' : 'Non' }}</td>
                         <td>
-                            <a href="{{ path('app_show', {id: serie.id}) }}" class="btn btn-info btn-sm">Afficher</a>
+                            <a href="{{ path('app_series_show_admin', {id: serie.id}) }}" class="btn btn-info btn-sm">Afficher</a>
 
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <a href="{{ path('watchlist_add_series', {id: serie.id}) }}" class="btn btn-success btn-sm">WatchList</a>
                             {% endif %}
 
-                            <form method="post" action="{{ path('app_delete', {id: serie.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette série ?');" style="display:inline;">
+                            <form method="post" action="{{ path('app_series_delete', {id: serie.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette série ?');" style="display:inline;">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ serie.id) }}">
                             </form>
                         </td>
@@ -47,6 +45,6 @@
             <p>Aucune série n'a encore été créée.</p>
         {% endif %}
 
-        <a href="{{ path('app_create') }}" class="btn btn-primary">Créer une nouvelle série</a>
+        <a href="{{ path('app_series_create') }}" class="btn btn-primary">Créer une nouvelle série</a>
     </div>
 {% endblock %}

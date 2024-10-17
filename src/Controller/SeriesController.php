@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Series;
+use App\Entity\Comment;
 use App\Form\SeriesType;
+use App\Form\CommentType;
 use App\Repository\SeriesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,57 +15,71 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class SeriesController extends AbstractController
 {
-    #[Route('/series', name: 'app_series')]
-    public function index(SeriesRepository $seriesRepository): Response
+    #[Route('admin/series', name: 'app_series_admin')]
+    public function indexAdmin(SeriesRepository $seriesRepository): Response
     {
         $series = $seriesRepository->findAll();
 
         return $this->render('/admin/series/index.html.twig', [
-
             'series' => $series,
         ]);
     }
 
-    #[Route('/series/show/{id}', name: 'app_show', methods: ['GET'])]
-    public function show(Series $series): Response
+    #[Route('admin/series/show/{id}', name: 'app_series_show_admin', methods: ['GET', 'POST'])]
+    public function show(Series $series, Request $request, EntityManagerInterface $entityManager): Response
     {
+
+        $comment = new Comment();
+        $commentForm = $this->createForm(CommentType::class, $comment);
+        $commentForm->handleRequest($request);
+
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment->setSeries($series);
+            $comment->setUserComment($this->getUser());
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_series_show_admin', ['id' => $series->getId()]);
+        }
+
         return $this->render('/admin/series/show.html.twig', [
             'series' => $series,
-            'seasons' => $series->getSeasons()
+            'seasons' => $series->getSeasons(),
+            'commentForm' => $commentForm->createView(),
+            'comments' => $series->getComments(),
         ]);
     }
 
 
-    #[Route('/series/create', name: 'app_create', methods: ['GET', 'POST'])]
-    public function create(Request $request, EntityManagerInterface $manager):Response
+    #[Route('admin/series/create', name: 'app_series_create', methods: ['GET', 'POST'])]
+    public function create(Request $request, EntityManagerInterface $manager): Response
     {
-
         $series = new Series();
         $form =  $this->createForm(SeriesType::class, $series);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
-        {
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($series);
             $manager->flush();
 
-            return $this->redirectToRoute('app_series', ["id"=>$series->getId()]);
+            return $this->redirectToRoute('app_series_admin', ["id" => $series->getId()]);
         }
 
-        return $this->render('/admin/series/create.html.twig',[
-            'form'=>$form->createView()
+        return $this->render('/admin/series/create.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
-    #[Route('/series/delete/{id}', name: 'app_delete', methods: ['POST'])]
+    #[Route('admin/series/delete/{id}', name: 'app_series_delete', methods: ['POST'])]
     public function delete(Series $series, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($series);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_series');
+        return $this->redirectToRoute('app_series_admin');
     }
 
-    #[Route('/series/{id}/edit', name: 'app_edit', methods: ['GET', 'POST'])]
+    #[Route('admin/series/{id}/edit', name: 'app_series_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Series $series, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(SeriesType::class, $series);
@@ -72,7 +88,7 @@ class SeriesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_show', ["id"=>$series->getId()]);
+            return $this->redirectToRoute('app_series_show_admin', ['id' => $series->getId()]);
         }
 
         return $this->render('/admin/series/edit.html.twig', [
@@ -80,6 +96,4 @@ class SeriesController extends AbstractController
             'series' => $series,
         ]);
     }
-
-
 }
