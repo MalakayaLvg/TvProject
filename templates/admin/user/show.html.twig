@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block body %}
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="">Films</a>
+            <a href="">Series</a>
+            <a href="">Comments</a>
+            <a href="">Users</a>
+        </div>
+        <div class="nav-links user-info">
+            <a href="#">User: {{ user.username }}</a>
+        </div>
+    </div>
+
+    <div class="users-table-container">
+        <div class="header">
+            User: {{ user.username }}
+        </div>
+        <p class="fs-5">ID : {{ user.id }}</p>
+        <p class="fs-5">Roles : {{ user.roles|join(', ') }} <a href=""><i class="ms-2 bi bi-pencil fs-4"></i></a></p>
+
+        <div class="header mt-5">Comments :</div>
+        <table class="users-table">
+            <thead>
+            <tr>
+                <th>Film</th>
+                <th>Content</th>
+                <th>CreatedAt</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+        <div class="header mt-5">Rates :</div>
+        <table class="users-table">
+            <thead>
+            <tr>
+                <th>Film</th>
+                <th>Rate</th>
+                <th>CreatedAt</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+            <div class="mt-5 d-flex justify-content-center">
+                <a class="btn btn-danger" href="" type="submit">Delete User</a>
+            </div>
+
+    </div>
+
+{% endblock %}
+
