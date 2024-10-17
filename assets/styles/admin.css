@@ -1,0 +1,27 @@
+.adminBackground {
+    background: #40425F;
+}
+
+h3{
+    color: white;
+    font-size: 22px;
+}
+
+p{
+    color: white;
+}
+
+/* FILM */
+
+.filmCarouselPrincipal{
+    width: 100%;
+    height: 60vh;
+    background-color: black;
+}
+.filmVerticalImage{
+    width: 18vw;
+    height: 33vh;
+    background-color: black;
+}
+
+

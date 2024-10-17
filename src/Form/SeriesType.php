@@ -32,10 +32,6 @@ class SeriesType extends AbstractType
             ->add('critical_rate', IntegerType::class, [
                 'required' => false,
                 'label' => 'Note critique',
-            ])
-            ->add('seen', CheckboxType::class, [
-                'required' => false,
-                'label' => 'Vu',
             ]);
     }
 

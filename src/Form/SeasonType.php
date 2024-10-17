@@ -20,7 +20,6 @@ class SeasonType extends AbstractType
             ->add('description')
             ->add('publish_date')
             ->add('number')
-            ->add('seen')
             ->add('series', EntityType::class, [
                 'class' => Series::class,
                 'choice_label' => 'title',
