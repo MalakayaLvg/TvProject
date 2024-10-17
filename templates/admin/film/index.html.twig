@@ -4,48 +4,53 @@
 
 {% block body %}
 <div class="adminBackground min-vh-100">
-<div class="container">
 
+    {% include 'admin/navbar/navbar.html.twig' %}
 
     <a class="btn btn-primary my-2" href="{{ path('app_search') }}">rechercher film</a>
+    <div class="container">
 
-    <div class="d-flex justify-content-around m-4">
-        <h3>All films: XXXX</h3>
-        <h3>Sort by : Date</h3>
-        <a class="btn btn-warning" href="{{ path("app_film_create") }}">create</a>
-    </div>
-
-    <table class="table w-100 my-4">
-        <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Titre</th>
-            <th scope="col">Categorie</th>
-            <th scope="col">Description</th>
-            <th scope="col">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for film in films %}
-        <tr>
-            <th scope="row">{{ film.id }}</th>
-            <td>{{ film.title }}</td>
-            <td>film.category</td>
-            <td>{{ film.description }}</td>
-            <td>
+        <div class="users-table-container">
+            <div class="header d-flex justify-content-between">
+                All films: {{ films|length }}
                 <div>
-                    <a class="btn" href="{{ path("app_film_show",{id:film.id}) }}"><i class="bi bi-eye"></i></a>
-                    <a class="btn" href="{{ path("app_film_delete",{id:film.id}) }}"><i class="bi bi-trash"></i></a>
-                    <a class="btn" href="{{ path("app_film_edit", {id:film.id}) }}"><i class="bi bi-pencil"></i></a>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Sort by</option>
+                        <option value="1">ID</option>
+                        <option value="2">Title</option>
+                        <option value="3">Rate</option>
+                    </select>
                 </div>
-            </td>
-        </tr>
-        {% endfor %}
+                <a class="btn btn-warning" href="{{ path('app_film_create') }}">Add film</a>
+            </div>
 
-        </tbody>
-    </table>
-
-
-</div>
+            <table class="users-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for film in films %}
+                    <tr>
+                        <td>{{ film.id }}</td>
+                        <td>{{ film.title }}</td>
+                        <td>{{ film.description }}</td>
+                        <td>Category</td>
+                        <td>
+                            <a href="{{ path('app_film_show', {id: film.id}) }}"><i class="bi bi-eye p-2"></i></a>
+                            <a href="{{ path('app_film_edit', {id: film.id}) }}"><i class="bi bi-pencil p-2"></i></a>
+                            <a href="{{ path('app_film_delete', {id: film.id}) }}"><i class="bi bi-trash p-2"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}
