@@ -3,24 +3,14 @@
 {% block title %}User Profile{% endblock %}
 
 {% block body %}
-    <div class="navbar">
-        <div class="nav-links">
-            <a href="">Films</a>
-            <a href="">Series</a>
-            <a href="">Comments</a>
-            <a href="">Users</a>
-        </div>
-        <div class="nav-links user-info">
-            <a href="#">User: {{ user.username }}</a>
-        </div>
-    </div>
+    {% include 'admin/navbar_admin/navbar_admin.html.twig' with {user:app.user} %}
 
     <div class="users-table-container">
         <div class="header">
             User: {{ user.username }}
         </div>
         <p class="fs-5">ID : {{ user.id }}</p>
-        <p class="fs-5">Roles : {{ user.roles|join(', ') }} <a href=""><i class="ms-2 bi bi-pencil fs-4"></i></a></p>
+        <p class="fs-5">Roles : {{ user.roles|join(', ') }} <a href="{{ path("app_user_admin_edit", {id:user.id}) }}"><i class="ms-2 bi bi-pencil fs-4 text-white"></i></a></p>
 
         <div class="header mt-5">Comments :</div>
         <table class="users-table">
@@ -52,11 +42,22 @@
             </tbody>
         </table>
 
-            <div class="mt-5 d-flex justify-content-center">
-                <a class="btn btn-danger" href="" type="submit">Delete User</a>
-            </div>
+
+
+
 
     </div>
+
+    <div class="mt-5 d-flex justify-content-center">
+        {{ form_start(delete_form) }}
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+        <input type="submit" value="Delete User" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">
+        {{ form_end(delete_form, {'render_rest': false}) }}
+    </div>
+
+
+
+
 
 {% endblock %}
 

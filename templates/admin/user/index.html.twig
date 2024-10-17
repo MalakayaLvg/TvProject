@@ -3,18 +3,7 @@
 {% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
-    <div class="navbar">
-        <div class="nav-links">
-            <a href="">Films</a>
-            <a href="">Series</a>
-            <a href="">Comments</a>
-            <a href="">Users</a>
-        </div>
-        <div class="nav-links">
-            <a href="">User: nomuser | Role: admin</a>
-        </div>
-    </div>
-
+    {% include 'admin/navbar_admin/navbar_admin.html.twig' with {user:app.user} %}
 
     <div class="users-table-container">
         <div class="header">
@@ -43,9 +32,6 @@
                         <div class="action-icons">
                             <a href="{{ path("app_user_admin_show", {id: user.id}) }}">
                                 <i class="bi bi-eye fs-2 me-3"></i>
-                            </a>
-                            <a href="">
-                                <i class="bi bi-trash fs-2"></i>
                             </a>
                         </div>
                     </td>
