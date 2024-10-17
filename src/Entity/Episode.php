@@ -14,7 +14,7 @@ class Episode
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -23,8 +23,6 @@ class Episode
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $publish_date = null;
 
-    #[ORM\Column]
-    private ?bool $seen = null;
 
     #[ORM\ManyToOne(inversedBy: 'episodes')]
     private ?Season $season = null;
@@ -73,17 +71,7 @@ class Episode
         return $this;
     }
 
-    public function isSeen(): ?bool
-    {
-        return $this->seen;
-    }
 
-    public function setSeen(bool $seen): static
-    {
-        $this->seen = $seen;
-
-        return $this;
-    }
 
     public function getSeason(): ?Season
     {

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Film;
 use App\Form\FilmType;
+use App\Form\SearchType;
 use App\Repository\FilmRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,20 +15,43 @@ use Symfony\Component\Routing\Attribute\Route;
 class FilmController extends AbstractController
 {
     #[Route('/film', name: 'app_film')]
-    public function index(FilmRepository $filmRepository): Response
+    public function index(FilmRepository $filmRepository, Request $request, EntityManagerInterface $manager): Response
     {
 
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
 
+        // Initialiser les résultats à vide
+        $films = [];
+        $form = $this->createForm(SearchType::class,null,["method"=>'GET']);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $searchTerm = $form->get('query')->getData();
+
+            $films = $manager->getRepository(Film::class)
+                ->createQueryBuilder('p')
+                ->where('p.title LIKE :searchTerm OR p.description LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%')
+                ->getQuery()
+                ->getResult();
+            return $this->render('/client/home/index.html.twig', [
+                "films" => $filmRepository->findAll(),
+                "search"=> true,
+                'form' => $form->createView(),
+            ]);
+
+        }
+        // Si le formulaire est soumis et valide
         $boxOfficeFilms = $filmRepository->findBy(['budget' => ['gte' => 1000000]], ['critical_rate' => 'DESC'], 10);
-        $recommendedFilms = $filmRepository->findBy(['seen' => false], ['publish_date' => 'DESC'], 10);
-
+        $recommendedFilms = $filmRepository->findBy([], ['publish_date' => 'DESC'], 10);
 
         return $this->render('/client/home/index.html.twig', [
-            'boxOfficeFilms' => $boxOfficeFilms,
-            'recommendedFilms' => $recommendedFilms,
+            "films" => $boxOfficeFilms,
+            "filmsForYou" => $recommendedFilms,
+            "bestRated" => [],
+            'form' => $form->createView(),
         ]);
     }
-
     #[Route('/admin/film', name: 'app_film_admin')]
     public function indexAdmin(FilmRepository $filmRepository): Response
     {
@@ -38,7 +62,6 @@ class FilmController extends AbstractController
             "films" => $filmRepository->findAll(),
         ]);
     }
-
     #[Route('/admin/film/create', name: 'app_film_create')]
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
@@ -75,11 +98,9 @@ class FilmController extends AbstractController
 
     #[Route('/admin/film/edit/{id}', name: 'app_film_edit')]
     public function edit(Film $film,Request $request, EntityManagerInterface $manager): Response
-    {
-        if (!$this->isGranted('ROLE_ADMIN')){
-            return $this->redirectToRoute('app_film');
-        }
-
+    {  if (!$this->isGranted('ROLE_ADMIN')){
+        return $this->redirectToRoute('app_film');
+    }
         $form = $this->createForm(FilmType::class,$film);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){;
@@ -101,6 +122,4 @@ class FilmController extends AbstractController
             "film" => $film
         ]);
     }
-
-
 }

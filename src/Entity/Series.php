@@ -16,7 +16,7 @@ class Series
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -28,8 +28,7 @@ class Series
     #[ORM\Column(nullable: true)]
     private ?int $critical_rate = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $seen = null;
+
 
     /**
      * @var Collection<int, Season>
@@ -95,17 +94,7 @@ class Series
         return $this;
     }
 
-    public function isSeen(): ?bool
-    {
-        return $this->seen;
-    }
 
-    public function setSeen(?bool $seen): static
-    {
-        $this->seen = $seen;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Season>
