@@ -18,9 +18,9 @@
                     <a class="{{ route == '/profile/watchlist' ? "focus" : "" }}" href="">Watch list</a>
                 </li>
                 <li>
-                    <a  class="{{ route == '/profile/comments' ? "focus" : "" }}" href="">Comments</a>
+                    <a class="{{ route == '/profile/comments' ? "focus" : "" }}" href="">Comments</a>
                 </li>
-                <li><a  class="{{ route == '/profile/friends' ? "focus" : "" }}" href="">Friends</a></li>
+                <li><a class="{{ route == '/profile/friends' ? "focus" : "" }}" href="">Friends</a></li>
             </ul>
         </nav>
         <form action="">
@@ -59,14 +59,14 @@
                 </div>
                 <a href="{{ path('watchlist_delete_film',{'id':film.id}) }}">remove</a>
 
-            {% endfor %}  {% for series in watchList.series %}
+            {% endfor %}
+            {% for series in watchList.series %}
 
             <div>
                 <h3>{{ series.title }}</h3>
                 <p> {{ series.description }}</p>
             </div>
-            <a href="{{ path('watchlist_delete_series',{'id':film.id}) }}">remove</a>
-
+            <a href="{{ path('watchlist_delete_film',{'id':series.id}) }}">remove</a>
         {% endfor %}
         {% endif %}
         {% if route == '/profile/comments' %}
