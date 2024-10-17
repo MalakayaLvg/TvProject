@@ -1,24 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Film show{% endblock %}
+{% block title %}Détails du film - {{ film.title }}{% endblock %}
 
 {% block body %}
+    <div class="container mt-3">
+        <h1 class="my-4 text-center">Détails du film : <span class="text-primary">{{ film.title }}</span></h1>
 
-    <div class="form-control">
-        <h3>title : {{ film.title }}</h3>
-        <h3>description : {{ film.description }}</h3>
-        <h3>date de publication : {{ film.publishDate|date('Y-m-d')}}</h3>
-        <h3>durée : {{ film.runtime }}</h3>
-        <h3>note : {{ film.criticalRate}}</h3>
-        <h3>vu : {{ film.seen ? 'Oui' : 'Non' }}</h3>
-        <div class="form-control">
-            <a class="btn btn-danger" href="{{ path("app_film_delete",{id:film.id}) }}">delete</a>
-            <a class="btn btn-warning" href="{{ path("app_film_edit",{id:film.id}) }}">edit</a>
-            <a class="btn btn-primary" href="{{ path("app_film") }}">back</a>
+        <div class="d-flex justify-content-between mb-4">
+            <a href="{{ path('app_film') }}" class="btn btn-secondary">Retour à la liste des films</a>
+            <form method="post" action="{{ path('app_film_delete', {id: film.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce film ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ film.id) }}">
+                <button class="btn btn-danger">Supprimer le film</button>
+                <a href="{{ path('app_film_edit', {id: film.id}) }}" class="btn btn-warning">Éditer le film</a>
+            </form>
+        </div>
+
+        <table class="table table-hover table-striped border">
+            <tbody>
+            <tr>
+                <th scope="row">ID</th>
+                <td>{{ film.id }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Titre</th>
+                <td>{{ film.title }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Description</th>
+                <td>{{ film.description }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Date de publication</th>
+                <td>{{ film.publishDate ? film.publishDate|date('Y-m-d') : 'N/A' }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Durée</th>
+                <td>{{ film.runtime }} minutes</td>
+            </tr>
+            <tr>
+                <th scope="row">Note critique</th>
+                <td>{{ film.criticalRate is not null ? film.criticalRate : 'Non noté' }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h2 class="my-4">Commentaires</h2>
+
+        <div class="comments-section mb-5">
+            {% if film.comments is not empty %}
+                <ul class="list-group">
+                    {% for comment in film.comments %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start bg-light mb-3 rounded">
+                            <div class="comment-body">
+                                <p class="mb-2">{{ comment.content }}</p>
+                                <small class="text-muted">Posté le {{ comment.createdAt|date('Y-m-d H:i') }}</small>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="alert alert-info">Aucun commentaire pour ce film.</div>
+            {% endif %}
         </div>
 
 
     </div>
-
-
 {% endblock %}

@@ -1,0 +1,13 @@
+<h3 class="my-4">Ajouter un commentaire</h3>
+<div class="card mb-4 shadow-sm">
+    <div class="card-body">
+        {{ form_start(commentForm) }}
+        <div class="mb-3">
+            {{ form_row(commentForm.content, {'attr': {'class': 'form-control', 'placeholder': 'Votre commentaire'}}) }}
+        </div>
+        <button class="btn btn-primary">
+            <i class="fas fa-paper-plane"></i> Poster
+        </button>
+        {{ form_end(commentForm) }}
+    </div>
+</div>

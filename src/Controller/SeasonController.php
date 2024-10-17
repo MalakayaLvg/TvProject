@@ -22,6 +22,14 @@ class SeasonController extends AbstractController
         ]);
     }
 
+    #[Route('admin/season/show/{id}', name: 'app_season_show', methods: ['GET'])]
+    public function showAdmin(Season $season): Response
+    {
+        return $this->render('/admin/season/show.html.twig', [
+            'season' => $season,
+        ]);
+    }
+
 
     #[Route('admin/season/create/{series}', name: 'app_season_create', methods: ['GET', 'POST'])]
     public function create(Request $request, EntityManagerInterface $manager, Series $series): Response
@@ -35,7 +43,7 @@ class SeasonController extends AbstractController
             $manager->persist($season);
             $manager->flush();
 
-            return $this->redirectToRoute('app_show', ['id' => $series->getId()]);
+            return $this->redirectToRoute('app_series_show_admin', ['id' => $series->getId()]);
         }
 
         return $this->render('/admin/season/create.html.twig', [
@@ -53,7 +61,7 @@ class SeasonController extends AbstractController
             $entityManager->flush();
 
             if ($series) {
-                return $this->redirectToRoute('app_show', ['id' => $series->getId()]);
+                return $this->redirectToRoute('app_series_show_admin', ['id' => $series->getId()]);
             }
         }
         return $this->redirectToRoute('app_series');

@@ -33,14 +33,6 @@
         </div>
 
         <div class="form-group mb-3">
-            {{ form_label(form.seen, 'Avez-vous vu cet épisode ?', {'label_attr': {'class': 'form-check-label'}}) }}
-            <div class="form-check">
-                {{ form_widget(form.seen, {'attr': {'class': 'form-check-input'}}) }}
-                {{ form_errors(form.seen) }}
-            </div>
-        </div>
-
-        <div class="form-group mb-3">
             {{ form_label(form.season, 'Saison associée', {'label_attr': {'class': 'form-label'}}) }}
             {{ form_widget(form.season, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.season) }}

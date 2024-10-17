@@ -21,7 +21,6 @@ class EpisodeType extends AbstractType
                 'widget' => 'single_text',
                 'label' => 'Date de publication',
             ])
-            ->add('seen')
             ->add('number')
             ->add('season', EntityType::class, [
                 'class' => Season::class,
