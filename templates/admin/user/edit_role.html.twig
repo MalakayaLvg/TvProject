@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Roles{% endblock %}
+
+{% block body %}
+    {% include 'admin/navbar_admin/navbar_admin.html.twig' with {user:app.user} %}
+
+    <div class="users-table-container" style="text-align: center; padding: 50px; background-color: #2C2D46; border-radius: 10px;">
+        <h2 style="color: white;">User : {{ user.username }}</h2>
+
+        <div style="border: 1px solid #606080; padding: 30px; margin: 20px auto; width: 50%; border-radius: 10px; background-color: #3A3B5A;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
+                <span style="color: white; font-size: 1.2em;">Role :</span>
+                {{ form_start(form, {'method': 'POST'}) }}
+                <div style="color: white; font-size: 1.2em;">
+                    {{ form_widget(form.role, { 'attr': { 'class': 'role-select' } }) }}
+                </div>
+
+            </div>
+            <div class="mt-3">
+                {{ form_widget(form.save, {
+                    'attr': {
+                        'class': 'btn-confirm',
+                        'style': 'background-color: orange; color: white; font-size: 1.1em; padding: 10px 20px; border-radius: 5px; border: none;'
+                    }
+                }) }}
+            </div>
+
+
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <div class="mt-4 d-flex justify-content-center">
+        <a class="btn btn-danger" href="{{ path("app_user_admin_show", {id:user.id}) }}">
+            Retour
+        </a>
+    </div>
+{% endblock %}
+
