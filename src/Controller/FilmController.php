@@ -6,8 +6,7 @@ use App\Entity\Comment;
 use App\Entity\Film;
 use App\Entity\Series;
 
-use App\Form\CommentType;
->>>>>>> src/Controller/FilmController.php
+use App\Form\CommentType; 
 use App\Form\FilmType;
 use App\Form\SearchType;
 use App\Repository\FilmRepository;
