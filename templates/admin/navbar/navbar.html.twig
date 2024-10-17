@@ -1,11 +1,11 @@
 <div class="navbar">
     <div class="nav-links">
-        <a href="">Films</a>
-        <a href="">Series</a>
-        <a href="">Comments</a>
-        <a href="">Users</a>
+        <a href="{{ path("app_film_admin") }}">Films</a>
+        <a href="{{ path("app_series") }}">Series</a>
+        <a href="#">Comments</a>
+        <a href="{{ path("app_user") }}">Users</a>
     </div>
     <div class="nav-links">
-        <a href="">User: nomuser | Role: admin</a>
+        <a href="">User: {{ app.user.username }} | Role: Admin </a>
     </div>
 </div>

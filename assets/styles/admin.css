@@ -24,4 +24,93 @@ p{
     background-color: black;
 }
 
+/* ADD FILM */
+.formContainer {
+    background-color: #414868;
+    padding: 20px;
+    border-radius: 10px;
+    width: 600px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: #61677c;
+    color: white;
+    outline: none;
+}
+
+textarea {
+    height: 100px;
+}
+
+.platforms {
+    display: flex;
+    justify-content: space-between;
+}
+
+.platform-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.platform-column label {
+    margin-bottom: 5px;
+}
+
+.image-upload {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.image-box {
+    width: 150px;
+    height: 150px;
+    background-color: #d3d3d3;
+    border: 2px dashed white;
+    margin-right: 10px;
+}
+
+.image-box.horizontal {
+    width: 300px;
+    height: 150px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-btn {
+    margin-top: 20px;
+    background-color: #ffa500;
+    color: black;
+    font-weight: bold;
+    width: 150px;
+    align-self: center;
+}
 

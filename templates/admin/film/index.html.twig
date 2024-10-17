@@ -7,7 +7,6 @@
 
     {% include 'admin/navbar/navbar.html.twig' %}
 
-    <a class="btn btn-primary my-2" href="{{ path('app_search') }}">rechercher film</a>
     <div class="container">
 
         <div class="users-table-container">
@@ -39,8 +38,8 @@
                     <tr>
                         <td>{{ film.id }}</td>
                         <td>{{ film.title }}</td>
+                        <td>category</td>
                         <td>{{ film.description }}</td>
-                        <td>Category</td>
                         <td>
                             <a href="{{ path('app_film_show', {id: film.id}) }}"><i class="bi bi-eye p-2"></i></a>
                             <a href="{{ path('app_film_edit', {id: film.id}) }}"><i class="bi bi-pencil p-2"></i></a>
