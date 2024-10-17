@@ -36,12 +36,17 @@ class Series
     #[ORM\OneToMany(targetEntity: Season::class, mappedBy: 'series', cascade: ['remove'])]
     private Collection $seasons;
 
-    #[ORM\ManyToOne(inversedBy: 'series')]
-    private ?WatchList $watchList = null;
+    /**
+     * @var Collection<int, WatchList>
+     */
+    #[ORM\ManyToMany(targetEntity: WatchList::class, mappedBy: 'series')]
+    private Collection $watchLists;
+
 
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
+        $this->watchLists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -129,15 +134,32 @@ class Series
         return $this;
     }
 
-    public function getWatchList(): ?WatchList
+    /**
+     * @return Collection<int, WatchList>
+     */
+    public function getWatchLists(): Collection
     {
-        return $this->watchList;
+        return $this->watchLists;
     }
 
-    public function setWatchList(?WatchList $watchList): static
+    public function addWatchList(WatchList $watchList): static
     {
-        $this->watchList = $watchList;
+        if (!$this->watchLists->contains($watchList)) {
+            $this->watchLists->add($watchList);
+            $watchList->addSeries($this);
+        }
 
         return $this;
     }
+
+    public function removeWatchList(WatchList $watchList): static
+    {
+        if ($this->watchLists->removeElement($watchList)) {
+            $watchList->removeSeries($this);
+        }
+
+        return $this;
+    }
+
+
 }

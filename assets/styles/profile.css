@@ -1,0 +1,129 @@
+.profileContainer{
+    display: flex;
+    flex-direction: row;
+    background: #5F5F5F;
+}
+
+.profileContainer .leftForm{
+    display: flex;
+flex-direction: column;
+    justify-content: space-between;
+    width: 40%;
+
+    padding: 10px 50px;
+    box-sizing: border-box;
+
+}
+
+
+.profileNav{
+    padding: 30px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.profileNav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 47%;
+}
+
+.profileNav li a {
+    text-decoration: none;
+    color: white;
+}
+.profileNav li .focus{
+    color: var(--orange);
+}
+
+.leftForm form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap : 20px
+}
+.leftForm .names{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+.leftForm form .firstname
+,.leftForm form .lastname
+,.leftForm form .phone
+,.leftForm form .email{
+position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.leftForm form .firstname
+,.leftForm form .lastname{
+    width: 48%;
+}
+.leftForm label{
+    position: absolute;
+    left: 20px;
+    top: 0%;
+    transform: translate(0, -50%);
+    padding: 0px 20px;
+    background: #5F5F5F;
+    color: #B5B5B5;
+}
+.leftForm input{
+    background: #5F5F5F;
+    border: 2px solid #B5B5B5;
+
+    border-radius: 11px;
+    padding: 8px 30px;
+
+}
+.leftForm .buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+/*===========================right =====================*/
+.profileContainer .right{
+
+    display: flex;
+    flex-direction: column;
+    background: var(--background-color);
+
+    width: 60%;
+    height: 100vh;
+    overflow-y: scroll;
+    color: white;
+
+    padding: 50px;box-sizing: border-box;
+
+}
+
+
+    /* width */
+.profileContainer .right::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.profileContainer .right::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+/* Handle */
+.profileContainer .right::-webkit-scrollbar-thumb {
+    background: #5F5F5F;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.profileContainer .right::-webkit-scrollbar-thumb:hover {
+    background: #5F5F5F;
+}

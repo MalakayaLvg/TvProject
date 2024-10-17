@@ -36,16 +36,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    /**
-     * @var Collection<int, WatchList>
-     */
-    #[ORM\OneToMany(targetEntity: WatchList::class, mappedBy: 'watchListUser')]
-    private Collection $watchLists;
+    #[ORM\OneToOne(mappedBy: 'owner', cascade: ['persist', 'remove'])]
+    private ?WatchList $watchList = null;
+
+
 
     public function __construct()
     {
-        $this->watchLists = new ArrayCollection();
-    }
+        }
 
     public function getId(): ?int
     {
@@ -75,7 +73,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see UserInterface
+     * @see UserIntface
      *
      * @return list<string>
      */
@@ -122,33 +120,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    /**
-     * @return Collection<int, WatchList>
-     */
-    public function getWatchLists(): Collection
+    public function getWatchList(): ?WatchList
     {
-        return $this->watchLists;
+        return $this->watchList;
     }
 
-    public function addWatchList(WatchList $watchList): static
+    public function setWatchList(WatchList $watchList): static
     {
-        if (!$this->watchLists->contains($watchList)) {
-            $this->watchLists->add($watchList);
-            $watchList->setWatchListUser($this);
+        // set the owning side of the relation if necessary
+        if ($watchList->getOwner() !== $this) {
+            $watchList->setOwner($this);
         }
+
+        $this->watchList = $watchList;
 
         return $this;
     }
 
-    public function removeWatchList(WatchList $watchList): static
-    {
-        if ($this->watchLists->removeElement($watchList)) {
-            // set the owning side to null (unless already changed)
-            if ($watchList->getWatchListUser() === $this) {
-                $watchList->setWatchListUser(null);
-            }
-        }
 
-        return $this;
-    }
+
 }

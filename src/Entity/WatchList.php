@@ -15,45 +15,65 @@ class WatchList
     #[ORM\Column]
     private ?int $id = null;
 
+
+
+    #[ORM\OneToOne(inversedBy: 'watchList', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $owner = null;
+
     /**
      * @var Collection<int, Film>
      */
-    #[ORM\OneToMany(targetEntity: Film::class, mappedBy: 'watchList')]
-    private Collection $film;
+    #[ORM\ManyToMany(targetEntity: Film::class, inversedBy: 'watchLists')]
+    private Collection $films;
 
     /**
      * @var Collection<int, Series>
      */
-    #[ORM\OneToMany(targetEntity: Series::class, mappedBy: 'watchList')]
+    #[ORM\ManyToMany(targetEntity: Series::class, inversedBy: 'watchLists')]
     private Collection $series;
-
-    #[ORM\ManyToOne(inversedBy: 'watchLists')]
-    private ?User $watchListUser = null;
 
     public function __construct()
     {
-        $this->film = new ArrayCollection();
+        $this->films = new ArrayCollection();
         $this->series = new ArrayCollection();
     }
+
+
+
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(User $owner): static
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Film>
      */
-    public function getFilm(): Collection
+    public function getFilms(): Collection
     {
-        return $this->film;
+        return $this->films;
     }
 
     public function addFilm(Film $film): static
     {
-        if (!$this->film->contains($film)) {
-            $this->film->add($film);
-            $film->setWatchList($this);
+        if (!$this->films->contains($film)) {
+            $this->films->add($film);
         }
 
         return $this;
@@ -61,12 +81,7 @@ class WatchList
 
     public function removeFilm(Film $film): static
     {
-        if ($this->film->removeElement($film)) {
-            // set the owning side to null (unless already changed)
-            if ($film->getWatchList() === $this) {
-                $film->setWatchList(null);
-            }
-        }
+        $this->films->removeElement($film);
 
         return $this;
     }
@@ -83,7 +98,6 @@ class WatchList
     {
         if (!$this->series->contains($series)) {
             $this->series->add($series);
-            $series->setWatchList($this);
         }
 
         return $this;
@@ -91,25 +105,10 @@ class WatchList
 
     public function removeSeries(Series $series): static
     {
-        if ($this->series->removeElement($series)) {
-            // set the owning side to null (unless already changed)
-            if ($series->getWatchList() === $this) {
-                $series->setWatchList(null);
-            }
-        }
+        $this->series->removeElement($series);
 
         return $this;
     }
 
-    public function getWatchListUser(): ?User
-    {
-        return $this->watchListUser;
-    }
 
-    public function setWatchListUser(?User $watchListUser): static
-    {
-        $this->watchListUser = $watchListUser;
-
-        return $this;
-    }
 }

@@ -6,6 +6,7 @@
     --inputBackground: #4F5169;
     --red-linear: #FF0000;
     --orange-linear: #FF8800;
+    --orange: #FFA10A;
     --violet-light: rgba(160, 167, 255, 0.28)
 }
 
@@ -45,6 +46,14 @@ h2, h3, h4, h5, h6 {
 }
 
 h2 {
+    text-transform: uppercase;
+    font-size: 100px;
+    letter-spacing: 4px;
+    color: white;
+
+}
+
+h3 {
 
     font-size: 29px;
     color: white;
@@ -54,60 +63,28 @@ hr {
     border: white 1px solid;
 }
 
-nav {
-    height: fit-content;
-    width: 100vw;
-    color: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 22px 35px;
-    box-sizing: border-box;
 
-    margin-bottom: 11vh;
-}
-
-nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    width: 47%;
-}
-
-nav li a {
+.button1 {
     text-decoration: none;
-    color: white;
-}
-
-form {
-
-    width: 30%;
-}
-
-input[type='search'] {
-    background: var(--inputBackground);
-    color: white;
-    border: 0;
-    width: 80%;
-
-    border-radius: 11px;
-    padding: 7px 15px;
+    color: black;
+    background: white;
+    border-radius: 10px;
     box-sizing: border-box;
-
+    padding: 8px;
+    z-index: 1;
 }
-
-input[type='search']::placeholder {
-    color: white;
+.button1:hover{
+    background: #fff8f3;
 }
-
-form button {
-
-    outline: 0;
-    border: 0;
-    background: transparent;
-    color: white;
+.button2 {
+    text-decoration: none;
+    color: black;
+    background: var(--orange);
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 8px;
+    z-index: 1;
+}
+.button2:hover{
+    background:#f3ab37;
 }

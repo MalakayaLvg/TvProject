@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Film;
+use App\Entity\Series;
 use App\Form\FilmType;
 use App\Form\SearchType;
 use App\Repository\FilmRepository;
@@ -34,8 +35,15 @@ class FilmController extends AbstractController
                 ->setParameter('searchTerm', '%' . $searchTerm . '%')
                 ->getQuery()
                 ->getResult();
+            $series = $manager->getRepository(Series::class)
+                ->createQueryBuilder('s')
+                ->where('s.title LIKE :searchTerm OR s.description LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%')
+                ->getQuery()
+                ->getResult();
             return $this->render('/client/home/index.html.twig', [
-                "films" => $filmRepository->findAll(),
+                "films" => $films,
+                "series" => $series,
                 "search"=> true,
                 'form' => $form->createView(),
             ]);
@@ -47,12 +55,10 @@ class FilmController extends AbstractController
         $recommendedFilms = $filmRepository->findBy([], ['publish_date' => 'DESC'], 10);
 
         return $this->render('/client/home/index.html.twig', [
-            'boxOfficeFilms' => $boxOfficeFilms,
-            'recommendedFilms' => $recommendedFilms,
-            'ratesFilms' => $ratesFilms,
-            "films" => $boxOfficeFilms,
+               "films" => $boxOfficeFilms,
             "filmsForYou" => $recommendedFilms,
-            "bestRated" => [],
+            "bestRated" => $ratesFilms,
+            'type'=>'film',
             'form' => $form->createView(),
         ]);
     }
@@ -124,8 +130,9 @@ class FilmController extends AbstractController
     #[Route('/film/show/{id}', name: 'app_film_show')]
     public function show(Film $film):Response
     {
-        return $this->render("/admin/film/show.html.twig",[
-            "film" => $film
+        return $this->render("/client/film/show.html.twig",[
+            "element" => $film,
+            "type"=> "film"
         ]);
     }
 

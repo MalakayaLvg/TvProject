@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FilmRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -27,15 +29,23 @@ class Film
     private ?int $runtime = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $critical_rate = null;
+    private ?float $critical_rate = null;
 
 
 
     #[ORM\Column]
     private ?int $budget = null;
 
-    #[ORM\ManyToOne(inversedBy: 'film')]
-    private ?WatchList $watchList = null;
+    /**
+     * @var Collection<int, WatchList>
+     */
+    #[ORM\ManyToMany(targetEntity: WatchList::class, mappedBy: 'films')]
+    private Collection $watchLists;
+
+    public function __construct()
+    {
+        $this->watchLists = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -116,15 +126,32 @@ class Film
         return $this;
     }
 
-    public function getWatchList(): ?WatchList
+    /**
+     * @return Collection<int, WatchList>
+     */
+    public function getWatchLists(): Collection
     {
-        return $this->watchList;
+        return $this->watchLists;
     }
 
-    public function setWatchList(?WatchList $watchList): static
+    public function addWatchList(WatchList $watchList): static
     {
-        $this->watchList = $watchList;
+        if (!$this->watchLists->contains($watchList)) {
+            $this->watchLists->add($watchList);
+            $watchList->addFilm($this);
+        }
 
         return $this;
     }
+
+    public function removeWatchList(WatchList $watchList): static
+    {
+        if ($this->watchLists->removeElement($watchList)) {
+            $watchList->removeFilm($this);
+        }
+
+        return $this;
+    }
+
+
 }

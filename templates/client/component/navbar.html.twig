@@ -1,4 +1,4 @@
-<nav>
+<nav class="mainNav">
     {{ form_start(form, { 'method':'get'}) }}
 
     {{ form_widget(form.query, {'attr': {'placeholder': 'Rechercher...'}}) }}
@@ -11,13 +11,37 @@
             <a href="{{ path('app_film') }}">
                 Films
             </a>
-        </li>  <li>
-            <a href="">
-                Categories
+        </li> <li>
+            <a href="{{ path('app_client_series') }}">
+                Series
             </a>
         </li>
+{% if app.user %}
+        {% if 'ROLE_MODERATOR' in  app.user.roles %}<li>
+            <a href="{{ path('app_moderator') }}">
+                Moderator
+            </a>
+        </li>
+        {% endif %}
+        {% if 'ROLE_ADMIN' in  app.user.roles %}<li>
+            <a href="{{ path('app_film_admin') }}">
+                Admin
+            </a>
+        </li>
+        {% endif %}
+        {% endif %}
+
     </ul>
     <div>
-        client
+        {% if app.user %}
+        <a href="{{ path('app_profile_watchlist') }}"><svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="60" height="60" rx="30" fill="#FFA10A"/>
+                <path d="M16 40.5C16 38.6435 16.7525 36.863 18.0921 35.5503C19.4316 34.2375 21.2485 33.5 23.1429 33.5H37.4286C39.323 33.5 41.1398 34.2375 42.4793 35.5503C43.8189 36.863 44.5714 38.6435 44.5714 40.5C44.5714 41.4283 44.1952 42.3185 43.5254 42.9749C42.8556 43.6313 41.9472 44 41 44H19.5714C18.6242 44 17.7158 43.6313 17.046 42.9749C16.3763 42.3185 16 41.4283 16 40.5Z" stroke="white" stroke-width="3" stroke-linejoin="round"/>
+                <path d="M30.2859 26.5C33.2445 26.5 35.643 24.1495 35.643 21.25C35.643 18.3505 33.2445 16 30.2859 16C27.3272 16 24.9287 18.3505 24.9287 21.25C24.9287 24.1495 27.3272 26.5 30.2859 26.5Z" stroke="white" stroke-width="3"/>
+            </svg>
+        </a>
+        {% else %}
+            <a href="{{ path('app_login') }}" class="button1">Connexion</a>
+        {% endif %}
     </div>
 </nav>
