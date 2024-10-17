@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Series;
-use App\Entity\Comment;
+use App\Entity\Film;
+use App\Entity\Series;  
 use App\Form\SeriesType;
-use App\Form\CommentType;
+use App\Repository\FilmRepository; 
+use App\Entity\Comment; 
+use App\Form\CommentType; 
 use App\Repository\SeriesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,9 +16,66 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class SeriesController extends AbstractController
-{
+{ 
+
+    #[Route('/series', name: 'app_client_series')]
+    public function getseriesForClient(SeriesRepository $seriesRepository, Request $request, EntityManagerInterface $manager): Response
+    {
+
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+
+        // Initialiser les résultats à vide
+        $films = [];
+        $form = $this->createForm(SearchType::class,null,["method"=>'GET']);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $searchTerm = $form->get('query')->getData();
+
+            $films = $manager->getRepository(Film::class)
+                ->createQueryBuilder('p')
+                ->where('p.title LIKE :searchTerm OR p.description LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%')
+                ->getQuery()
+                ->getResult();
+            $series = $manager->getRepository(Series::class)
+                ->createQueryBuilder('s')
+                ->where('s.title LIKE :searchTerm OR s.description LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%')
+                ->getQuery()
+                ->getResult();
+            return $this->render('/client/home/index.html.twig', [
+                "films" => $films,
+                "series" => $series,
+                "search"=> true,
+                'form' => $form->createView(),
+            ]);
+
+        }
+        // Si le formulaire est soumis et valide
+        $ratesSeries = $seriesRepository->findBy([], ['critical_rate' => 'DESC'], 10);
+        $recommendedSeries = $seriesRepository->findBy([], ['publish_date' => 'DESC'], 10);
+
+        return $this->render('/client/home/index.html.twig', [
+
+            "SeriesForYou" => $recommendedSeries,
+            "bestRated" => $ratesSeries,
+            'form' => $form->createView(),
+            'type'=>"series"
+        ]);
+    }
+    #[Route('/series/show/{id}', name: 'app_series_show')]
+    public function showClientSeries(Series $series): Response
+    {
+        return $this->render("/client/film/show.html.twig", [
+            "element" => $series,
+            "type" => "series"
+        ]);
+    }
+ 
     #[Route('admin/series', name: 'app_series_admin')]
     public function indexAdmin(SeriesRepository $seriesRepository): Response
+ 
     {
         $series = $seriesRepository->findAll();
 
@@ -24,9 +83,10 @@ class SeriesController extends AbstractController
             'series' => $series,
         ]);
     }
-
+ 
     #[Route('admin/series/show/{id}', name: 'app_series_show_admin', methods: ['GET', 'POST'])]
     public function show(Series $series, Request $request, EntityManagerInterface $entityManager): Response
+ 
     {
 
         $comment = new Comment();
@@ -50,19 +110,20 @@ class SeriesController extends AbstractController
         ]);
     }
 
-
+ 
     #[Route('admin/series/create', name: 'app_series_create', methods: ['GET', 'POST'])]
+
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
         $series = new Series();
-        $form =  $this->createForm(SeriesType::class, $series);
-        $form->handleRequest($request);
-
+        $form = $this->createForm(SeriesType::class, $series);
+        $form->handleRequest($request); 
+ 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($series);
             $manager->flush();
-
-            return $this->redirectToRoute('app_series_admin', ["id" => $series->getId()]);
+   
+            return $this->redirectToRoute('app_series_admin', ["id" => $series->getId()]); 
         }
 
         return $this->render('/admin/series/create.html.twig', [
@@ -87,8 +148,8 @@ class SeriesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_series_show_admin', ['id' => $series->getId()]);
+ 
+            return $this->redirectToRoute('app_series_show_admin', ['id' => $series->getId()]); 
         }
 
         return $this->render('/admin/series/edit.html.twig', [

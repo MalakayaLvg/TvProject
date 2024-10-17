@@ -2,6 +2,63 @@
     background: var(--background-color);
 }
 
+.mainNav {
+    height: fit-content;
+    width: 100vw;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 35px;
+    box-sizing: border-box;
+
+    margin-bottom: 11vh;
+}
+
+.mainNav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 47%;
+}
+
+.mainNav li a {
+    text-decoration: none;
+    color: white;
+}
+
+.homeBackground form {
+
+    width: 30%;
+}
+
+input[type='search'] {
+    background: var(--inputBackground);
+    color: white;
+    border: 0;
+    width: 80%;
+
+    border-radius: 11px;
+    padding: 7px 15px;
+    box-sizing: border-box;
+
+}
+
+input[type='search']::placeholder {
+    color: white;
+}
+
+.homeBackground form button {
+
+    outline: 0;
+    border: 0;
+    background: transparent;
+    color: white;
+}
 .homeLightRond {
     background: var(--violet-light);
     border-radius: 50%;
@@ -58,19 +115,7 @@
     margin-inline: 20px;
     color: white;
 }
-  .searchFilm {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    width: 100%;
-    height: 100%;
 
-    gap: 10px;
-
-    padding-inline: 296px;
-    margin-inline: 20px;
-    color: white;
-}
 .homeBlurBackground > div a{
     width: 32%;
 }
@@ -81,7 +126,33 @@
     width: 100%;
     object-fit: contain;
 }
+.searchFilm{
 
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 1%;
+}
+.searchFilm div{
+    width: 30%;
+    justify-content: start;
+    flex-direction: column;
+
+    display: flex;
+    margin-block: 20px;
+    gap: 20px;
+    text-decoration: none;
+    border: #5b5b5b 1px solid;
+    border-radius: 20px;
+    padding: 20px;
+}
+.searchFilm div a{
+width: 100%;
+    text-decoration: none;
+}
 .homeFilms {
     display: flex;
     flex-direction: column;
@@ -95,9 +166,36 @@
 
     width: 100%;
     justify-content: center;
+    flex-direction: row;
+
+    align-items: stretch;
+    flex-wrap: wrap;
     display: flex;
     margin-block: 20px;
-    gap: 20px;
+    gap: 1%;
+
+
+    padding-inline: 4%;
+    margin-inline: 20px;
+    color: white;
+
+}
+.homeFilms div div{
+    width: 29%;
+    justify-content: start;
+    flex-direction: column;
+
+    display: flex;
+    margin-block: 20px;
+    gap: 1%;
+    text-decoration: none;
+    border: #5b5b5b 1px solid;
+    border-radius: 20px;
+    padding: 20px;
+    text-decoration: none;
+}
+.homeFilms div div a{
+    text-decoration: none;
 }
 .homeFilms .titlerow {
 

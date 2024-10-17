@@ -29,15 +29,23 @@ class Film
     private ?int $runtime = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $critical_rate = null;
+    private ?float $critical_rate = null;
 
 
 
     #[ORM\Column]
     private ?int $budget = null;
 
-    #[ORM\ManyToOne(inversedBy: 'film')]
-    private ?WatchList $watchList = null;
+    /**
+     * @var Collection<int, WatchList>
+     */
+    #[ORM\ManyToMany(targetEntity: WatchList::class, mappedBy: 'films')]
+    private Collection $watchLists;
+
+    public function __construct()
+    {
+        $this->watchLists = new ArrayCollection();
+    }
 
     /**
      * @var Collection<int, Comment>
@@ -130,18 +138,29 @@ class Film
         return $this;
     }
 
-    public function getWatchList(): ?WatchList
+    /**
+     * @return Collection<int, WatchList>
+     */
+    public function getWatchLists(): Collection
     {
-        return $this->watchList;
+        return $this->watchLists;
     }
 
-    public function setWatchList(?WatchList $watchList): static
+    public function addWatchList(WatchList $watchList): static
     {
-        $this->watchList = $watchList;
+        if (!$this->watchLists->contains($watchList)) {
+            $this->watchLists->add($watchList);
+            $watchList->addFilm($this);
+        }
 
         return $this;
     }
-
+ 
+    public function removeWatchList(WatchList $watchList): static
+    {
+        if ($this->watchLists->removeElement($watchList)) {
+            $watchList->removeFilm($this);
+ 
     /**
      * @return Collection<int, Comment>
      */
@@ -154,12 +173,13 @@ class Film
     {
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
-            $comment->setFilm($this);
+            $comment->setFilm($this); 
         }
 
         return $this;
     }
-
+ 
+ 
     public function removeComment(Comment $comment): static
     {
         if ($this->comments->removeElement($comment)) {
@@ -170,5 +190,5 @@ class Film
         }
 
         return $this;
-    }
+    } 
 }

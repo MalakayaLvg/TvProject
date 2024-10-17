@@ -1,35 +1,39 @@
 {% extends 'base.html.twig' %}
+{% set route = path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')) %}
 
-{% block title %}Pierre oui {% endblock %}
+
+{% block title %}Cine Rilettes {% endblock %}
 
 {% block body %}
     {% set seen = false %}
 
     {% include '/client/component/navbar.html.twig' %}
 
-    <div class="homeBlurBackground">{% set imageNames = ['antman.png','batman.png','blackwidow.png'] %}
-        <h2>{{ search is defined and search ? "RESULT" : "BOX OFFICE" }}</h2>
-        <p>No result for this search</p>
-        {% if search is defined and search %}
+    <div class="homeBlurBackground">
 
+        {% set imageNames = ['antman.png','batman.png','blackwidow.png'] %}
+        {# title for search for film box office and for series wich dont have boxoffice #}
+        <h3>{{ search is defined and search ? "FILM RESULT" :  "BOX OFFICE"   }}</h3>
+
+
+        {# search #}
+        {% if search is defined and search %}
+            {% if films is empty %}
+                <p>No result for this search</p>
+            {% endif %}
             <div class="searchFilm">
                 {% for film in films %}
-
                     <div>
-                        <h3>{{ film.title }}</h3>
-                        <p>{{ film.description }}</p>
+                        <a href="{{ path('app_film_show',{'id':film.id}) }}"><h3>{{ film.title }}</h3></a>
+                        <p>{{ film.description =="" ? "Aucune description" : film.description }}</p>
+                        <a href="{{ path('watchlist_add_film',{'id':film.id}) }}">ADD TO WATCHLIST</a>
                     </div>
 
-                    {% if  not loop.last %}
-                        <hr>
-                    {% endif %}
                 {% endfor %}
-
             </div>
-
         {% else %}
-            <div class="filmList">
 
+            <div class="filmList">
 
                 {# JUST THAT FOR SEARCH RESULT #}
                 {% for name in imageNames %}
@@ -37,59 +41,124 @@
                 {% endfor %}
 
             </div>
+
         {% endif %}
     </div>
+    {% if search is defined and search  %}
+
+        <div class="homeFilms">
+            <h3>SERIES RESULT :</h3>
+              <div>
+
+                {% for oneSeries in series %}
+                    <div>
+                        <a href="{{ path('app_series_show',{'id':oneSeries.id}) }}"><h3>{{ oneSeries.title }}</h3></a>
+                        <p>{{ oneSeries.description =="" ? "Aucune description" : oneSeries.description }}</p>
+                        <a href="{{ path('watchlist_add_series',{'id':oneSeries.id}) }}">ADD TO WATCHLIST</a>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    {% endif %}
+
     {% if search is not defined %}
+        {% if type is defined and type =='film' %}
         {% if filmsForYou is defined %}
             <div class="homeFilms">
-                <h2>FOR YOU</h2>
+                <h3>FOR YOU</h3>
                 {% set imageNames = ['beautyandbeast.png','hauntedmansion.png','herealone.png'] %}
 
-                <div class="searchFilm">
+                <div>
 
-                   {% for film in filmsForYou %}
-                       <div>
-                           <h3>{{ film.title }}</h3>
-                           <p>{{ film.description }}</p>
-                       </div>
-                   {% endfor %}
-                   {# {% for name in imageNames %}
+                    {% for film in filmsForYou %}
+                        <div>
+                            <a href="{{ path('app_film_show',{'id':film.id}) }}"><h3>{{ film.title }}</h3></a>
+                            <p>{{ film.description }}</p>
+                            <a href="{{ path('watchlist_add_film',{'id':film.id}) }}">ADD TO WATCHLIST</a>
+                        </div>
+                    {% endfor %}
+                    {# {% for name in imageNames %}
                         <a href=""><img class="filmSeriesImage" src="{{ asset('/img/'~ name) }}" alt=""></a>
-                    {% endfor %}#}
+                    {% endfor %} #}
                 </div>
             </div>
         {% endif %}
+
+
         {% if bestRated is defined %}
             <hr>
 
             <div class="homeFilms">
                 <div class="titlerow">
-                    <h2>BEST RATED</h2>
-                    <h2>Tous les films <img class="svgFletcher" src="{{ asset('svg/fletcher.svg') }}" alt=""></h2>
+                    <h3>BEST RATED</h3>
+                    <h3>Tous les films <img class="svgFletcher" src="{{ asset('svg/fletcher.svg') }}" alt=""></h3>
                 </div>
 
                 {% set imageNames = ['joker.png','antman.png','blackwidow.png'] %}
 
                 <div class="searchFilm">
 
-                    {% for film in bestRated %}
+                    {#  {% for film in bestRated %}
                         <div>
                             <h3>{{ film.title }}</h3>
                             <p>{{ film.description }}</p>
                         </div>
-                    {% endfor %}
-                   {# {% for name in imageNames %}
+                    {% endfor %} #}
+                    {% for name in imageNames %}
                         <a href=""><img class="filmSeriesImage" src="{{ asset('/img/'~ name) }}" alt=""></a>
-                    {% endfor %}#}
+                    {% endfor %}
                 </div>
             </div>
         {% endif %}
+        {% endif %}
+        {% if type is defined and type =='series' %}
+        {% if bestRated is defined %}
+            <div class="homeFilms">
+                <h3>BEST SERIES RATED</h3>
+                {% set imageNames = ['beautyandbeast.png','hauntedmansion.png','herealone.png'] %}
+
+                <div>
+
+                    {% for series in bestRated %}
+                        <div>
+                            <a href="{{ path('app_series_show',{'id':series.id}) }}"><h3>{{ series.title }}</h3></a>
+                            <p>{{ series.description =="" ? "Aucune description" : series.description }}</p>
+                            <a href="{{ path('watchlist_add_series',{'id':series.id}) }}">ADD TO WATCHLIST</a>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        {% endif %}
+        {% if bestRated is defined %}
+            <hr>
+            <div class="homeFilms">
+                <h3>SERIES FOR YOU</h3>
+                {% set imageNames = ['beautyandbeast.png','hauntedmansion.png','herealone.png'] %}
+
+                <div>
+
+                    {% for series in SeriesForYou %}
+                        <div>
+                            <a href="{{ path('app_series_show',{'id':series.id}) }}"><h3>{{ series.title }}</h3></a>
+                            <p>{{ series.description =="" ? "Aucune description" : series.description }}</p>
+                            <a href="{{ path('watchlist_add_series',{'id':series.id}) }}">ADD TO WATCHLIST</a>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        {% endif %}
+        {% endif %}
     {% endif %}
+
+
 
     {# BACKGROUND #}
     <h1 class="rillettesTitle">
-        RILLETTES
-    </div>
+        RILLETTES</h1>
+
     <div class="homeLightRond">
     </div>
 {% endblock %}

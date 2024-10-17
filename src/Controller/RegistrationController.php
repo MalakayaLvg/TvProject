@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\WatchList;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,7 +32,10 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // do anything else you need here, like send an email
-
+            $watchlist = new WatchList();
+            $watchlist->setOwner($user);
+            $entityManager->persist($watchlist);
+            $entityManager->flush();
             return $this->redirectToRoute('app_film');
         }
 

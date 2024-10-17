@@ -7,8 +7,10 @@ import './bootstrap.js';
  */
 import './styles/app.css';
 import './styles/home.css'
+import './styles/profile.css'
+import './styles/film.css'
+import './styles/loginRegister.css'
+
 import './styles/admin_user.css'
 import './styles/admin.css'
-
-
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

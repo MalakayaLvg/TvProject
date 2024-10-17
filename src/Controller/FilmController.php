@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Film;
-use App\Form\CommentType;
+use App\Entity\Series;
+
+use App\Form\CommentType; 
 use App\Form\FilmType;
 use App\Form\SearchType;
 use App\Repository\FilmRepository;
@@ -36,9 +38,17 @@ class FilmController extends AbstractController
                 ->setParameter('searchTerm', '%' . $searchTerm . '%')
                 ->getQuery()
                 ->getResult();
+            $series = $manager->getRepository(Series::class)
+                ->createQueryBuilder('s')
+                ->where('s.title LIKE :searchTerm OR s.description LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%')
+                ->getQuery()
+                ->getResult();
             return $this->render('/client/home/index.html.twig', [
-                "films" => $filmRepository->findAll(),
-                "search" => true,
+
+                "films" => $films,
+                "series" => $series,
+                "search"=> true,
                 'form' => $form->createView(),
             ]);
 
@@ -49,12 +59,10 @@ class FilmController extends AbstractController
         $recommendedFilms = $filmRepository->findBy([], ['publish_date' => 'DESC'], 10);
 
         return $this->render('/client/home/index.html.twig', [
-            'boxOfficeFilms' => $boxOfficeFilms,
-            'recommendedFilms' => $recommendedFilms,
-            'ratesFilms' => $ratesFilms,
-            "films" => $boxOfficeFilms,
+               "films" => $boxOfficeFilms,
             "filmsForYou" => $recommendedFilms,
-            "bestRated" => [],
+            "bestRated" => $ratesFilms,
+            'type'=>'film',
             'form' => $form->createView(),
         ]);
     }
@@ -80,7 +88,7 @@ class FilmController extends AbstractController
         $form = $this->createForm(FilmType::class, $film);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            ;
+            
             $manager->persist($film);
             $manager->flush();
             return $this->redirectToRoute('app_film');
@@ -125,9 +133,10 @@ class FilmController extends AbstractController
         ]);
     }
 
-    #[Route('/film/show/{id}', name: 'app_film_show')]
+    #[Route('admin/film/show/{id}', name: 'app_admin_film_show')]
     public function show(Film $film, Request $request, EntityManagerInterface $entityManager): Response
     {
+ 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
@@ -145,8 +154,14 @@ class FilmController extends AbstractController
 
         return $this->render("/admin/film/show.html.twig", [
             "film" => $film,
-            "commentForm" => $form->createView()
+            "commentForm" => $form->createView() 
         ]);
     }
-
+ #[Route('/film/show/{id}', name: 'app_film_show')]
+    public function show(Film $film): Response
+    { 
+        return $this->render("/client/film/show.html.twig",[
+            "element" => $film,
+            "type"=> "film"]) 
+    }
 }

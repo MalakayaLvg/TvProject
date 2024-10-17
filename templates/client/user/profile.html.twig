@@ -4,29 +4,86 @@
 
 {% block body %}
 
-    <div class="container">
+    <div class="leftForm">
+        <nav class="profileNav">
+            <a href="{{ path('app_film') }}">
+                <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.4 30.875L8.125 28.6L17.225 19.5L8.125 10.4L10.4 8.125L19.5 17.225L28.6 8.125L30.875 10.4L21.775 19.5L30.875 28.6L28.6 30.875L19.5 21.775L10.4 30.875Z"
+                          fill="white"/>
+                </svg>
+            </a>
 
-
-        <h2>Résultats de recherche :</h2>
-
-        {% if films is not empty %}
             <ul>
-                {% for film in films %}
-                    <li>
-                        <h3>{{ film.title }}</h3>
-                        <p>{{ film.description }}</p>
-                    </li>
-                {% endfor %}
+                <li>
+                    <a class="{{ route == '/profile/watchlist' ? "focus" : "" }}" href="">Watch list</a>
+                </li>
+                <li>
+                    <a  class="{{ route == '/profile/comments' ? "focus" : "" }}" href="">Comments</a>
+                </li>
+                <li><a  class="{{ route == '/profile/friends' ? "focus" : "" }}" href="">Friends</a></li>
             </ul>
-        {% else %}
-            <p>Aucun produit trouvé pour cette recherche.</p>
-        {% endif %}
+        </nav>
+        <form action="">
+            <div class="names">
+                <div class="firstname">
+                    <label for="">FirstName</label>
+                    <input type="text" name="firstName">
+                </div>
+                <div class="lastname">
+                    <label for="">LastName</label>
+                    <input type="text" name="lastName">
+                </div>
+            </div>
+            <div class="phone">
+                <label for="">Phone Number</label>
+                <input type="text" name="phone">
+            </div>
+            <div class="email">
+                <label for="">Email</label>
+                <input type="text" name="email">
+            </div>
+        </form>
+        <div class="buttons">
+            <a class="button2" href="{{ path('app_logout') }}">Deconnexion</a>
+            <a class="button1" href="">Modifier</a>
+        </div>
 
     </div>
+    <div class="right">
+        {% if route == '/profile/watchlist' %}
+            {% for film in watchList.films %}
+
+                <div>
+                    <h3>{{ film.title }}</h3>
+                    <p> {{ film.description }}</p>
+                </div>
+                <a href="{{ path('watchlist_delete_film',{'id':film.id}) }}">remove</a>
+
+            {% endfor %}  {% for series in watchList.series %}
+
+            <div>
+                <h3>{{ series.title }}</h3>
+                <p> {{ series.description }}</p>
+            </div>
+            <a href="{{ path('watchlist_delete_series',{'id':film.id}) }}">remove</a>
+
+        {% endfor %}
+        {% endif %}
+        {% if route == '/profile/comments' %}
+
+            {% for comment in comments %}
+
+                {% set truc = comment.series | default(comment.film) %}
+                <div>
+                    <h3>{{ truc.title }}</h3>
+                    <p> {{ truc.description }}</p>
+                </div>
+
+            {% endfor %}
 
 
-
-
+        {% endif %}
+    </div>
 
 
 {% endblock %}
