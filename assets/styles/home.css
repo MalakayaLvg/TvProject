@@ -103,6 +103,8 @@ input[type='search']::placeholder {
     box-sizing: border-box;
     border-top: #7575758c 1px solid;
     border-bottom: #7575758c 1px solid;
+    z-index: 5;
+    position: relative;
 }
 
 .homeBlurBackground > .filmList {
@@ -164,6 +166,8 @@ width: 100%;
 
     padding: 25px;
     box-sizing: border-box;
+    z-index: 5;
+    position: relative;
 }
 .homeFilms div{
 
