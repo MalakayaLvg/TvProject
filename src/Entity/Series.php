@@ -163,8 +163,11 @@ class Series
     {
         if ($this->watchLists->removeElement($watchList)) {
             $watchList->removeSeries($this);
-        }}
+        }
+        return $this;
+    }
     /**
+     *
      * @return Collection<int, Comment>
      */
     public function getComments(): Collection

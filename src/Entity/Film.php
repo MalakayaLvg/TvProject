@@ -45,6 +45,7 @@ class Film
     public function __construct()
     {
         $this->watchLists = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -53,10 +54,7 @@ class Film
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'film')]
     private Collection $comments;
 
-    public function __construct()
-    {
-        $this->comments = new ArrayCollection();
-    }
+
 
 
     public function getId(): ?int
@@ -160,7 +158,9 @@ class Film
     {
         if ($this->watchLists->removeElement($watchList)) {
             $watchList->removeFilm($this);
- 
+        }
+        return $this;
+    }
     /**
      * @return Collection<int, Comment>
      */

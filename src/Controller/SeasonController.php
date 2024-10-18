@@ -31,7 +31,7 @@ class SeasonController extends AbstractController
     }
 
 
-    #[Route('admin/season/create/{series}', name: 'app_season_create', methods: ['GET', 'POST'])]
+    #[Route('/admin/season/create/{series}', name: 'app_season_create', methods: ['GET', 'POST'])]
     public function create(Request $request, EntityManagerInterface $manager, Series $series): Response
     {
         $season = new Season();
