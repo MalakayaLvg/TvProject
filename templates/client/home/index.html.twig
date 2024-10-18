@@ -37,7 +37,7 @@
                 {% endfor %}
             </div>
         {% else %}
-
+            {% if films is defined %}
             <div class="filmList">
                 {% for film in films | slice(0,3) %}
                     {% if film.horizontalImages[0] %}
@@ -47,6 +47,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
+                {% endif %}
 
         {% endif %}
     </div>
