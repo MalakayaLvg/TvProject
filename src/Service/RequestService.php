@@ -85,7 +85,7 @@ class RequestService
 
                 $episodes = [];
                 //Get content of all episodes
-                foreach ($seasonAPIDATA['episodes'] as $episode) {
+                foreach (array_slice($seasonAPIDATA['episodes'],0,35) as $episode) {
                     $episodes[] = [
                         "number" => $episode['episode_number'],
                         "title" => $episode['name'],
