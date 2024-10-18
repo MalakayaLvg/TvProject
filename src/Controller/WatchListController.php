@@ -19,7 +19,7 @@ class WatchListController extends AbstractController
     #[Route('/watchlist/delete-film/{id}', name: 'watchlist_delete_film')]
     public function deleteFilmFromWatchList(Film $film, EntityManagerInterface $entityManager, WatchListRepository $watchListRepository): RedirectResponse
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if(!$this->getUser()){return $this->redirectToRoute('app_login');}
 
 
         $user = $this->getUser();
@@ -40,7 +40,7 @@ class WatchListController extends AbstractController
     public function deleteSeriesFromWatchList(Series $series, EntityManagerInterface $entityManager, WatchListRepository $watchListRepository): RedirectResponse
     {
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if(!$this->getUser()){return $this->redirectToRoute('app_login');}
 
         $user = $this->getUser();
         $watchList =$watchListRepository->findOneBy([
@@ -61,7 +61,7 @@ class WatchListController extends AbstractController
     public function addFilmToWatchList(Film $film, EntityManagerInterface $entityManager): RedirectResponse
     {
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if(!$this->getUser()){return $this->redirectToRoute('app_login');}
 
         $user = $this->getUser();
 
@@ -84,7 +84,7 @@ class WatchListController extends AbstractController
     public function addSeriesToWatchList(Series $series, EntityManagerInterface $entityManager): RedirectResponse
     {
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if(!$this->getUser()){return $this->redirectToRoute('app_login');}
 
         $user = $this->getUser();
 

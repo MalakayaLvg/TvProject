@@ -55,8 +55,7 @@ h2 {
 }
 
 h3 {
-
-    font-size: 29px;
+    font-size: 30px;
     color: white;
 }
 h4{
@@ -65,7 +64,9 @@ h4{
     font-family: 'Nunito', serif;
     letter-spacing: 4px;
 }
-
+h5{
+    font-size: 22px;
+}
 hr {
     border: white 1px solid;
 }
@@ -82,12 +83,13 @@ hr {
     box-sizing: border-box;
     padding: 8px;
     z-index: 1;
+    gap: 10px;
 }
 .button1:hover{
     background: #fff8f3;
 }
 .button2 {
-
+gap: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
