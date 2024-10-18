@@ -40,7 +40,7 @@
             {% if bestRated is defined %}
             <div class="filmList">
                 {% for film in bestRated|slice(0,3) %}
-                    {% if film.horizontalImages[0] %}
+                    {% if film.horizontalImages[0] is defined %}
                         <img src="{{ vich_uploader_asset(film.horizontalImages[0]) }}" alt="">
                     {% else %}
                         {{ film.title }}
@@ -60,7 +60,7 @@
                 {% for oneSeries in series %}
                     <div>
                         <a href="{{ path('app_series_show',{'id':oneSeries.id}) }}">
-                            {% if oneSeries.horizontalImages[0] %}
+                            {% if oneSeries.horizontalImages[0] is defined%}
                                 <img src="{{ vich_uploader_asset(oneSeries.horizontalImages[0]) }}" alt="">
                             {% else %}
                                 {{ oneSeries.title }}
@@ -87,7 +87,7 @@
                         {% for film in filmsForYou|slice(0,6) %}
                             <div>
                                 <a href="{{ path('app_film_show',{'id':film.id}) }}">
-                                    {% if film.horizontalImages[0] %}
+                                    {% if film.horizontalImages[0] is defined %}
                                         <img src="{{ vich_uploader_asset(film.horizontalImages[0]) }}" alt="">
                                     {% else %}
                                         {{ film.title }}
@@ -119,7 +119,7 @@
                         {% for film in bestRated %}
                             <div>
                                 <a href="{{ path('app_film_show',{'id':film.id}) }}">
-                                    {% if film.horizontalImages[0] %}
+                                    {% if film.horizontalImages[0] is defined %}
                                         <img src="{{ vich_uploader_asset(film.horizontalImages[0]) }}" alt="">
                                     {% else %}
                                         {{ film.title }}
@@ -142,7 +142,7 @@
                         {% for series in bestRated|slice(0,6) %}
                             <div>
                                 <a href="{{ path('app_series_show',{'id':series.id}) }}">
-                                    {% if series.horizontalImages[0] %}
+                                    {% if series.horizontalImages[0] is defined %}
                                         <img src="{{ vich_uploader_asset(series.horizontalImages[0]) }}" alt="">
                                     {% else %}
                                         {{ series.title }}
@@ -166,7 +166,7 @@
                             <div>
                                 <a href="{{ path('app_series_show',{'id':series.id}) }}">
 
-                                    {% if series.horizontalImages[0] %}
+                                    {% if series.horizontalImages[0] is defined %}
                                         <img src="{{ vich_uploader_asset(series.horizontalImages[0]) }}" alt="">
                                     {% else %}
                                         {{ series.title }}
