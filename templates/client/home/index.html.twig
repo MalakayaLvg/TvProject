@@ -13,7 +13,7 @@
 
         {% set imageNames = ['antman.png','batman.png','blackwidow.png'] %}
         {# title for search for film box office and for series wich dont have boxoffice #}
-        <h3>{{ search is defined and search ? "FILM RESULT" :  "BOX OFFICE"   }}</h3>
+        <h3>{{ search is defined and search ? "FILM RESULT" :  "BOX OFFICE" }}</h3>
 
 
         {# search #}
@@ -24,9 +24,14 @@
             <div class="searchFilm">
                 {% for film in films %}
                     <div>
-                        <a href="{{ path('app_film_show',{'id':film.id}) }}"><h3>{{ film.title }}</h3></a>
-                        <p>{{ film.description =="" ? "Aucune description" : film.description }}</p>
-                        <a href="{{ path('watchlist_add_film',{'id':film.id}) }}">ADD TO WATCHLIST</a>
+                        <a href="{{ path('app_film_show',{'id':film.id}) }}">
+                            {% if film.image %}
+                                <img src="{{ vich_uploader_asset(film.image) }}" alt="">
+                            {% else %}
+                                {{ film.title }}
+                            {% endif %}
+
+                        </a>
                     </div>
 
                 {% endfor %}
@@ -34,27 +39,34 @@
         {% else %}
 
             <div class="filmList">
-
-                {# JUST THAT FOR SEARCH RESULT #}
-                {% for name in imageNames %}
-                    <a href=""><img src="{{ asset('/img/'~ name) }}" alt=""></a>
+                {% for film in films | slice(0,3) %}
+                    {% if film.image %}
+                        <img src="{{ vich_uploader_asset(film.image) }}" alt="">
+                    {% else %}
+                        {{ film.title }}
+                    {% endif %}
                 {% endfor %}
-
             </div>
 
         {% endif %}
     </div>
-    {% if search is defined and search  %}
+    {% if search is defined and search %}
 
         <div class="homeFilms">
             <h3>SERIES RESULT :</h3>
-              <div>
+            <div>
 
                 {% for oneSeries in series %}
                     <div>
-                        <a href="{{ path('app_series_show',{'id':oneSeries.id}) }}"><h3>{{ oneSeries.title }}</h3></a>
-                        <p>{{ oneSeries.description =="" ? "Aucune description" : oneSeries.description }}</p>
-                        <a href="{{ path('watchlist_add_series',{'id':oneSeries.id}) }}">ADD TO WATCHLIST</a>
+                        <a href="{{ path('app_series_show',{'id':oneSeries.id}) }}">
+                            {% if oneSeries.image %}
+                                <img src="{{ vich_uploader_asset(oneSeries.image) }}" alt="">
+                            {% else %}
+                                {{ oneSeries.title }}
+                            {% endif %}
+
+
+                        </a>
                     </div>
                 {% endfor %}
 
@@ -64,92 +76,107 @@
 
     {% if search is not defined %}
         {% if type is defined and type =='film' %}
-        {% if filmsForYou is defined %}
-            <div class="homeFilms">
-                <h3>FOR YOU</h3>
-                {% set imageNames = ['beautyandbeast.png','hauntedmansion.png','herealone.png'] %}
+            {% if filmsForYou is defined %}
+                <div class="homeFilms">
+                    <h3>FOR YOU</h3>
+                    {% set imageNames = ['beautyandbeast.png','hauntedmansion.png','herealone.png'] %}
 
-                <div>
+                    <div>
 
-                    {% for film in filmsForYou %}
-                        <div>
-                            <a href="{{ path('app_film_show',{'id':film.id}) }}"><h3>{{ film.title }}</h3></a>
-                            <p>{{ film.description }}</p>
-                            <a href="{{ path('watchlist_add_film',{'id':film.id}) }}">ADD TO WATCHLIST</a>
-                        </div>
-                    {% endfor %}
-                    {# {% for name in imageNames %}
+                        {% for film in filmsForYou|slice(0,6) %}
+                            <div>
+                                <a href="{{ path('app_film_show',{'id':film.id}) }}">
+                                    {% if film.image %}
+                                        <img src="{{ vich_uploader_asset(film.image) }}" alt="">
+                                    {% else %}
+                                        {{ film.title }}
+                                    {% endif %}
+
+                                </a>
+                            </div>
+                        {% endfor %}
+                        {# {% for name in imageNames %}
                         <a href=""><img class="filmSeriesImage" src="{{ asset('/img/'~ name) }}" alt=""></a>
                     {% endfor %} #}
+                    </div>
                 </div>
-            </div>
-        {% endif %}
+            {% endif %}
 
 
-        {% if bestRated is defined %}
-            <hr>
+            {% if bestRated is defined %}
+                <hr>
 
-            <div class="homeFilms">
-                <div class="titlerow">
-                    <h3>BEST RATED</h3>
-                    <h3>Tous les films <img class="svgFletcher" src="{{ asset('svg/fletcher.svg') }}" alt=""></h3>
+                <div class="homeFilms">
+                    <div class="titlerow">
+                        <h3>BEST RATED</h3>
+                      {#  <h3>Tous les films <img class="svgFletcher" src="{{ asset('svg/fletcher.svg') }}" alt=""></h3>
+                   #} </div>
+
+                    {% set imageNames = ['joker.png','antman.png','blackwidow.png'] %}
+
+                    <div class="searchFilm">
+                        {% for film in bestRated %}
+                            <div>
+                                <a href="{{ path('app_film_show',{'id':film.id}) }}">
+                                    {% if film.image %}
+                                        <img src="{{ vich_uploader_asset(film.image) }}" alt="">
+                                    {% else %}
+                                        {{ film.title }}
+                                    {% endif %}
+
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
-
-                {% set imageNames = ['joker.png','antman.png','blackwidow.png'] %}
-
-                <div class="searchFilm">
-
-                    {#  {% for film in bestRated %}
-                        <div>
-                            <h3>{{ film.title }}</h3>
-                            <p>{{ film.description }}</p>
-                        </div>
-                    {% endfor %} #}
-                    {% for name in imageNames %}
-                        <a href=""><img class="filmSeriesImage" src="{{ asset('/img/'~ name) }}" alt=""></a>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
+            {% endif %}
         {% endif %}
         {% if type is defined and type =='series' %}
-        {% if bestRated is defined %}
-            <div class="homeFilms">
-                <h3>BEST SERIES RATED</h3>
-                {% set imageNames = ['beautyandbeast.png','hauntedmansion.png','herealone.png'] %}
+            {% if bestRated is defined %}
+                <div class="homeFilms">
+                    <h3>BEST SERIES RATED</h3>
 
-                <div>
+                    <div>
 
-                    {% for series in bestRated %}
-                        <div>
-                            <a href="{{ path('app_series_show',{'id':series.id}) }}"><h3>{{ series.title }}</h3></a>
-                            <p>{{ series.description =="" ? "Aucune description" : series.description }}</p>
-                            <a href="{{ path('watchlist_add_series',{'id':series.id}) }}">ADD TO WATCHLIST</a>
-                        </div>
-                    {% endfor %}
+                        {% for series in bestRated|slice(0,6) %}
+                            <div>
+                                <a href="{{ path('app_series_show',{'id':series.id}) }}">
+                                    {% if series.image %}
+                                        <img src="{{ vich_uploader_asset(series.image) }}" alt="">
+                                    {% else %}
+                                        {{ series.title }}
+                                    {% endif %}
+                                    </a>
+                            </div>
+                        {% endfor %}
 
+                    </div>
                 </div>
-            </div>
-        {% endif %}
-        {% if bestRated is defined %}
-            <hr>
-            <div class="homeFilms">
-                <h3>SERIES FOR YOU</h3>
-                {% set imageNames = ['beautyandbeast.png','hauntedmansion.png','herealone.png'] %}
+            {% endif %}
+            {% if bestRated is defined %}
+                <hr>
+                <div class="homeFilms">
+                    <h3>SERIES FOR YOU</h3>
+                    {% set imageNames = ['beautyandbeast.png','hauntedmansion.png','herealone.png'] %}
 
-                <div>
+                    <div>
 
-                    {% for series in SeriesForYou %}
-                        <div>
-                            <a href="{{ path('app_series_show',{'id':series.id}) }}"><h3>{{ series.title }}</h3></a>
-                            <p>{{ series.description =="" ? "Aucune description" : series.description }}</p>
-                            <a href="{{ path('watchlist_add_series',{'id':series.id}) }}">ADD TO WATCHLIST</a>
-                        </div>
-                    {% endfor %}
+                        {% for series in SeriesForYou %}
+                            <div>
+                                <a href="{{ path('app_series_show',{'id':series.id}) }}">
 
+                                    {% if series.image %}
+                                        <img src="{{ vich_uploader_asset(series.image) }}" alt="">
+                                    {% else %}
+                                        {{ series.title }}
+                                    {% endif %}
+                                </a>
+                            </div>
+                        {% endfor %}
+
+                    </div>
                 </div>
-            </div>
-        {% endif %}
+            {% endif %}
         {% endif %}
     {% endif %}
 
