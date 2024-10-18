@@ -7,7 +7,7 @@
 
     <div class="formContainer">
         {{ form_start(form) }}
-            <h2>Add film :</h2>
+            <h2>Edit film :</h2>
 
                 {{ form_row(form.title) }}
 
@@ -41,13 +41,17 @@
                 <label for="vertical_image">Vertical Image :</label>
                 <div class="image-upload">
                     <div class="image-box"></div>
-                    <a class="btn btn-light">Add Image</a>
+                    <div class="d-flex flex-column mx-5">
+                        <a class="btn btn-light">Replace Image</a>
+                        <a class="btn btn-warning my-4">Delete Image</a>
+                    </div>
+
                 </div>
 
                 <label for="horizontal_image">Horizontal Image :</label>
                 <div class="image-upload">
                     <div class="image-box horizontal"></div>
-                    <a class="btn btn-light">Add Image</a>
+                    <a class="btn btn-light mx-5">Add Image</a>
                 </div>
 
                 <button type="submit" class="submit-btn">Confirm</button>
@@ -55,3 +59,4 @@
     </div>
 
 {% endblock %}
+
