@@ -109,6 +109,7 @@ position: relative;
     display: flex;
     width: 28%;
     flex-direction: column;
+    height: fit-content;
 }
 .profileContainer .imgWatchlist a{
 
