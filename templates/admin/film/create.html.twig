@@ -3,54 +3,80 @@
 {% form_theme form 'bootstrap_5_layout.html.twig' %}
 {% block body %}
 
-{% include 'admin/navbar/navbar.html.twig' %}
+    {% include 'admin/navbar/navbar.html.twig' %}
 
-    <div class="formContainer">
+    <div class="formContainer container">
         {{ form_start(form) }}
-            <h2>Add film :</h2>
+        <h2>Add film :</h2>
 
-                {{ form_row(form.title) }}
+        <div class="form-group">
+            <label for="title">Titre :</label>
+            {{ form_widget(form.title, {'attr': {'class': 'input-field'}}) }}
+        </div>
 
-                <label for="category">Category :</label>
-                <input type="text" id="category" name="category" class="input-field">
+        <div class="form-group">
+            <label for="category">Category :</label>
+            <input type="text" id="category" name="category" class="input-field">
+        </div>
 
-                {{ form_row(form.description) }}
-                {{ form_row(form.runtime) }}
-                {{ form_row(form.budget) }}
+        <div class="form-group">
+            <label for="description">Description :</label>
+            {{ form_widget(form.description, {'attr': {'class': 'input-field large-input'}}) }}
+        </div>
 
-                {{ form_row(form.publish_date) }}
+        <div class="form-group">
+            <label for="publish_date">Publish date :</label>
+            {{ form_widget(form.publish_date, {'attr': {'class': 'input-field'}}) }}
+        </div>
+
+        <div class="form-group">
+            <label for="runtime">Runtime (minutes) :</label>
+            {{ form_widget(form.runtime, {'attr': {'class': 'input-field'}}) }}
+        </div>
+
+        <div class="form-group">
+            <label for="critical_rate">Critical Rate :</label>
+            {{ form_widget(form.critical_rate, {'attr': {'class': 'input-field'}}) }}
+        </div>
+
+        <div class="form-group">
+            <label for="budget">Budget :</label>
+            {{ form_widget(form.budget, {'attr': {'class': 'input-field'}}) }}
+        </div>
+
+        <div class="mt-5 form-group platforms-section container">
+            <label for="platforms">Platforms :</label>
+            <div class="mt-3 platforms d-flex justify-content-between flex-wrap">
+                <label class="platform-label"><input type="checkbox" name="platform" value="netflix"> Netflix</label>
+                <label class="platform-label"><input type="checkbox" name="platform" value="canal"> Canal+</label>
+                <label class="platform-label"><input type="checkbox" name="platform" value="prime_video"> Prime Video</label>
+                <label class="platform-label"><input type="checkbox" name="platform" value="ocs"> OCS</label>
+                <label class="platform-label"><input type="checkbox" name="platform" value="disney"> Disney+</label>
+                <label class="platform-label"><input type="checkbox" name="platform" value="paramount"> Paramount+</label>
+                <label class="platform-label"><input type="checkbox" name="platform" value="apple_tv"> Apple TV+</label>
+                <label class="platform-label"><input type="checkbox" name="platform" value="tf1"> TF1+</label>
+            </div>
+        </div>
 
 
 
-                <label for="platforms">Platforms :</label>
-                <div class="platforms">
-                    <div class="platform-column">
-                        <label><input type="checkbox" name="platform" value="netflix"> Netflix</label>
-                        <label><input type="checkbox" name="platform" value="canal"> Canal+</label>
-                        <label><input type="checkbox" name="platform" value="prime_video"> Prime Video</label>
-                        <label><input type="checkbox" name="platform" value="ocs"> OCS</label>
-                    </div>
-                    <div class="platform-column">
-                        <label><input type="checkbox" name="platform" value="disney"> Disney+</label>
-                        <label><input type="checkbox" name="platform" value="paramount"> Paramount+</label>
-                        <label><input type="checkbox" name="platform" value="apple_tv"> Apple TV+</label>
-                        <label><input type="checkbox" name="platform" value="tf1"> TF1+</label>
-                    </div>
-                </div>
+        <div class="form-group image-section mt-5">
+            <label for="vertical_image">Vertical Image :</label>
+            <div class="image-upload">
+                <div class="image-box"></div>
+                <a class="btn btn-light">Add Image</a>
+            </div>
+        </div>
 
-                <label for="vertical_image">Vertical Image :</label>
-                <div class="image-upload">
-                    <div class="image-box"></div>
-                    <a class="btn btn-light">Add Image</a>
-                </div>
+        <div class="form-group image-section">
+            <label for="horizontal_image">Horizontal Images :</label>
+            <div class="image-upload">
+                <div class="image-box horizontal"></div>
+                <a class="btn btn-light">Add Image</a>
+            </div>
+        </div>
 
-                <label for="horizontal_image">Horizontal Image :</label>
-                <div class="image-upload">
-                    <div class="image-box horizontal"></div>
-                    <a class="btn btn-light">Add Image</a>
-                </div>
-
-                <button type="submit" class="submit-btn">Confirm</button>
+        <button type="submit" class="submit-btn">Confirm</button>
         {{ form_end(form) }}
     </div>
 

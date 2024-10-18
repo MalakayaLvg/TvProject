@@ -1,41 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer une nouvelle série{% endblock %}
-
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
 {% block body %}
 
-    <div class="container mt-3">
-        <h1 class="my-4">Créer une nouvelle série</h1>
+    {% include 'admin/navbar/navbar.html.twig' %}
 
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    <div class="formContainer container">
+        {{ form_start(form) }}
+        <h2>Add Series :</h2>
 
-        <div class="form-group mb-3">
-            {{ form_label(form.title, 'Titre de la série', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.title) }}
+        <div class="form-group">
+            <label for="title">Title :</label>
+            {{ form_widget(form.title, {'attr': {'class': 'input-field'}}) }}
         </div>
 
-        <div class="form-group mb-3">
-            {{ form_label(form.description, 'Description de la série', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.description) }}
+        <div class="form-group">
+            <label for="description">Description :</label>
+            {{ form_widget(form.description, {'attr': {'class': 'input-field large-input'}}) }}
         </div>
 
-        <div class="form-group mb-3">
-            {{ form_label(form.publish_date, 'Date de publication', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.publish_date, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.publish_date) }}
+        <div class="form-group">
+            <label for="publish_date">Publish Date :</label>
+            {{ form_widget(form.publish_date, {'attr': {'class': 'input-field'}}) }}
         </div>
 
-        <div class="form-group mb-3">
-            {{ form_label(form.critical_rate, 'Note critique', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.critical_rate, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.critical_rate) }}
+        <div class="form-group">
+            <label for="critical_rate">Critical Rate :</label>
+            {{ form_widget(form.critical_rate, {'attr': {'class': 'input-field'}}) }}
         </div>
 
+        <div class="mt-5 form-group platforms-section container">
+            <label for="platforms">Platforms :</label>
+            <div class="mt-3 platforms d-flex justify-content-between flex-wrap">
+                <label class="platform-label"><input type="checkbox" name="platform" value="netflix"> Netflix</label>
+                <label class="platform-label"><input type="checkbox" name="platform" value="canal"> Canal+</label>
+                <label class="platform-label"><input type="checkbox" name="platform" value="prime_video"> Prime Video</label>
+                <label class="platform-label"><input type="checkbox" name="platform" value="ocs"> OCS</label>
+                <label class="platform-label"><input type="checkbox" name="platform" value="disney"> Disney+</label>
+                <label class="platform-label"><input type="checkbox" name="platform" value="paramount"> Paramount+</label>
+                <label class="platform-label"><input type="checkbox" name="platform" value="apple_tv"> Apple TV+</label>
+                <label class="platform-label"><input type="checkbox" name="platform" value="tf1"> TF1+</label>
+            </div>
+        </div>
 
-        <button type="submit" class="btn btn-primary">Créer</button>
+        <div class="form-group image-section mt-5">
+            <label for="vertical_image">Vertical Image :</label>
+            <div class="image-upload">
+                <div class="image-box"></div>
+                <a class="btn btn-light">Add Image</a>
+            </div>
+        </div>
 
+        <div class="form-group image-section">
+            <label for="horizontal_image">Horizontal Images :</label>
+            <div class="image-upload">
+                <div class="image-box horizontal"></div>
+                <a class="btn btn-light">Add Image</a>
+            </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Confirm</button>
         {{ form_end(form) }}
     </div>
+
 {% endblock %}

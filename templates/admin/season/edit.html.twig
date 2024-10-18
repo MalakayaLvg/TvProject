@@ -1,46 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer une nouvelle saison{% endblock %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{% block title %}Edit Season{% endblock %}
 
 {% block body %}
-    <div class="container mt-3">
-        <h1 class="my-4">Modifier nouvelle saison</h1>
 
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {% include 'admin/navbar/navbar.html.twig' %}
 
-        <div class="form-group mb-3">
-            {{ form_label(form.title, 'Titre de la saison', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.title) }}
+    <div class="formContainer container">
+        {{ form_start(form) }}
+        <h2>Edit Season</h2>
+
+        <div class="form-group">
+            <label for="title">Season Title:</label>
+            {{ form_widget(form.title, {'attr': {'class': 'input-field'}}) }}
         </div>
 
-        <div class="form-group mb-3">
-            {{ form_label(form.description, 'Description de la saison', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.description) }}
+        <div class="form-group">
+            <label for="description">Description:</label>
+            {{ form_widget(form.description, {'attr': {'class': 'input-field large-input'}}) }}
         </div>
 
-        <div class="form-group mb-3">
-            {{ form_label(form.publish_date, 'Date de publication', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.publish_date, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.publish_date) }}
+        <div class="form-group">
+            <label for="publish_date">Publish Date:</label>
+            {{ form_widget(form.publish_date, {'attr': {'class': 'input-field'}}) }}
         </div>
 
-        <div class="form-group mb-3">
-            {{ form_label(form.number, 'Numéro de la saison', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.number, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.number) }}
+        <div class="form-group">
+            <label for="number">Season Number:</label>
+            {{ form_widget(form.number, {'attr': {'class': 'input-field'}}) }}
         </div>
 
-
-        <div class="form-group mb-3">
-            {{ form_label(form.series, 'Série associée', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.series, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.series) }}
+        <div class="form-group">
+            <label for="series">Associated Series:</label>
+            {{ form_widget(form.series, {'attr': {'class': 'input-field'}}) }}
         </div>
 
-        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
-
+        <button type="submit" class="submit-btn">Confirm</button>
         {{ form_end(form) }}
     </div>
+
 {% endblock %}
