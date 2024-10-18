@@ -37,9 +37,9 @@
                 {% endfor %}
             </div>
         {% else %}
-            {% if films is defined %}
+            {% if bestRated is defined %}
             <div class="filmList">
-                {% for film in films | slice(0,3) %}
+                {% for film in bestRated|slice(0,3) %}
                     {% if film.horizontalImages[0] %}
                         <img src="{{ vich_uploader_asset(film.horizontalImages[0]) }}" alt="">
                     {% else %}
