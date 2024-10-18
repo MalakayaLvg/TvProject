@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détails du film - {{ film.title }}{% endblock %}
+{% block title %}Film show{% endblock %}
 
 {% block body %}
     TOUT A REGLER ICI
@@ -33,12 +33,14 @@
 
 <div class="adminBackground min-vh-100">
     {% include 'admin/navbar/navbar.html.twig' %}
-    <div class="container mt-3">
-        
+<div class="container">
+
     <div class="py-4"></div>
     <div class="filmCarouselPrincipal">
 
-<div class="py-5 d-flex">
+    </div>
+
+    <div class="py-5 d-flex">
         <div class="d-flex flex-column">
             <div class="filmVerticalImage"></div>
             <div class="d-flex justify-content-between py-3">
@@ -83,34 +85,6 @@
             <p>{{ film.description }}</p>
         </div>
     </div>
-        <table class="table table-hover table-striped border">
-            <tbody>
-            <tr>
-                <th scope="row">ID</th>
-                <td>{{ film.id }}</td>
-            </tr>
-            <tr>
-                <th scope="row">Titre</th>
-                <td>{{ film.title }}</td>
-            </tr>
-            <tr>
-                <th scope="row">Description</th>
-                <td>{{ film.description }}</td>
-            </tr>
-            <tr>
-                <th scope="row">Date de publication</th>
-                <td>{{ film.publishDate ? film.publishDate|date('Y-m-d') : 'N/A' }}</td>
-            </tr>
-            <tr>
-                <th scope="row">Durée</th>
-                <td>{{ film.runtime }} minutes</td>
-            </tr>
-            <tr>
-                <th scope="row">Note critique</th>
-                <td>{{ film.criticalRate is not null ? film.criticalRate : 'Non noté' }}</td>
-            </tr>
-            </tbody>
-        </table>
 
         <h2 class="my-4">Commentaires</h2>
             </div>
@@ -157,42 +131,40 @@
             </div>
         </div>
     </div>
-   
-            <div class="d-flex w-100 pt-5">
-                <div class="w-25">
-                    <h3>Rates :</h3>
-                </div>
-                <div class="w-75">
-                    <table class="users-table">
-                        <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Rates</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>user</td>
-                            <td>rate</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <div class="d-flex justify-content-center py-4">
+        <a href="#" class="btn btn-warning">View all comments</a>
+    </div>
 
-            <div class="d-flex justify-content-center py-4">
-                    <a href="#" class="btn btn-warning">View all comments</a>
-                </div>
+    <div class="d-flex w-100 pt-5">
+        <div class="w-25">
+            <h3>Rates :</h3>
+        </div>
+        <div class="w-75">
+            <table class="users-table">
+                <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Rates</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>user</td>
+                    <td>rate</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center py-4">
+        <a href="#" class="btn btn-warning">View all rates</a>
+    </div>
 
-            
-                <div class="d-flex justify-content-center py-4">
-                    <a href="#" class="btn btn-warning">View all rates</a>
-                </div>
+    <div class="py-5 d-flex justify-content-center">
+        <a href="#" class="btn btn-warning px-4 mx-4">edit</a>
+        <a href="#" class="btn btn-danger px-4 mx-4">Delete</a>
+    </div>
 
-                <div class="py-5 d-flex justify-content-center">
-                    <a href="#" class="btn btn-warning px-4 mx-4">edit</a>
-                    <a href="#" class="btn btn-danger px-4 mx-4">Delete</a>
-                </div>
 
     </div></div>
 {% endblock %}
