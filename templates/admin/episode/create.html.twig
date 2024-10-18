@@ -1,46 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer un nouvel épisode{% endblock %}
-
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
 {% block body %}
-    <div class="container mt-3">
-        <h1 class="my-4">Créer un nouvel épisode</h1>
 
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {% include 'admin/navbar/navbar.html.twig' %}
 
-        <div class="form-group mb-3">
-            {{ form_label(form.title, 'Titre de l\'épisode', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.title) }}
+    <div class="formContainer container">
+        {{ form_start(form) }}
+        <h2>Add Episode :</h2>
+
+        <div class="form-group">
+            <label for="title">Title :</label>
+            {{ form_widget(form.title, {'attr': {'class': 'input-field'}}) }}
         </div>
 
-        <div class="form-group mb-3">
-            {{ form_label(form.description, 'Description de l\'épisode', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.description) }}
+        <div class="form-group">
+            <label for="description">Description :</label>
+            {{ form_widget(form.description, {'attr': {'class': 'input-field large-input'}}) }}
         </div>
 
-        <div class="form-group mb-3">
-            {{ form_label(form.publishDate, 'Date de publication', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.publishDate, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.publishDate) }}
+        <div class="form-group">
+            <label for="publishDate">Publish Date :</label>
+            {{ form_widget(form.publishDate, {'attr': {'class': 'input-field'}}) }}
         </div>
 
-        <div class="form-group mb-3">
-            {{ form_label(form.number, 'Numéro de l\'épisode', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.number, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.number) }}
+        <div class="form-group">
+            <label for="number">Episode Number :</label>
+            {{ form_widget(form.number, {'attr': {'class': 'input-field'}}) }}
         </div>
 
-
-        <div class="form-group mb-3">
-            {{ form_label(form.season, 'Saison associée', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.season, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.season) }}
+        <div class="form-group">
+            <label for="season">Season:</label>
+            {{ form_widget(form.season, {'attr': {'class': 'input-field'}}) }}
         </div>
 
-        <button type="submit" class="btn btn-primary">Créer l'épisode</button>
+        <div class="form-group image-section mt-5">
+            <label for="vertical_image">Vertical Image :</label>
+            <div class="image-upload">
+                <div class="image-box"></div>
+                <a class="btn btn-light">Add Image</a>
+            </div>
+        </div>
 
+        <div class="form-group image-section">
+            <label for="horizontal_image">Horizontal Images :</label>
+            <div class="image-upload">
+                <div class="image-box horizontal"></div>
+                <a class="btn btn-light">Add Image</a>
+            </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Confirm</button>
         {{ form_end(form) }}
     </div>
+
 {% endblock %}

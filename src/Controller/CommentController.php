@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CommentController extends AbstractController
 {
-    #[Route('/admin/comment', name: 'app_comment_admin', methods: ['GET'])]
+    #[Route('/moderator/comment', name: 'app_comment_moderator', methods: ['GET'])]
     public function index(CommentRepository $commentRepository): Response
     {
         return $this->render('admin/comment/index.html.twig', [
@@ -30,7 +30,7 @@ class CommentController extends AbstractController
     public function createCommentOnFilm(Film $film,Request $request, EntityManagerInterface $entityManager): Response
     {
 
-
+        if(!$this->getUser()){return $this->redirectToRoute('app_login');}
 
 
         $comment = new Comment();
@@ -64,7 +64,7 @@ class CommentController extends AbstractController
     public function createCommentOnSeries(Series $series,Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if(!$this->getUser()){return $this->redirectToRoute('app_login');}
 
 
         $comment = new Comment();
@@ -76,7 +76,7 @@ class CommentController extends AbstractController
 
             if (empty($content)) {
                 $this->addFlash('error', 'Le commentaire ne peut pas être vide.');
-                return $this->redirectToRoute('app_comment_create', ['film_id' => $film->getId()]);
+                return $this->redirectToRoute('app_comment_create', ['film_id' => $comment->getId()]);
             }
             $user = $this->getUser();
             $comment->setUserComment($user);
@@ -84,17 +84,16 @@ class CommentController extends AbstractController
             $comment->setCreatedAt(new \DateTimeImmutable());
             $entityManager->persist($comment);
             $entityManager->flush();
-            return $this->redirectToRoute('app_film_show',['id' => $series->getId()]);
+            return $this->redirectToRoute('app_series_show',['id' => $series->getId()]);
         }
 
         return $this->render('client/comment/create.html.twig', [
             'name' => $series->getTitle(),
-            /*image here*/
             'commentForm' => $form->createView(),
         ]);
     }
 
-    #[Route('/admin/comment/show/{id}', name: 'app_comment_show_admin', methods: ['GET'])]
+    #[Route('/moderator/comment/show/{id}', name: 'app_comment_show_moderator', methods: ['GET'])]
     public function showAdmin(Comment $comment): Response
     {
         return $this->render('/admin/comment/show.html.twig', [
@@ -102,13 +101,13 @@ class CommentController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/comment/delete/{id}', name: 'app_comment_delete')]
+    #[Route('/moderator/comment/delete/{id}', name: 'app_comment_delete')]
     public function delete(Comment $comment, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($comment);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_comment_admin');
+        return $this->redirectToRoute('app_comment_moderator');
     }
 
 

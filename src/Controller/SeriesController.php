@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Film;
+use App\Entity\Image;
 use App\Entity\Series;
+use App\Form\ImageType;
 use App\Form\SearchType;
 use App\Form\SeriesType;
 use App\Repository\FilmRepository; 
@@ -157,12 +159,25 @@ class SeriesController extends AbstractController
             'series' => $series,
         ]);
     }
-
+ 
     #[Route('/admin/series/{id}/show-comments', name:"app_admin_series_show_comments",)]
     public function showSeriesComments(Series $series):Response
     {
         return $this->render("admin/series/all_comments.html.twig", [
             "series" => $series,
+    }
+    #[Route('/admin/series/images/{id}', name:"series_image", priority: 5)]
+    public function addImage(Series $series):Response
+    {
+        if (!$this->isGranted('ROLE_ADMIN')){
+            return $this->redirectToRoute('app_film');
+        }
+        $image = new Image();
+        $formImage = $this->createForm(ImageType::class, $image);
+
+        return $this->render("admin/series/image.html.twig", [
+            "series" => $series,
+            'formImage' => $formImage->createView()
         ]);
     }
 }
