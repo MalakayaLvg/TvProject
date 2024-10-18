@@ -27,6 +27,9 @@
         </div>
     </div>
     <div class="text-center mt-3">
+        <a href="{{ path('delete_all_images', {type: 'film', id: film.id}) }}" class="btn btn-danger">
+            Tout Supprimer
+        </a>
         <a href="{{ path('app_admin_film_show',{id: film.id}) }}" class="btn btn-secondary">Retour</a>
     </div>
 {% endblock %}

@@ -6,6 +6,7 @@ use App\Entity\Film;
 use App\Entity\Image;
 use App\Form\ImageType;
 use App\Repository\FilmRepository;
+use App\Repository\ImageRepository;
 use App\Repository\SeriesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,26 +60,34 @@ class ImageController extends AbstractController
     }
 
 
-    #[Route('/admin/delete/image/{type}/{id}', name: 'delete_image')]
-    public function delete(EntityManagerInterface $manager, Image $image)
+    #[Route('/image/delete/{type}/{id}', name: 'delete_all_images')]
+    public function deleteAllImages($type, $id, EntityManagerInterface $manager, FilmRepository $filmRepository, SeriesRepository $seriesRepository, ImageRepository $imageRepository): Response
     {
         if ($type === 'film') {
-            $film = $image->getFilm();
-            $manager->remove($image);
-            $manager->flush();
-            return $this->redirectToRoute("app_admin_film_show", ["id"=>$film->getId()]
-            );
-
-        }
-        if ($type === 'series') {
-            $series = $image->getSeries();
-            $manager->remove($image);
-            $manager->flush();
-            return $this->redirectToRoute("app_series_admin_show", ["id"=>$series->getId()]
-            );
-
+            $film = $filmRepository->find($id);
+            if ($film) {
+                $images = $film->getHorizontalImages();
+            }
+        } elseif ($type === 'series') {
+            $series = $seriesRepository->find($id);
+            if ($series) {
+                $images = $series->getHorizontalImages();
+            }
         }
 
+        if (!empty($images)) {
+            foreach ($images as $image) {
+                $manager->remove($image);
+            }
+            $manager->flush();
+        }
+
+        if ($type === 'film') {
+            return $this->redirectToRoute('app_admin_film_show', ['id' => $film->getId()]);
+        } elseif ($type === 'series') {
+            return $this->redirectToRoute('app_series_show_admin', ['id' => $series->getId()]);
+        }
 
     }
+
 }
