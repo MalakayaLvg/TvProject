@@ -38,16 +38,19 @@
             </div>
         {% else %}
             {% if bestRated is defined %}
-            <div class="filmList">
-                {% for film in bestRated|slice(0,3) %}
-                    {% if film.horizontalImages[0] is defined %}
-                        <img src="{{ vich_uploader_asset(film.horizontalImages[0]) }}" alt="">
-                    {% else %}
-                        {{ film.title }}
-                    {% endif %}
-                {% endfor %}
-            </div>
-                {% endif %}
+                <div class="filmList">
+                    {% for film in bestRated|slice(0,3) %}
+
+                        <a href="{{ path('app_film_show',{'id':film.id}) }}">
+                            {% if film.horizontalImages[0] is defined %}
+                                <img src="{{ vich_uploader_asset(film.horizontalImages[0]) }}" alt="">
+                            {% else %}
+                                {{ film.title }}
+                            {% endif %}
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
         {% endif %}
     </div>
@@ -60,7 +63,7 @@
                 {% for oneSeries in series %}
                     <div>
                         <a href="{{ path('app_series_show',{'id':oneSeries.id}) }}">
-                            {% if oneSeries.horizontalImages[0] is defined%}
+                            {% if oneSeries.horizontalImages[0] is defined %}
                                 <img src="{{ vich_uploader_asset(oneSeries.horizontalImages[0]) }}" alt="">
                             {% else %}
                                 {{ oneSeries.title }}
@@ -110,8 +113,8 @@
                 <div class="homeFilms">
                     <div class="titlerow">
                         <h3>BEST RATED</h3>
-                      {#  <h3>Tous les films <img class="svgFletcher" src="{{ asset('svg/fletcher.svg') }}" alt=""></h3>
-                   #} </div>
+                        {#  <h3>Tous les films <img class="svgFletcher" src="{{ asset('svg/fletcher.svg') }}" alt=""></h3>
+                        #} </div>
 
                     {% set imageNames = ['joker.png','antman.png','blackwidow.png'] %}
 
@@ -147,7 +150,7 @@
                                     {% else %}
                                         {{ series.title }}
                                     {% endif %}
-                                    </a>
+                                </a>
                             </div>
                         {% endfor %}
 
