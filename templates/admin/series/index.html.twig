@@ -43,9 +43,11 @@
                             <td>{{ serie.publishDate ? serie.publishDate|date('Y-m-d') : 'N/A' }}</td>
                             <td>{{ serie.criticalRate is not null ? serie.criticalRate : 'Not rated' }}</td>
                             <td>
-                                <a href="{{ path('app_series_show_admin', {id: serie.id}) }}"><i class="bi bi-eye p-2"></i></a>
-                                <a href="{{ path('app_series_edit', {id: serie.id}) }}"><i class="bi bi-pencil p-2"></i></a>
-                                <a href="{{ path('app_series_delete', {id: serie.id}) }}"><i class="bi bi-trash p-2"></i></a>
+                                <div class="action-icons">
+                                <a href="{{ path('app_series_show_admin', {id: serie.id}) }}"><i class="bi bi-eye fs-2"></i></a>
+                                <a href="{{ path('app_series_edit', {id: serie.id}) }}"><i class="bi bi-pencil fs-2"></i></a>
+                                <a href="{{ path('app_series_delete', {id: serie.id}) }}"><i class="bi bi-trash fs-2"></i></a>
+                                </div>
                             </td>
                         </tr>
                     {% endfor %}
