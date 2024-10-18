@@ -52,22 +52,23 @@
     <div class="right">
         {% if route == '/profile/watchlist' %}
             {% for film in watchList.films %}
+<div>
+    <img src="{{ vich_uploader_asset(film.horizontalImages[0]) }}" alt="">
 
-                <div>
-                    <h3>{{ film.title }}</h3>
-                    <p> {{ film.description }}</p>
-                </div>
-                <a href="{{ path('watchlist_delete_film',{'id':film.id}) }}">remove</a>
+    <a href="{{ path('watchlist_delete_film',{'id':film.id}) }}">remove</a>
+
+</div>
 
             {% endfor %}
             {% for series in watchList.series %}
 
             <div>
-                <h3>{{ series.title }}</h3>
-                <p> {{ series.description }}</p>
+
+                <img src="{{ vich_uploader_asset(series.horizontalImages[0]) }}" alt="">
+                <a href="{{ path('watchlist_delete_film',{'id':series.id}) }}">remove</a>
+
             </div>
-            <a href="{{ path('watchlist_delete_film',{'id':series.id}) }}">remove</a>
-        {% endfor %}
+               {% endfor %}
         {% endif %}
         {% if route == '/profile/comments' %}
 
