@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Film;
+use App\Entity\Image;
 use App\Entity\Series;
 
 use App\Form\CommentType; 
 use App\Form\FilmType;
+use App\Form\ImageType;
 use App\Form\SearchType;
 use App\Repository\FilmRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -118,6 +120,8 @@ class FilmController extends AbstractController
         if (!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_film');
         }
+
+
         $form = $this->createForm(FilmType::class, $film);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -127,9 +131,14 @@ class FilmController extends AbstractController
             return $this->redirectToRoute('app_film');
         }
 
-        return $this->render("/admin/film/create.html.twig", [
+        $image = new Image();
+        $formImage = $this->createForm(ImageType::class, $image);
+
+
+        return $this->render("/admin/film/edit.html.twig", [
             'form' => $form->createView(),
-            'film' => $film
+            'film' => $film,
+            'formImage' => $formImage->createView()
         ]);
     }
 
@@ -164,4 +173,21 @@ class FilmController extends AbstractController
             "element" => $film,
             "type"=> "film"]);
     }
+
+
+    #[Route('/admin/film/images/{id}', name:"film_image", priority: 5)]
+    public function addImage(Film $film):Response
+    {
+        if (!$this->isGranted('ROLE_ADMIN')){
+            return $this->redirectToRoute('app_film');
+        }
+        $image = new Image();
+        $formImage = $this->createForm(ImageType::class, $image);
+
+        return $this->render("admin/film/image.html.twig", [
+            "film" => $film,
+            'formImage' => $formImage->createView()
+        ]);
+    }
+
 }
