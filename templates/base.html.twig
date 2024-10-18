@@ -21,7 +21,13 @@
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}
 </head>
-<body class=" {{ route == "/film" or route =='/series' ? "homeBackground" : "" }} {{ route == "/login" or route =='/register' ? "loginRegisterBackground" : "" }} {{ route == "/profile/watchlist" ? "profileContainer" : "" }}{{ route starts with "/film/show" or route starts with "/series/show" ? "filmShowBackground" : "" }} ">
+<body class=" {{ route == "/film" or route =='/series' ? "homeBackground" : "" }}
+{{ route == "/login" or route =='/register' ? "loginRegisterBackground" : "" }}
+{{ route == "/profile/watchlist" or route == "/profile/comments" ? "profileContainer" : "" }}
+{{ route starts with "/comment/create" ? "commentContainer" : "" }}
+{{ route starts with "/film/show" or route starts with "/series/show" ? "filmShowBackground" : "" }}
+
+">
 {#
 
 {% include "navbar/navbar.html.twig" %}

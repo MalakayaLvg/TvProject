@@ -1,5 +1,6 @@
 .homeBackground {
     background: var(--background-color);
+
 }
 
 .mainNav {
@@ -34,6 +35,8 @@
 .homeBackground form {
 
     width: 30%;
+    flex-direction: row !important;
+
 }
 
 input[type='search'] {
@@ -65,7 +68,7 @@ input[type='search']::placeholder {
     box-shadow: 0px 0px 272px 267px var(--violet-light);
     width: 30%;
     height: 50%;
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -117,7 +120,7 @@ input[type='search']::placeholder {
 }
 
 .homeBlurBackground > div a{
-    width: 32%;
+   width: fit-content;
 }
 
 .homeBlurBackground > div img, .homeFilms > div img {
@@ -125,6 +128,7 @@ input[type='search']::placeholder {
     max-height: 31vh;
     width: 100%;
     object-fit: contain;
+    border-radius: 20px;
 }
 .searchFilm{
 

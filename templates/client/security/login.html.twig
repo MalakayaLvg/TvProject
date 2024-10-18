@@ -3,36 +3,66 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post" class="container">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+    <div class="innerContainer">
+        <div class="left">
+            <span class="right">RILLETTES</span>
+            <span class="left">RILLETTES</span>
+            <span class="right">RILLETTES</span>
+            <span class="left">RILLETTES</span>
+            <span class="right">RILLETTES</span>
+            <span class="left">RILLETTES</span>
+            <span class="right">RILLETTES</span>
         </div>
-    {% endif %}
+        <div class="right">
+            <a class="backHomeLink" href="{{ path('app_film') }}">
+                <svg width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.1332 41.9584L11.0415 38.8667L23.4082 26.5L11.0415 14.1334L14.1332 11.0417L26.4998 23.4084L38.8665 11.0417L41.9582 14.1334L29.5915 26.5L41.9582 38.8667L38.8665 41.9584L26.4998 29.5917L14.1332 41.9584Z" fill="white"/>
+                </svg>
+            </a>
+            {% if app.user %}
+                <div class="d-flex flex-column align-items-center">
+                    <span>You are logged in as {{ app.user.userIdentifier }}</span>
+                    <a href="{{ path('app_film') }}" class="link-underline">Back to Home</a>
+                </div>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputUsername">Username</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                <a class="button2" href="{{ path('app_logout') }}">Logout</a>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+            {% else %}
+                <form method="post" class="registerAndLoginForm">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" name="_remember_me"> Remember me
-        </label>
+
+                    <h4 class="mb-4">Please sign in</h4>
+                    <div>
+                        <label for="inputUsername">Username</label>
+                        <input type="text" value="{{ last_username }}" name="username" id="inputUsername"
+                               autocomplete="username" required autofocus>
+                    </div>
+                    <div>
+                        <label for="inputPassword">Password</label>
+                        <input type="password" name="password" id="inputPassword"
+                               autocomplete="current-password" required>
+
+                    </div>
+                    <div class="inputCheck">
+
+                        <input type="checkbox" name="_remember_me">
+                        <label>Remember me</label>
+                    </div>
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+
+
+                    <button type="submit" class="button1">Sign in</button>
+
+                </form>
+                <a class="linkBetweenLoginAndRegister" href="{{ path('app_register') }}">No account ? Sign up</a>
+            {% endif %}
+
+        </div>
     </div>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-    <a href="{{ path('app_register') }}">S'inscrire</a>
 {% endblock %}

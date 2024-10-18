@@ -3,41 +3,60 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <h1 class="mb-4">Register</h1>
+    <div class="innerContainer">
 
-        {# Afficher les erreurs de formulaire #}
-        {% if form_errors(registrationForm) %}
-            <div class="alert alert-danger">
-                {{ form_errors(registrationForm) }}
-            </div>
-        {% endif %}
+        <div class="left">
+            <span class="right">RILLETTES</span>
+            <span class="left">RILLETTES</span>
+            <span class="right">RILLETTES</span>
+            <span class="left">RILLETTES</span>
+            <span class="right">RILLETTES</span>
+            <span class="left">RILLETTES</span>
+            <span class="right">RILLETTES</span>
+        </div>
+        <div class="right">
+            <a class="backHomeLink" href="{{ path('app_film') }}">
+                <svg width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.1332 41.9584L11.0415 38.8667L23.4082 26.5L11.0415 14.1334L14.1332 11.0417L26.4998 23.4084L38.8665 11.0417L41.9582 14.1334L29.5915 26.5L41.9582 38.8667L38.8665 41.9584L26.4998 29.5917L14.1332 41.9584Z" fill="white"/>
+                </svg>
+            </a>
+            {# Démarrer le formulaire #}
+            {{ form_start(registrationForm, {'attr': {'class': 'registerAndLoginForm'}}) }}
+            <h4 class="mb-4">Register</h4>
 
-        {# Démarrer le formulaire #}
-        {{ form_start(registrationForm, {'attr': {'class': 'form'}}) }}
-
-        <div class="form-group">
-            {{ form_label(registrationForm.username, null, {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(registrationForm.username, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(registrationForm.username) }}
-        </div>
-
-        <div class="form-group">
-            {{ form_label(registrationForm.plainPassword, 'Password', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(registrationForm.plainPassword) }}
-        </div>
-
-        <div class="form-group form-check">
-            {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
-            {{ form_label(registrationForm.agreeTerms, null, {'label_attr': {'class': 'form-check-label'}}) }}
             {{ form_errors(registrationForm.agreeTerms) }}
+            {% if form_errors(registrationForm) %}
+                <div class="alert alert-danger">
+                    {{ form_errors(registrationForm) }}
+                </div>
+            {% endif %}
+
+            <div>
+                {{ form_label(registrationForm.username, 'Username') }}
+                {{ form_widget(registrationForm.username) }}
+
+            </div>
+            <div>
+                {{ form_label(registrationForm.plainPassword, 'Password') }}
+                {{ form_widget(registrationForm.plainPassword) }}
+
+            </div>
+
+
+            <div class="inputCheck">
+                {{ form_widget(registrationForm.agreeTerms) }}
+                {{ form_label(registrationForm.agreeTerms) }}
+
+            </div>
+
+            <button type="submit" class="button1">Register</button>
+
+            {{ form_end(registrationForm) }}
+            <a class="linkBetweenLoginAndRegister" href="{{ path('app_login') }}">You have an account ? Sign in</a>
         </div>
 
-        <button type="submit" class="btn btn-primary">Register</button>
-
-        {{ form_end(registrationForm) }}
     </div>
 
-    <a href="{{ path('app_login') }}">Se Connecter</a>
 {% endblock %}

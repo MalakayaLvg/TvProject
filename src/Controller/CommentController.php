@@ -54,7 +54,8 @@ class CommentController extends AbstractController
         }
 
         return $this->render('client/comment/create.html.twig', [
-            'comment' => $comment,
+            "name"=>$film->getTitle(),
+             /* IMAGE HERE*/
             'commentForm' => $form->createView(),
         ]);
     }
@@ -87,7 +88,8 @@ class CommentController extends AbstractController
         }
 
         return $this->render('client/comment/create.html.twig', [
-            'comment' => $comment,
+            'name' => $series->getTitle(),
+            /*image here*/
             'commentForm' => $form->createView(),
         ]);
     }

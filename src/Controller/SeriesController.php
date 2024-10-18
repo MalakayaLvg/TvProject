@@ -130,7 +130,7 @@ class SeriesController extends AbstractController
         ]);
     }
 
-    #[Route('admin/series/delete/{id}', name: 'app_series_delete', methods: ['POST'])]
+    #[Route('admin/series/delete/{id}', name: 'app_series_delete', methods: ['GET', 'POST'])]
     public function delete(Series $series, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($series);
@@ -138,6 +138,7 @@ class SeriesController extends AbstractController
 
         return $this->redirectToRoute('app_series_admin');
     }
+
 
     #[Route('admin/series/{id}/edit', name: 'app_series_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Series $series, EntityManagerInterface $entityManager): Response

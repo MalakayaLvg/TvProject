@@ -48,6 +48,7 @@
 .filmShowBackground .informations h2{
     width: 50%;
     line-height: 77px;
+    text-align: start;
 }
 .filmShowBackground  .informations > div{
     display: flex;
@@ -81,6 +82,42 @@
     margin-bottom: 200px;
 
 }
+
+/* ============= COMMENTS ============ */
+.filmShowBackground .comments{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    padding: 0px 130px;
+
+    width: 87%;
+    box-sizing: border-box;
+}
+.filmShowBackground .comments div{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    color: white;
+}
+.filmShowBackground .comments div div{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 20px;
+}
+
+.filmShowBackground .comments div p{
+    font-size: 17px;
+}
+.filmShowBackground .comments div div span{
+    font-size: 20px;
+    color: white;
+}.filmShowBackground .comments div div .date{
+    font-size: 16px;
+    color: gray;
+}
+/* ============= SEASONS ============ */
 .filmShowBackground .seasonsAndEpisode{
     display: flex;
     flex-direction: column;
@@ -116,3 +153,6 @@
      border-left: white 1px solid;
      padding-block: 20px;
  }
+
+
+

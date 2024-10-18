@@ -1,0 +1,80 @@
+.commentContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.commentContainer a{
+    position: absolute;
+    left: 3% ;
+    top: 3%;
+
+    z-index: 1;
+}
+
+.commentContainer .left{
+    width: 45%;
+    position: relative;
+}
+.commentContainer .left img{
+
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    object-position: left;
+}
+
+.commentContainer .left p{
+
+    position: absolute;
+    bottom: 0%;
+    background: #0000006b;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+.commentContainer .right{
+
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+    padding: 50px;
+    box-sizing: border-box;
+    gap: 40px;
+}
+.commentContainer .clientCommentForm  {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap : 50px
+}
+.commentContainer .clientCommentForm div{
+    position: relative;
+}
+.commentContainer .clientCommentForm label{
+    position: absolute;
+    left: 20px;
+    top: 0%;
+    transform: translate(0, -50%);
+    padding: 0px 20px;
+
+    margin: 0;
+    background: #2C2D46;
+    color: white;
+}
+.commentContainer .clientCommentForm textarea{
+    background: #2C2D46;
+    border: 2px solid #B5B5B5;
+
+    color: white !important;
+    border-radius: 11px;
+    padding: 8px 30px;
+    width: 100%;
+
+}
+
+.commentContainer .clientCommentForm textarea::placeholder{
+    color: white;
+}
+
+.commentContainer .right button{
+    align-self: end;
+}

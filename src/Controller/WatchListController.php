@@ -14,25 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class WatchListController extends AbstractController
 {
-    #[Route('/profile/watchlist', name: 'app_profile_watchlist')]
-    public function index(EntityManagerInterface $entityManager): \Symfony\Component\HttpFoundation\Response
-    {
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        $user = $this->getUser();
-        $watchList = $user->getWatchList();
-
-        if (!$watchList) {
-            $watchList = new WatchList();
-            $watchList->setOwner($user);
-            $entityManager->persist($watchList);
-            $entityManager->flush();
-        }
-        return $this->render('/client/user/profile.html.twig', [
-            'watchList' => $watchList,
-        ]);
-    }
 
     #[Route('/watchlist/delete-film/{id}', name: 'watchlist_delete_film')]
     public function deleteFilmFromWatchList(Film $film, EntityManagerInterface $entityManager, WatchListRepository $watchListRepository): RedirectResponse
