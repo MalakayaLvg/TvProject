@@ -164,7 +164,7 @@ class SeriesController extends AbstractController
     public function showSeriesComments(Series $series):Response
     {
         return $this->render("admin/series/all_comments.html.twig", [
-            "series" => $series,
+            "series" => $series]);
     }
     #[Route('/admin/series/images/{id}', name:"series_image", priority: 5)]
     public function addImage(Series $series):Response
