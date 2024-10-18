@@ -3,6 +3,34 @@
 {% block title %}Film show{% endblock %}
 
 {% block body %}
+    TOUT A REGLER ICI
+    <div class="adminBackground min-vh-100">
+        {% include 'admin/navbar/navbar.html.twig' %}
+        <div class="container my-5">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="film-carousel">
+                        {% include "image/index.html.twig" with {object:film} %}
+                    </div>
+                </div>
+                <div class="col-md-12 d-flex flex-column">
+                    <div class="film-details  rounded shadow-sm">
+                        <h2>{{ film.title }}</h2>
+                        <p class="text-muted">{{ film.description }}</p>
+                        <hr>
+                        <p><strong>Plateforme :</strong> Netflix</p>
+                        <p><strong>Catégories :</strong> Action, Drama</p>
+                        <p><strong>Langue :</strong> </p>
+                        <p><strong>Date de publication :</strong> {{ film.publishDate|date('Y-m-d') }}</p>
+                        <p><strong>Note critique :</strong> {{ film.criticalRate }} / 5</p>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="{{ path('app_film_edit', {id: film.id}) }}" class="btn btn-warning">Modifier</a>
+                            <a href="#" class="btn btn-danger">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 <div class="adminBackground min-vh-100">
     {% include 'admin/navbar/navbar.html.twig' %}
 <div class="container">
@@ -20,6 +48,28 @@
                 <div class="d-flex">
                     <h3><i class="bi bi-trash px-2"></i></h3>
                     <h3><i class="bi bi-pencil px-2"></i></h3>
+            <div class="row my-5">
+                <div class="col-md-12">
+                    <h3>Commentaires</h3>
+                    <div class="comments-section">
+                        {% if film.comments is not empty %}
+                            <ul class="list-group">
+                                {% for comment in film.comments %}
+                                    <li class="list-group-item bg-light mb-3 rounded shadow-sm">
+                                        <div class="d-flex justify-content-between">
+                                            <p>{{ comment.content }}</p>
+                                            <small class="text-muted">Posté le {{ comment.createdAt|date('Y-m-d H:i') }}</small>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <div class="alert alert-info">Aucun commentaire pour ce film.</div>
+                        {% endif %}
+                        <div class="text-center mt-4">
+                            <a href="#" class="btn btn-secondary">Voir tous les commentaires</a>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -36,7 +86,26 @@
         </div>
     </div>
 
-    <div class="d-flex w-100 pt-5">
+        <h2 class="my-4">Commentaires</h2>
+            </div>
+
+        <div class="comments-section mb-5">
+            {% if film.comments is not empty %}
+                <ul class="list-group">
+                    {% for comment in film.comments %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start bg-light mb-3 rounded">
+                            <div class="comment-body">
+                                <p class="mb-2">{{ comment.content }}</p>
+                                <small class="text-muted">Posté le {{ comment.createdAt|date('Y-m-d H:i') }}</small>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="alert alert-info">Aucun commentaire pour ce film.</div>
+            {% endif %}
+        </div>
+         <div class="d-flex w-100 pt-5">
         <div class="w-25">
             <h3>Comments</h3>
         </div>
@@ -55,6 +124,11 @@
                 </tr>
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center my-5">
+                <a href="{{ path('film_image', {id: film.id}) }}" class="btn btn-success mx-3">Ajouter une Image</a>
+                <a href="{{ path('app_film_edit', {id: film.id}) }}" class="btn btn-warning mx-3">Modifier</a>
+                <a href="#" class="btn btn-danger mx-3">Supprimer</a>
+            </div>
         </div>
     </div>
     <div class="d-flex justify-content-center py-4">
@@ -92,6 +166,6 @@
     </div>
 
 
-</div>
-</div>
+    </div></div>
 {% endblock %}
+
