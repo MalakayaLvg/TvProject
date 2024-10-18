@@ -39,6 +39,20 @@
                     <h3>Rate</h3>
                     <p>{{ element.criticalRate }}/5</p>
                 </div>
+
+{#                TEST COMMMENT AFFICHAGE COMMENT #}
+
+                {% for comment in element.comments %}
+
+                    <h3>{{ comment.userComment.username }}</h3>
+                    <h3>{{ comment.content }}</h3>
+                    <h3>{{ comment.createdAt|date('Y-m-d') }}</h3>
+
+
+                {% endfor %}
+
+{#                FIN DU TEST   #}
+
             </div>
         </div>
 
@@ -59,13 +73,15 @@
                       fill="black"/>
             </svg>
             Add to watchlist</a>
-        <a href="" class="button2">
+        <a href="{{ path("app_comment_create_film",{id:element.id}) }}" class="button2">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M21.2499 12C21.2515 13.2145 21.0133 14.4173 20.5491 15.5396C20.085 16.6618 19.4039 17.6815 18.5449 18.54C17.6855 19.3996 16.6651 20.0814 15.5421 20.5464C14.4191 21.0114 13.2154 21.2505 11.9999 21.25C10.6917 21.2529 9.39792 20.9767 8.2049 20.44L4.3379 21.012C4.1459 21.0433 3.94915 21.0274 3.76474 20.9654C3.58033 20.9034 3.41383 20.7974 3.27971 20.6565C3.14559 20.5155 3.0479 20.344 2.99513 20.1568C2.94236 19.9695 2.9361 19.7722 2.9769 19.582L3.5139 15.659C3.00309 14.5072 2.74269 13.26 2.7499 12C2.74835 10.7855 2.98649 9.5827 3.45066 8.46044C3.91484 7.33817 4.59593 6.31855 5.4549 5.46C6.31429 4.60042 7.33467 3.91864 8.4577 3.45364C9.58074 2.98864 10.7844 2.74954 11.9999 2.75C14.4545 2.75016 16.8086 3.72491 18.5449 5.46C19.4034 6.31888 20.0842 7.33856 20.5484 8.46075C21.0125 9.58294 21.2509 10.7856 21.2499 12Z"
                       stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             Comment</a>
     </div>
+
+
 
     {% if type == "series" %}
         <div class="seasonsAndEpisode">
