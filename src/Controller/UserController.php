@@ -104,7 +104,7 @@ class UserController extends AbstractController
     {
         $route = $request->attributes->get('_route');
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if(!$this->getUser()){return $this->redirectToRoute('app_login');}
 
         $user = $this->getUser();
         $watchList = $user->getWatchList();

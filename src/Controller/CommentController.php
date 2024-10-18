@@ -30,7 +30,7 @@ class CommentController extends AbstractController
     public function createCommentOnFilm(Film $film,Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if(!$this->getUser()){return $this->redirectToRoute('app_login');}
 
 
         $comment = new Comment();
@@ -64,7 +64,7 @@ class CommentController extends AbstractController
     public function createCommentOnSeries(Series $series,Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if(!$this->getUser()){return $this->redirectToRoute('app_login');}
 
 
         $comment = new Comment();
@@ -76,7 +76,7 @@ class CommentController extends AbstractController
 
             if (empty($content)) {
                 $this->addFlash('error', 'Le commentaire ne peut pas être vide.');
-                return $this->redirectToRoute('app_comment_create', ['film_id' => $film->getId()]);
+                return $this->redirectToRoute('app_comment_create', ['film_id' => $comment->getId()]);
             }
             $user = $this->getUser();
             $comment->setUserComment($user);
@@ -84,7 +84,7 @@ class CommentController extends AbstractController
             $comment->setCreatedAt(new \DateTimeImmutable());
             $entityManager->persist($comment);
             $entityManager->flush();
-            return $this->redirectToRoute('app_film_show',['id' => $series->getId()]);
+            return $this->redirectToRoute('app_series_show',['id' => $series->getId()]);
         }
 
         return $this->render('client/comment/create.html.twig', [
