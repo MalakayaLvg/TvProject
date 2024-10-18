@@ -15,13 +15,13 @@
 
             <ul>
                 <li>
-                    <a class="{{ route == '/profile/watchlist' ? "focus" : "" }}" href="">Watch list</a>
+                    <a class="{{ route == '/profile/watchlist' ? "focus" : "" }}" href="{{ path('app_profile_watchlist') }}">Watch list</a>
                 </li>
                 <li>
-                    <a class="{{ route == '/profile/comments' ? "focus" : "" }}" href="">Comments</a>
+                    <a class="{{ route == '/profile/comments' ? "focus" : "" }}" href="{{ path('app_profile_cient_comment') }}">Comments</a>
                 </li>
-                <li><a class="{{ route == '/profile/friends' ? "focus" : "" }}" href="">Friends</a></li>
-            </ul>
+             {#   <li><a class="{{ route == '/profile/friends' ? "focus" : "" }}" href="">Friends</a></li>
+          #}  </ul>
         </nav>
         <form action="">
             <div class="names">

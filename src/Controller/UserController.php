@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\WatchList;
+use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +20,6 @@ class UserController extends AbstractController
     public function index(UserRepository $userRepository): Response
     {
         $users = $userRepository->findAll();
-
 
 
         return $this->render('admin/user/index.html.twig', [
@@ -95,6 +96,39 @@ class UserController extends AbstractController
         }
 
         throw $this->createAccessDeniedException('Action non autorisée');
+    }
+
+    #[Route('/profile/comments', name: 'app_profile_cient_comment')]
+    #[Route('/profile/watchlist', name: 'app_profile_watchlist')]
+    public function userProfileWatchlist(EntityManagerInterface $entityManager,Request $request): \Symfony\Component\HttpFoundation\Response
+    {
+        $route = $request->attributes->get('_route');
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $user = $this->getUser();
+        $watchList = $user->getWatchList();
+        $comments = $user->getComments();
+
+        $form = $this->createForm(UserType::class,$user);
+        $form->handleRequest($request);
+        if (!$watchList) {
+            $watchList = new WatchList();
+            $watchList->setOwner($user);
+            $entityManager->persist($watchList);
+            $entityManager->flush();
+        }
+        if ($form->isSubmitted()&& $form->isValid()){
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return $this->redirectToRoute($route);
+        }
+
+        return $this->render('/client/user/profile.html.twig', [
+            'watchList' => $watchList,
+            'comments' => $comments,
+            'form'=>$form->createView()
+        ]);
     }
 
 

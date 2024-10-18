@@ -1,4 +1,117 @@
-.loginRegisterBackground{
+.loginRegisterBackground {
     background: var(--background-color);
     color: white;
+
+    padding: 50px;
+    box-sizing: border-box;
+}
+
+.innerContainer {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+
+    border-radius: 40px;
+    background: #3b3b3b;
+}
+
+.innerContainer .left {
+
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background: #696870;
+    border-radius: 40px 0px 0px 40px;
+    clip-path: border-box;
+}
+.innerContainer .left span{
+    font-family: 'Koulen', sans-serif;
+    font-weight: 500;
+
+    letter-spacing: 13px;
+    line-height: 99px;
+    width: fit-content;
+    font-size: 108px;
+    background: -webkit-linear-gradient(51deg, #BFBFBF, #767676);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.innerContainer .left .left{
+    margin-right: 50%;
+}.innerContainer .left .right{
+    margin-left: 50%;
+}
+
+.innerContainer .right {
+    width: 70%;
+    padding: 50px 90px;
+    box-sizing: border-box;
+    position: relative;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.backHomeLink{
+    position: absolute;
+    right: 3%;
+    top: 3%;
+}
+
+.registerAndLoginForm  {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap : 50px
+}
+.registerAndLoginForm div{
+    position: relative;
+}
+.registerAndLoginForm label{
+    position: absolute;
+    left: 20px;
+    top: 0%;
+    transform: translate(0, -50%);
+    padding: 0px 20px;
+
+    margin: 0;
+    background: #3b3b3b;
+    color: white;
+}
+.registerAndLoginForm input{
+    background: #3b3b3b;
+    border: 2px solid #B5B5B5;
+
+    color: white;
+    border-radius: 11px;
+    padding: 8px 30px;
+    width: 100%;
+
+}
+.registerAndLoginForm .inputCheck{
+
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+.registerAndLoginForm .inputCheck input{
+    width: fit-content;
+}
+.registerAndLoginForm .inputCheck label{
+    position: relative;
+    transform: none;
+}
+
+.registerAndLoginForm button{
+    align-self: end;
+}
+.linkBetweenLoginAndRegister{
+    color: var(--orange);
 }

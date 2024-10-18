@@ -1,13 +1,32 @@
-<h3 class="my-4">Ajouter un commentaire</h3>
-<div class="card mb-4 shadow-sm">
-    <div class="card-body">
-        {{ form_start(commentForm) }}
-        <div class="mb-3">
-            {{ form_row(commentForm.content, {'attr': {'class': 'form-control', 'placeholder': 'Votre commentaire'}}) }}
-        </div>
-        <button class="btn btn-primary">
-            <i class="fas fa-paper-plane"></i> Poster
-        </button>
-        {{ form_end(commentForm) }}
+{% extends 'base.html.twig' %}
+
+{% block title %}SearchBar{% endblock %}
+
+{% block body %}
+
+
+    <a class="" href="{{ path('app_film') }}">
+        <svg width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.1332 41.9584L11.0415 38.8667L23.4082 26.5L11.0415 14.1334L14.1332 11.0417L26.4998 23.4084L38.8665 11.0417L41.9582 14.1334L29.5915 26.5L41.9582 38.8667L38.8665 41.9584L26.4998 29.5917L14.1332 41.9584Z" fill="white"/>
+        </svg>
+    </a>
+    <div class="left">
+        <img src="{{ asset('img/beautyandbeast.png') }}" alt="">
+        <p>Les utilisateurs sont autorisés à commenter sous réserve du respect des règles en vigueur. Tout commentaire à caractère haineux, injurieux, diffamatoire ou discriminatoire sera supprimé par les modérateurs. En cas de non-respect répété, des mesures disciplinaires pourront être appliquées, incluant la suspension de l'accès à la plateforme.</p>
     </div>
-</div>
+  <div class="right">
+      <h4>Let's comment!</h4>
+      <span>Your opinion about {{ name }} : </span>
+      {{ form_start(commentForm,{'attr':{'class':"clientCommentForm"}}) }}
+      <div class="">
+
+          {{ form_label(commentForm.content,'Content') }}
+          {{ form_widget(commentForm.content, {'attr': {  'placeholder': 'Votre commentaire'}}) }}
+      </div>
+      <button class="button1">
+          <i class="fas fa-paper-plane"></i> Poster
+      </button>
+      {{ form_end(commentForm) }}
+  </div>
+
+{% endblock %}
