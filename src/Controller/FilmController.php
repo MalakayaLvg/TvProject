@@ -158,10 +158,10 @@ class FilmController extends AbstractController
         ]);
     }
  #[Route('/film/show/{id}', name: 'app_film_show')]
-    public function show(Film $film): Response
+    public function showOneFilm(Film $film): Response
     { 
         return $this->render("/client/film/show.html.twig",[
             "element" => $film,
-            "type"=> "film"]) 
+            "type"=> "film"]);
     }
 }
