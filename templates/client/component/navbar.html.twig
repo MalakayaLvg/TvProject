@@ -18,7 +18,7 @@
         </li>
 {% if app.user %}
         {% if 'ROLE_MODERATOR' or 'ROLE_ADMIN' in  app.user.roles %}<li>
-            <a href="{{ path('app_moderator') }}">
+            <a href="{{ path('app_comment_moderator') }}">
                 Moderator
             </a>
         </li>
