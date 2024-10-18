@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Film;
-use App\Entity\Series;  
+use App\Entity\Series;
+use App\Form\SearchType;
 use App\Form\SeriesType;
 use App\Repository\FilmRepository; 
 use App\Entity\Comment; 
@@ -22,8 +23,6 @@ class SeriesController extends AbstractController
     public function getseriesForClient(SeriesRepository $seriesRepository, Request $request, EntityManagerInterface $manager): Response
     {
 
-        $form = $this->createForm(SearchType::class);
-        $form->handleRequest($request);
 
         // Initialiser les résultats à vide
         $films = [];
