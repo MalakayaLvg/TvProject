@@ -25,8 +25,8 @@
                 {% for film in films %}
                     <div>
                         <a href="{{ path('app_film_show',{'id':film.id}) }}">
-                            {% if film.image %}
-                                <img src="{{ vich_uploader_asset(film.image) }}" alt="">
+                            {% if film.horizontalImages[0] %}
+                                <img src="{{ vich_uploader_asset(film.horizontalImages[0]) }}" alt="">
                             {% else %}
                                 {{ film.title }}
                             {% endif %}
@@ -40,8 +40,8 @@
 
             <div class="filmList">
                 {% for film in films | slice(0,3) %}
-                    {% if film.image %}
-                        <img src="{{ vich_uploader_asset(film.image) }}" alt="">
+                    {% if film.horizontalImages[0] %}
+                        <img src="{{ vich_uploader_asset(film.horizontalImages[0]) }}" alt="">
                     {% else %}
                         {{ film.title }}
                     {% endif %}
@@ -59,8 +59,8 @@
                 {% for oneSeries in series %}
                     <div>
                         <a href="{{ path('app_series_show',{'id':oneSeries.id}) }}">
-                            {% if oneSeries.image %}
-                                <img src="{{ vich_uploader_asset(oneSeries.image) }}" alt="">
+                            {% if oneSeries.horizontalImages[0] %}
+                                <img src="{{ vich_uploader_asset(oneSeries.horizontalImages[0]) }}" alt="">
                             {% else %}
                                 {{ oneSeries.title }}
                             {% endif %}
@@ -86,8 +86,8 @@
                         {% for film in filmsForYou|slice(0,6) %}
                             <div>
                                 <a href="{{ path('app_film_show',{'id':film.id}) }}">
-                                    {% if film.image %}
-                                        <img src="{{ vich_uploader_asset(film.image) }}" alt="">
+                                    {% if film.horizontalImages[0] %}
+                                        <img src="{{ vich_uploader_asset(film.horizontalImages[0]) }}" alt="">
                                     {% else %}
                                         {{ film.title }}
                                     {% endif %}
@@ -118,8 +118,8 @@
                         {% for film in bestRated %}
                             <div>
                                 <a href="{{ path('app_film_show',{'id':film.id}) }}">
-                                    {% if film.image %}
-                                        <img src="{{ vich_uploader_asset(film.image) }}" alt="">
+                                    {% if film.horizontalImages[0] %}
+                                        <img src="{{ vich_uploader_asset(film.horizontalImages[0]) }}" alt="">
                                     {% else %}
                                         {{ film.title }}
                                     {% endif %}
@@ -141,8 +141,8 @@
                         {% for series in bestRated|slice(0,6) %}
                             <div>
                                 <a href="{{ path('app_series_show',{'id':series.id}) }}">
-                                    {% if series.image %}
-                                        <img src="{{ vich_uploader_asset(series.image) }}" alt="">
+                                    {% if series.horizontalImages[0] %}
+                                        <img src="{{ vich_uploader_asset(series.horizontalImages[0]) }}" alt="">
                                     {% else %}
                                         {{ series.title }}
                                     {% endif %}
@@ -165,8 +165,8 @@
                             <div>
                                 <a href="{{ path('app_series_show',{'id':series.id}) }}">
 
-                                    {% if series.image %}
-                                        <img src="{{ vich_uploader_asset(series.image) }}" alt="">
+                                    {% if series.horizontalImages[0] %}
+                                        <img src="{{ vich_uploader_asset(series.horizontalImages[0]) }}" alt="">
                                     {% else %}
                                         {{ series.title }}
                                     {% endif %}
