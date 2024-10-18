@@ -93,8 +93,8 @@ position: relative;
 /*===========================right =====================*/
 .profileContainer .right{
 
-    display: flex;
-    flex-direction: column;
+    display: flex;    flex-direction: row;
+    flex-wrap: wrap;
     background: var(--background-color);
 
     width: 60%;
@@ -103,12 +103,15 @@ position: relative;
     color: white;
 
     padding: 50px;box-sizing: border-box;
-
+    gap: 20px;
 }
-.profileContainer .imgWatchlist {gap: 20px}
+.profileContainer .imgWatchlist {gap: 20px;
+    display: flex;
+    width: 28%;
+    flex-direction: column;}
 .profileContainer .imgWatchlist img{
 
-    width: 32%;
+    width: 100%;
 }
 
     /* width */
