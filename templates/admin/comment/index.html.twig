@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des commentaires{% endblock %}
+
+{% block body %}
+    <div class="adminBackground min-vh-100">
+
+        {% include 'admin/navbar/navbar.html.twig' %}
+
+        <div class="container">
+
+            <div class="users-table-container">
+                <div class="header d-flex justify-content-between">
+                    All comments: {{ comments|length }}
+                    <div>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Sort by</option>
+                            <option value="1">ID</option>
+                            <option value="2">Title</option>
+                            <option value="3">Rate</option>
+                        </select>
+                    </div>
+                    <a class="btn btn-warning" href="{{ path('app_film_create') }}">Add film</a>
+                </div>
+
+                <table class="users-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User</th>
+                        <th>Content</th>
+                        <th>Series/film</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for comment in comments %}
+                        <tr>
+                            <td>{{ comment.id }}</td>
+                            <td>{{ comment.userComment.username }}</td>
+                            <td>{{ comment.content }}</td>
+                            <td>
+                                {% if comment.series %}
+                                    {{ comment.series.title }}
+                                {% elseif comment.film %}
+                                    {{ comment.film.title }}
+                                {% else %}
+                                    Aucun contenu
+                                {% endif %}
+                            <td>
+                                <a href="{{ path('app_comment_show_admin', {id: comment.id}) }}"><i class="bi bi-eye p-2"></i></a>
+                                <a href="{{ path('app_comment_delete', {id: comment.id}) }}"><i class="bi bi-trash p-2"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

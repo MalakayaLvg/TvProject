@@ -49,12 +49,13 @@
                 </div>
 
                 <label for="horizontal_image">Horizontal Image :</label>
-                <div class="image-upload">
-                    <div class="image-box horizontal"></div>
-                    <a class="btn btn-light mx-5">Add Image</a>
-                </div>
 
-                <button type="submit" class="submit-btn">Confirm</button>
+                            {% include 'admin/film/image.html.twig' with {object:film} %}
+
+
+
+
+        <button type="submit" class="submit-btn">Confirm</button>
         {{ form_end(form) }}
     </div>
 

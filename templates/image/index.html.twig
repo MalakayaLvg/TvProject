@@ -1,0 +1,32 @@
+{% if object.horizontalImages is not empty %}
+
+    <div id="carouselArticle" class="carousel slide" data-bs-ride="carousel" style="height: 400px;">
+        <div class="carousel-indicators">
+            {% for image in object.horizontalImages %}
+                <button type="button" data-bs-target="#carouselArticle" data-bs-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active"{% endif %}></button>
+            {% endfor %}
+        </div>
+        <div class="carousel-inner">
+            {% for image in object.horizontalImages %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <div class="position-relative">
+                        <img class="d-block w-100 img-fluid rounded-3" style="height: 400px; object-fit: cover;" src="{{ vich_uploader_asset(image) }}" alt="">
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselArticle" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselArticle" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+{% else %}
+    <img  class="d-block w-100 img-fluid rounded-3" style="height: 300px; object-fit: cover;" src="{{ asset('img/no_image.png')|imagine_filter('horizontal_images') }}" alt="">
+
+{% endif %}

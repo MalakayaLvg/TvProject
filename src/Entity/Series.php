@@ -49,11 +49,18 @@ class Series
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'series')]
     private Collection $comments;
 
+    /**
+     * @var Collection<int, Image>
+     */
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'series')]
+    private Collection $horizontalImages;
+
     public function __construct()
     {
         $this->seasons = new ArrayCollection(); 
         $this->watchLists = new ArrayCollection(); 
-        $this->comments = new ArrayCollection(); 
+        $this->comments = new ArrayCollection();
+        $this->horizontalImages = new ArrayCollection(); 
     }
 
 
@@ -192,6 +199,36 @@ class Series
             // set the owning side to null (unless already changed)
             if ($comment->getSeries() === $this) {
                 $comment->setSeries(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getHorizontalImages(): Collection
+    {
+        return $this->horizontalImages;
+    }
+
+    public function addHorizontalImage(Image $horizontalImage): static
+    {
+        if (!$this->horizontalImages->contains($horizontalImage)) {
+            $this->horizontalImages->add($horizontalImage);
+            $horizontalImage->setSeries($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHorizontalImage(Image $horizontalImage): static
+    {
+        if ($this->horizontalImages->removeElement($horizontalImage)) {
+            // set the owning side to null (unless already changed)
+            if ($horizontalImage->getSeries() === $this) {
+                $horizontalImage->setSeries(null);
             }
         }
 

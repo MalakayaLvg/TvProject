@@ -46,6 +46,7 @@ class Film
     {
         $this->watchLists = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->horizontalImages = new ArrayCollection();
     }
 
     /**
@@ -53,6 +54,12 @@ class Film
      */
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'film')]
     private Collection $comments;
+
+    /**
+     * @var Collection<int, Image>
+     */
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'film', cascade: ['persist', 'remove'])]
+    private Collection $horizontalImages;
 
 
 
@@ -186,6 +193,36 @@ class Film
             // set the owning side to null (unless already changed)
             if ($comment->getFilm() === $this) {
                 $comment->setFilm(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getHorizontalImages(): Collection
+    {
+        return $this->horizontalImages;
+    }
+
+    public function addHorizontalImage(Image $horizontalImage): static
+    {
+        if (!$this->horizontalImages->contains($horizontalImage)) {
+            $this->horizontalImages->add($horizontalImage);
+            $horizontalImage->setFilm($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHorizontalImage(Image $horizontalImage): static
+    {
+        if ($this->horizontalImages->removeElement($horizontalImage)) {
+            // set the owning side to null (unless already changed)
+            if ($horizontalImage->getFilm() === $this) {
+                $horizontalImage->setFilm(null);
             }
         }
 
