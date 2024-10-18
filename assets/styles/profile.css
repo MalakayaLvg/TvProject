@@ -105,7 +105,11 @@ position: relative;
     padding: 50px;box-sizing: border-box;
 
 }
+.profileContainer .imgWatchlist {gap: 20px}
+.profileContainer .imgWatchlist img{
 
+    width: 32%;
+}
 
     /* width */
 .profileContainer .right::-webkit-scrollbar {

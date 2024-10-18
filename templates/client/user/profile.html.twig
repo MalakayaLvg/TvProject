@@ -52,7 +52,7 @@
     <div class="right">
         {% if route == '/profile/watchlist' %}
             {% for film in watchList.films %}
-<div>
+<div class="imgWatchlist">
     <img src="{{ vich_uploader_asset(film.horizontalImages[0]) }}" alt="">
 
     <a href="{{ path('watchlist_delete_film',{'id':film.id}) }}">remove</a>
