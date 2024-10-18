@@ -23,7 +23,25 @@
             </tr>
             </thead>
             <tbody>
-
+                {% for comment in user.comments %}
+                <tr>
+                    <td>
+                        {% if comment.series %}
+                            {{ comment.series.title }}
+                        {% elseif comment.film %}
+                            {{ comment.film.title }}
+                        {% else %}
+                            Aucun contenu
+                        {% endif %}
+                    </td>
+                    <td>{{ comment.content }}</td>
+                    <td>{{ comment.createdAt|date('Y-m-d') }}</td>
+                    <td>
+                        <a href="{{ path('app_comment_show_admin',{id:comment.id}) }}"><i class="bi bi-eye"></i></a>
+                        <a href="{{ path('app_comment_delete',{id:comment.id}) }}"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
 

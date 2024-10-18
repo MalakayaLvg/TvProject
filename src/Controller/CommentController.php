@@ -30,7 +30,7 @@ class CommentController extends AbstractController
     public function createCommentOnFilm(Film $film,Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
 
 
         $comment = new Comment();
