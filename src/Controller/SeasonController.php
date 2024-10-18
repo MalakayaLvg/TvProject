@@ -51,7 +51,7 @@ class SeasonController extends AbstractController
         ]);
     }
 
-    #[Route('admin/season/{id}', name: 'app_season_delete', methods: ['POST'])]
+    #[Route('admin/season/{id}', name: 'app_season_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Season $season, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $season->getId(), $request->request->get('_token'))) {
@@ -64,7 +64,7 @@ class SeasonController extends AbstractController
                 return $this->redirectToRoute('app_series_show_admin', ['id' => $series->getId()]);
             }
         }
-        return $this->redirectToRoute('app_series');
+        return $this->redirectToRoute('app_season_admin');
     }
 
 

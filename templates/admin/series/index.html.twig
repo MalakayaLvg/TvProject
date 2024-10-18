@@ -1,50 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des séries{% endblock %}
+{% block title %}List of Series{% endblock %}
 
 {% block body %}
-    <div class="container mt-3">
-        <h1>Liste des séries</h1>
+    <div class="adminBackground min-vh-100">
 
-        {% if series is not empty %}
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Titre</th>
-                    <th>Description</th>
-                    <th>Date de publication</th>
-                    <th>Note critique</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for serie in series %}
+        {% include 'admin/navbar/navbar.html.twig' %}
+
+        <div class="container">
+
+            <div class="users-table-container">
+                <div class="header d-flex justify-content-between">
+                    All series: {{ series|length }}
+                    <div>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Sort by</option>
+                            <option value="1">ID</option>
+                            <option value="2">Title</option>
+                            <option value="3">Critical Rate</option>
+                        </select>
+                    </div>
+                    <a class="btn btn-warning" href="{{ path('app_series_create') }}">Add series</a>
+                </div>
+
+                <table class="users-table">
+                    <thead>
                     <tr>
-                        <td>{{ serie.id }}</td>
-                        <td>{{ serie.title }}</td>
-                        <td>{{ serie.description }}</td>
-                        <td>{{ serie.publishDate ? serie.publishDate|date('Y-m-d') : 'N/A' }}</td>
-                        <td>{{ serie.criticalRate is not null ? serie.criticalRate : 'Non noté' }}</td>
-                        <td>
-                            <a href="{{ path('app_series_show_admin', {id: serie.id}) }}" class="btn btn-info btn-sm">Afficher</a>
-
-                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                <a href="{{ path('watchlist_add_series', {id: serie.id}) }}" class="btn btn-success btn-sm">WatchList</a>
-                            {% endif %}
-
-                            <form method="post" action="{{ path('app_series_delete', {id: serie.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette série ?');" style="display:inline;">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ serie.id) }}">
-                            </form>
-                        </td>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Publish Date</th>
+                        <th>Critical Rate</th>
+                        <th>Action</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>Aucune série n'a encore été créée.</p>
-        {% endif %}
-
-        <a href="{{ path('app_series_create') }}" class="btn btn-primary">Créer une nouvelle série</a>
+                    </thead>
+                    <tbody>
+                    {% for serie in series %}
+                        <tr>
+                            <td>{{ serie.id }}</td>
+                            <td>{{ serie.title }}</td>
+                            <td>{{ serie.description }}</td>
+                            <td>{{ serie.publishDate ? serie.publishDate|date('Y-m-d') : 'N/A' }}</td>
+                            <td>{{ serie.criticalRate is not null ? serie.criticalRate : 'Not rated' }}</td>
+                            <td>
+                                <a href="{{ path('app_series_show_admin', {id: serie.id}) }}"><i class="bi bi-eye p-2"></i></a>
+                                <a href="{{ path('app_series_edit', {id: serie.id}) }}"><i class="bi bi-pencil p-2"></i></a>
+                                <a href="{{ path('app_series_delete', {id: serie.id}) }}"><i class="bi bi-trash p-2"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 {% endblock %}
