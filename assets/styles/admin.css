@@ -24,7 +24,12 @@ p{
     background-color: black;
 }
 
+
+
 /* ADD FILM */
+
+
+
 .formContainer {
     background-color: #414868;
     padding: 20px;
@@ -114,3 +119,38 @@ button {
     align-self: center;
 }
 
+
+
+
+/* ////////////////////////////////////// COMMENT ///////////////////////////////////*/
+
+.users-table-container {
+    width: 90%;
+    margin: 0 auto;
+    background-color: #2C2D46;
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 50px;
+
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.users-table th, .users-table td {
+    padding: 20px;
+    border-bottom: 1px solid #606080;
+    text-align: left;
+}
+
+.users-table th {
+    font-weight: bold;
+    background-color: #3A3B5A;
+}
+
+.users-table td {
+    background-color: #2C2D46;
+}
