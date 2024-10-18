@@ -95,7 +95,7 @@
                         {% if series.comments is not empty %}
                             {% for comment in series.comments %}
                                 <tr>
-                                    <td>{{ comment.user.username }}</td>
+                                    <td>{{ comment.userComment.username }}</td>
                                     <td>{{ comment.content }}</td>
                                 </tr>
                             {% endfor %}
