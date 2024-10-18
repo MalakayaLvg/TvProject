@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ film.title }} comments{% endblock %}
+
+{% block body %}
+    {% include 'admin/navbar/navbar.html.twig' %}
+
+    <div class="users-table-container">
+        <div class="header d-flex jus">
+           Film: {{ film.title }}
+        </div>
+
+        <div class="header mt-5">Comments :</div>
+        <table class="users-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Content</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for comment in film.comments %}
+                <tr>
+                    <td>
+                        {% if comment.series %}
+                            {{ comment.series.title }}
+                        {% elseif comment.film %}
+                            {{ comment.film.title }}
+                        {% else %}
+                            Aucun contenu
+                        {% endif %}
+                    </td>
+                    <td>{{ comment.content }}</td>
+                    <td>{{ comment.createdAt|date('Y-m-d') }}</td>
+                    <td>
+                        <div class="action-icons">
+                            <a href="{{ path('app_comment_show_admin',{id:comment.id}) }}"><i class=" bi bi-eye fs-2"></i></a>
+                            <a href="{{ path('app_comment_delete',{id:comment.id}) }}"><i class=" bi bi-trash fs-2"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-end my-3">
+            <a class="btn btn-primary" href="{{ path('app_admin_film_show',{id:film.id}) }}">Back</a>
+        </div>
+    </div>
+
+{% endblock %}
+

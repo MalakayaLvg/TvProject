@@ -55,16 +55,18 @@
                         </tr>
                         </thead>
                         <tbody>
+                        {% for comment in film.comments %}
                         <tr>
-                            <td>user</td>
-                            <td>comment</td>
+                            <td>{{ comment.userComment.username }}</td>
+                            <td>{{ comment.content }}</td>
                         </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="d-flex justify-content-center py-4">
-                <a href="#" class="btn btn-warning">View all comments</a>
+                <a href="{{ path('app_admin_film_show_comments',{id:film.id}) }}" class="btn btn-warning">View all comments</a>
             </div>
 
             <div class="d-flex w-100 pt-5">

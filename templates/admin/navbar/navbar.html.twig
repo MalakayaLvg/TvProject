@@ -7,6 +7,6 @@
         <a href="{{ path("app_user_admin") }}">Users</a>
     </div>
     <div class="nav-links">
-        <a href="">User: {{ app.user.username }} | Role: Admin </a>
+        <a href="#">User: {{ app.user.username }} | Role: {{ app.user.roles|join(', ') }}</a>
     </div>
 </div>

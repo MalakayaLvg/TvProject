@@ -3,12 +3,19 @@
 {% block title %}Comment show{% endblock %}
 
 {% block body %}
-    {% include 'admin/navbar_admin/navbar_admin.html.twig' with {user:app.user} %}
+    {% include 'admin/navbar/navbar.html.twig' with {user:app.user} %}
 
     <div class="users-table-container d-flex flex-column" style="padding: 50px; background-color: #2C2D46; border-radius: 10px;">
         <div class="d-flex justify-content-between my-4">
             <span>User : {{ comment.userComment.username }}</span>
-            <span>Series/film :</span>
+            <span>Series/film : {% if comment.series %}
+                    {{ comment.series.title }}
+                {% elseif comment.film %}
+                    {{ comment.film.title }}
+                {% else %}
+                    Aucun contenu
+                {% endif %}
+            </span>
             <span>CreatedAt : {{ comment.createdAt|date('Y-m-d') }}</span>
         </div>
 

@@ -191,4 +191,12 @@ class FilmController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/film/{id}/show-comments', name:"app_admin_film_show_comments",)]
+    public function showFilmComments(Film $film):Response
+    {
+        return $this->render("admin/film/all_comments.html.twig", [
+            "film" => $film,
+        ]);
+    }
+
 }

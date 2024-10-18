@@ -157,4 +157,12 @@ class SeriesController extends AbstractController
             'series' => $series,
         ]);
     }
+
+    #[Route('/admin/series/{id}/show-comments', name:"app_admin_series_show_comments",)]
+    public function showSeriesComments(Series $series):Response
+    {
+        return $this->render("admin/series/all_comments.html.twig", [
+            "series" => $series,
+        ]);
+    }
 }
