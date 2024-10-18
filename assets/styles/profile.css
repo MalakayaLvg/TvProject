@@ -105,10 +105,15 @@ position: relative;
     padding: 50px;box-sizing: border-box;
     gap: 20px;
 }
-.profileContainer .imgWatchlist {gap: 20px;
+.profileContainer .imgWatchlist {gap: 5px;
     display: flex;
     width: 28%;
-    flex-direction: column;}
+    flex-direction: column;
+}
+.profileContainer .imgWatchlist a{
+
+    color: white;
+}
 .profileContainer .imgWatchlist img{
 
     width: 100%;
