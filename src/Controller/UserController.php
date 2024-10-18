@@ -86,10 +86,7 @@ class UserController extends AbstractController
     #[Route('/admin/user/delete/{id}', name: 'app_user_admin_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
-            // Supprimer l'utilisateur
             $entityManager->remove($user);
             $entityManager->flush();
             return $this->redirectToRoute('app_user_admin');
@@ -98,13 +95,13 @@ class UserController extends AbstractController
         throw $this->createAccessDeniedException('Action non autorisée');
     }
 
-    #[Route('/profile/comments', name: 'app_profile_cient_comment')]
+    #[Route('/profile/comments', name: 'app_profile_client_comment')]
     #[Route('/profile/watchlist', name: 'app_profile_watchlist')]
     public function userProfileWatchlist(EntityManagerInterface $entityManager,Request $request): \Symfony\Component\HttpFoundation\Response
     {
         $route = $request->attributes->get('_route');
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if(!$this->getUser()){return $this->redirectToRoute('app_login');}
 
         $user = $this->getUser();
         $watchList = $user->getWatchList();

@@ -9,7 +9,7 @@
 
             <div class="py-4"></div>
             <div class="filmCarouselPrincipal">
-
+                {% include "image/index.html.twig" with {object:series} %}
             </div>
 
             <div class="py-5 d-flex">
@@ -79,7 +79,6 @@
                 <a href="{{ path('app_season_create', {series: series.id}) }}" class="btn btn-warning">Ajouter une nouvelle saison</a>
             </div>
 
-            <!-- Section pour les commentaires -->
             <div class="d-flex w-100 pt-5">
                 <div class="w-25">
                     <h3>Comments</h3>
@@ -137,6 +136,7 @@
             </div>
 
             <div class="py-5 d-flex justify-content-center">
+                <a href="{{ path('series_image', {type: 'series', id: series.id}) }}" class="btn btn-success">Ajouter image</a>
                 <a href="{{ path('app_series_edit', {id: series.id}) }}" class="btn btn-warning px-4 mx-4">Edit</a>
                 <form method="post" action="{{ path('app_series_delete', {id: series.id}) }}" onsubmit="return confirm('Are you sure you want to delete this series?');" style="display:inline;">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ series.id) }}">
